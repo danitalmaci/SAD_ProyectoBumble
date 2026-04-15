@@ -1,0 +1,114 @@
+{
+    "preprocessing": {
+        "scaling": "standard",
+        "text_process": "tf-idf",
+        "language": "english",
+        "imbalance_threshold": 20.0,
+        "dev_size": 0.25,
+        "unique_category_threshold": 10,
+        "sampling": "none",
+        "drop_features": []
+    },
+    "kNN": {
+        "n_neighbors": [
+            1,
+            3,
+            5,
+            7,
+            9,
+            11
+        ],
+        "weights": [
+            "uniform",
+            "distance"
+        ],
+        "p": [
+            1,
+            2
+        ]
+    },
+    "decision_tree": {
+        "max_depth": [
+            3,
+            5,
+            10,
+            15,
+            20,
+            null
+        ],
+        "min_samples_split": [
+            2,
+            5,
+            10
+        ],
+        "criterion": [
+            "gini",
+            "entropy"
+        ],
+        "min_impurity_decrease": [
+            0.0,
+            0.01,
+            0.05,
+            0.1
+        ],
+        "min_samples_leaf": [
+            1,
+            2,
+            5
+        ],
+        "ccp_alpha": [
+            0.0,
+            0.001,
+            0.01
+        ]
+    },
+    "random_forest": {
+        "n_estimators": [
+            50,
+            100,
+            200
+        ],
+        "max_depth": [
+            null,
+            10,
+            20
+        ],
+        "min_samples_split": [
+            2,
+            5
+        ],
+        "criterion": [
+            "gini",
+            "entropy"
+        ],
+        "max_features": [
+            "sqrt",
+            "log2",
+            null
+        ]
+    },
+    "naive_bayes": {
+        "type": "gaussian",
+        "alpha": [
+            0.01,
+            0.1,
+            0.5,
+            1.0,
+            2.0
+        ],
+        "fit_prior": [
+            true,
+            false
+        ],
+        "var_smoothing": [
+            1e-9,
+            1e-8,
+            1e-7
+        ],
+        "binarize": [
+            0.0,
+            0.5,
+            1.0
+        ]
+    }
+}
