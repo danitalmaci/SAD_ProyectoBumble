@@ -1,0 +1,10 @@
+{
+  "input": {
+    "file": "iris.csv",
+    "model_path": "output/modelo_decision_tree.pkl",
+    "target": "Especie"
+  },
+  "output": {
+    "predictions_file": "output/predicciones.csv"
+  }
+}

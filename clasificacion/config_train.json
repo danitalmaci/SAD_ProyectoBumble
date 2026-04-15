@@ -1,0 +1,76 @@
+{
+  "data_file": "iris.csv",
+  "algorithm": "naive_bayes",
+  "prediction": "Especie",
+  "preprocessing": {
+    "unique_category_threshold": 10,
+    "text_process": "tf-idf",
+    "drop_features": [],
+    
+    "missing_values": {
+      "per_column": {
+        "Largo de sepalo": {
+          "strategy": "mean"
+        },
+        "Ancho de sepalo": {
+          "strategy": "mean"
+        },
+        "Largo de petalo": {
+          "strategy": "median"
+        },
+        "Ancho de petalo": {
+          "strategy": "median"
+        }
+      }
+    },
+
+    "scaling": {
+      "default" : "standard",
+      "per_column": {
+        "Largo de sepalo": "standard",
+        "Ancho de sepalo": "standard",
+        "Largo de petalo": "minmax",
+        "Ancho de petalo": "minmax"
+      }
+    },
+
+    "balancing": {
+      "method": "none",
+      "random_state": 42,
+      "imbalance_threshold":0.8
+    }
+  },
+
+  "split": {
+    "test_size": 0.2,
+    "random_state": 42
+  },
+
+  "kNN": {
+    "n_neighbors": [3, 5, 7, 9],
+    "weights": ["uniform", "distance"],
+    "metric": ["euclidean", "manhattan"]
+  },
+
+  "decision_tree": {
+    "criterion": ["gini", "entropy"],
+    "max_depth": [3, 5, 10, null],
+    "min_samples_split": [2, 5, 10],
+    "min_samples_leaf": [1, 2, 4]
+  },
+
+  "random_forest": {
+    "n_estimators": [50, 100],
+    "criterion": ["gini", "entropy"],
+    "max_depth": [5, 10, null],
+    "min_samples_split": [2, 5],
+    "min_samples_leaf": [1, 2]
+  },
+
+  "naive_bayes": {
+    "var_smoothing": [1e-09, 1e-08, 1e-07]
+  },
+  "metrics": {
+    "fscore_average": "micro"
+  }
+}
