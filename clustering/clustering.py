@@ -145,8 +145,6 @@ def ejecutar_kmeans(X_tfidf, vectorizer, data, sentimiento):
 
 # ======================= MAIN ======================= 
 
-# ======================= MAIN ======================= 
-
 if __name__ == "__main__":  
     print("=== Script de Clustering ===")
     args = parse_args()
