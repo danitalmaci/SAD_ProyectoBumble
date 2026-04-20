@@ -189,12 +189,13 @@ def process_missing_values(data, numerical_feature, categorical_feature, config,
 
     return data  # Devuelve el DataFrame tras tratar los valores faltantes.
 
-def simplify_text(data, text_feature):  
+def simplify_text(data, text_feature, config):
     """
     Simplifica el texto: minúsculas, quitar puntuación, tokenizar, eliminar stopwords y stemming.
     """
 
-    stop_words = set(stopwords.words('english'))  # Carga las stopwords en inglés y las guarda en un conjunto para buscarlas rápido.
+    language = config.get("preprocessing", {}).get("language", "english")
+    stop_words = set(stopwords.words(language))
     stemmer = PorterStemmer()  # Crea el objeto que hará stemming.
 
 
@@ -357,7 +358,7 @@ def preprocess_test_data(data, config, package, target_column=None):  # Función
     numerical_feature, text_feature, categorical_feature = select_features(data, config, package)  # Separa las columnas por tipos.
 
     data = process_missing_values(data, numerical_feature, categorical_feature, config, package)  # Trata los valores nulos siguiendo lo aprendido en train.
-    data = simplify_text(data, text_feature)  # Limpia y simplifica las columnas de texto.
+    data = simplify_text(data, text_feature, config)
     data = cat2num(data, categorical_feature, package)  # Convierte variables categóricas a numéricas.
     data = reescaler(data, numerical_feature, config, package)  # Aplica escalado a las columnas numéricas.
     data = process_text(data, text_feature, config, package)  # Convierte el texto a representación numérica.

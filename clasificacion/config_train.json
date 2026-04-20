@@ -1,13 +1,28 @@
 {
   "data_file": "iris.csv",
-  "algorithm": "naive_bayes",
+  "algorithm": "decision_tree",
   "prediction": "Especie",
+  "estimator": "f1_macro",
+
+  "metrics": {
+    "fscore_average": "macro"
+  },
+
+  "split": {
+    "test_size": 0.2,
+    "random_state": 42
+  },
+
   "preprocessing": {
     "unique_category_threshold": 10,
     "text_process": "tf-idf",
+    "language": "english",
     "drop_features": [],
-    
+
     "missing_values": {
+      "default": {
+        "strategy": "mean"
+      },
       "per_column": {
         "Largo de sepalo": {
           "strategy": "mean"
@@ -25,7 +40,7 @@
     },
 
     "scaling": {
-      "default" : "standard",
+      "default": "standard",
       "per_column": {
         "Largo de sepalo": "standard",
         "Ancho de sepalo": "standard",
@@ -37,13 +52,8 @@
     "balancing": {
       "method": "none",
       "random_state": 42,
-      "imbalance_threshold":0.8
+      "imbalance_threshold": 0.8
     }
-  },
-
-  "split": {
-    "test_size": 0.2,
-    "random_state": 42
   },
 
   "kNN": {
@@ -68,9 +78,21 @@
   },
 
   "naive_bayes": {
-    "var_smoothing": [1e-09, 1e-08, 1e-07]
-  },
-  "metrics": {
-    "fscore_average": "micro"
+    "selected_model": "gaussian",
+
+    "gaussian": {
+      "var_smoothing": [1e-09, 1e-08, 1e-07]
+    },
+
+    "multinomial": {
+      "alpha": [0.1, 0.5, 1.0],
+      "fit_prior": [true, false]
+    },
+
+    "bernoulli": {
+      "alpha": [0.1, 0.5, 1.0],
+      "fit_prior": [true, false],
+      "binarize": [0.0]
+    }
   }
 }

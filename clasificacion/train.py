@@ -32,7 +32,7 @@ from tqdm import tqdm  # Librería para mostrar barras de progreso en terminal.
 
 # Sklearn 
 
-from sklearn.naive_bayes import GaussianNB  # Importa el clasificador Naive Bayes gaussiano.
+from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB # Importa el clasificador Naive Bayes. 
 from sklearn.metrics import f1_score, precision_score, recall_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split, GridSearchCV
 
@@ -435,6 +435,8 @@ def process_missing_values(x_train, x_dev, y_train, y_dev, numerical_feature, ca
     
     missing_cfg = get_missing_config()
     # Lee la configuración de missing values.
+    
+    default_strategy = missing_cfg.get("default", {}).get("strategy", "none")
 
     per_column = missing_cfg.get("per_column", {})
     # Obtiene la configuración específica por columna.
@@ -443,24 +445,23 @@ def process_missing_values(x_train, x_dev, y_train, y_dev, numerical_feature, ca
     # Junta en una sola lista las columnas numéricas y categóricas.
 
     package["missing_values_info"] = {}
+    package["missing_default_strategy"] = default_strategy
 
-    for col in all_columns:  # Recorre cada columna.
-        if col not in per_column:  # Si esa columna no tiene configuración específica...
-            continue
-            # La salta.
-
-        strategy_cfg = per_column[col]
-        # Guarda la configuración concreta de esa columna.
+    for col in all_columns:
+        if col in per_column:
+            strategy_cfg = per_column[col]
+        else:
+            strategy_cfg = {"strategy": default_strategy}
 
         strategy = strategy_cfg.get("strategy", "none")
-        # Obtiene la estrategia a usar.
-
         is_numeric = col in numerical_feature.columns
-        # Comprueba si la columna es numérica.
 
         package["missing_values_info"][col] = {
             "strategy": strategy
         }
+
+        
+    
 
         if strategy == "drop_rows":  
             train_mask = x_train[col].notna()
@@ -529,21 +530,21 @@ def process_missing_values(x_train, x_dev, y_train, y_dev, numerical_feature, ca
     return x_train, x_dev, y_train, y_dev
     # Devuelve train y dev ya tratados.
 
-def simplify_text(x_train, x_dev, text_feature): 
+def simplify_text(x_train, x_dev, text_feature):
     """
     Simplifica el texto en train y dev.
     """
     global package
     print("Simplificando texto...")
   
-    stop_words = set(stopwords.words('english'))
-    # Carga las stopwords en inglés y las mete en un conjunto.
+    language = args.preprocessing.get("language", "english")
+    stop_words = set(stopwords.words(language))
 
     stemmer = PorterStemmer()
     # Crea el objeto para hacer stemming.
 
     package["text_simplification"] = {
-        "language": "english",
+        "language": language,
         "lowercase": True,
         "remove_punctuation": True,
         "remove_stopwords": True,
@@ -1240,58 +1241,71 @@ def random_forest():
     save_model(gs, "random_forest")
     # Guarda modelo.
 
-def naive_bayes(): 
+def naive_bayes():
     """
     Función para implementar el algoritmo Naive Bayes.
+    Permite elegir entre Gaussian, Multinomial y Bernoulli según el JSON.
     """
     is_imbalanced = check_imbalance()
-    # Comprueba desbalanceo.
     x_train, x_dev, y_train, y_dev = divide_data()
-    # Divide datos.
 
     if is_imbalanced:
         x_train, y_train = over_under_sampling(x_train, y_train)
-        # Balancea train.
 
     x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev)
-    # Preprocesa.
 
     if args.debug:
         try:
             train_debug = x_train.copy()
-            # Copia x_train.
             train_debug[args.prediction] = y_train.values
-            # Añade etiquetas.
+
             dev_debug = x_dev.copy()
-            # Copia x_dev.
             dev_debug[args.prediction] = y_dev.values
-            # Añade etiquetas.
+
             train_debug.to_csv('output/train-processed.csv', index=False)
-            # Guarda train procesado.
             dev_debug.to_csv('output/dev-processed.csv', index=False)
-            # Guarda dev procesado.
-            print(Fore.GREEN+"Datos preprocesados guardados con éxito"+Fore.RESET)
-            # Mensaje de éxito.
+
+            print(Fore.GREEN + "Datos preprocesados guardados con éxito" + Fore.RESET)
 
         except Exception as e:
-            print(Fore.RED+"Error al guardar los datos preprocesados"+Fore.RESET)
+            print(Fore.RED + "Error al guardar los datos preprocesados" + Fore.RESET)
             print(e)
+
+    nb_type = args.naive_bayes.get("selected_model", "gaussian").lower()
+
+    if nb_type == "gaussian":
+        model = GaussianNB()
+        param_grid = args.naive_bayes.get("gaussian", {
+            "var_smoothing": [1e-9, 1e-8, 1e-7]
+        })
+
+    elif nb_type == "multinomial":
+        model = MultinomialNB()
+        param_grid = args.naive_bayes.get("multinomial", {
+            "alpha": [0.1, 0.5, 1.0],
+            "fit_prior": [True, False]
+        })
+
+    elif nb_type == "bernoulli":
+        model = BernoulliNB()
+        param_grid = args.naive_bayes.get("bernoulli", {
+            "alpha": [0.1, 0.5, 1.0],
+            "fit_prior": [True, False],
+            "binarize": [0.0]
+        })
+
+    else:
+        raise ValueError(f"Tipo de Naive Bayes no soportado: {nb_type}")
 
     with tqdm(total=100, desc='Procesando naive bayes', unit='iter', leave=True) as pbar:
 
         gs = GridSearchCV(
-            GaussianNB(),
-            # Modelo Naive Bayes gaussiano.
-            args.naive_bayes,
-            # Hiperparámetros del JSON.
+            model,
+            param_grid,
             cv=5,
-            # 5 folds.
             n_jobs=args.cpu,
-            # CPUs.
             scoring=get_scoring_metrics(),
-            # Métricas.
             refit="score"
-            # Reentrena según score principal.
         )
 
         start_time = time.time()
@@ -1311,7 +1325,6 @@ def naive_bayes():
     print("Tiempo de ejecución:" + Fore.MAGENTA, execution_time, Fore.RESET + " segundos")
     mostrar_resultados(gs, x_dev, y_dev)
     save_model(gs, "naive_bayes")
-
 # ======================= PROGRAMA PRINCIPAL =======================  
 
 if __name__ == "__main__":  
