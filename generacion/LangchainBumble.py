@@ -1,44 +1,120 @@
+import argparse
+import pandas as pd
 from langchain_core.prompts import PromptTemplate
 from langchain_ollama.llms import OllamaLLM
-from langchain.evaluation import ExactMatchStringEvaluator
-from datasets import load_dataset
-import argparse
 
-#run "ollama pull gemma2:2b" in your terminal before running this script
+# ------------------------
+# ARGUMENTOS
+# ------------------------
+parser = argparse.ArgumentParser(description="Sentiment classification with Ollama")
 
-parser=argparse.ArgumentParser(description='casiMedicos ollama LLM evaluation')
-parser.add_argument('--model', type=str, default='gemma2:2b', help='ollama model name')
-parser.add_argument('--lang', type=str, default='en', help='language')
-parser.add_argument('--split', type=str, default='validation', help='split')
-parser.add_argument('--sample', type=int, default=-1, help='sample')
-args=parser.parse_args()
+parser.add_argument('--mode', type=str, required=True, choices=['predict', 'oversample'])
+parser.add_argument('--model', type=str, default='gemma2:2b')
 
-template = """You're an expert at classifying feelings. You need to classify the following opinion piece. Respond with ONLY one of these options: Positive, Negative, Neutral.
-Text: "In my experience, a lot of matches never reply. It takes away from the overall experience."
-Question: {question}
-Answer:{answer}"""
-prompt = PromptTemplate.from_template(template)
-model = OllamaLLM(model=args.model,temperature=0,num_predict=1,top_k=10,top_p=0.5) #deterministic
-chain = prompt | model
+# CSV settings
+parser.add_argument('--csv', type=str, help='Path al CSV')
+parser.add_argument('--text_column', type=str, help='Columna de texto')
+parser.add_argument('--label_column', type=str, default=None, help='Columna de etiqueta (para oversample)')
+parser.add_argument('--n_samples', type=int, default=20)
 
-evaluator = ExactMatchStringEvaluator()
-ok = 0
-wrongOut = 0
+args = parser.parse_args()
 
-dataset="HiTZ/casimedicos-exp"
-casimed = load_dataset(dataset, args.lang) #check huggingface datasets for details
-c2l=['Positive','Neutral','Negative']
-for n,instance in enumerate(casimed[args.split]):
-    if n==args.sample: break #speed up things use only the first n instances
-    qa=(instance['full_question']+"\n"
-            +" A: "+instance['options']['1']+"\n"
-            +" B: "+instance['options']['2']+"\n"
-            +" C: "+instance['options']['3']+"\n"
-            +" D: "+instance['options']['4']+"\n"
-            +" E: "+str(instance['options'].get('5', '')))
-    ans=chain.invoke({'question': qa,'answer': ''}).strip() #remove newLine
-    if ans not in c2l: wrongOut+=1
-    score=evaluator.evaluate_strings(prediction=ans,reference=c2l[instance['correct_option']-1])['score']
-    if score==1.0: ok+=1
-    acc=round(100*ok/(n+1),2)
-    print("| "+args.model+" | "+dataset+"-"+args.lang+"-"+args.split+" | n: "+str(n+1)+" | acc: "+str(acc)+" | inc: "+str(wrongOut)+" |")
+# ------------------------
+# MODELO
+# ------------------------
+model = OllamaLLM(
+    model=args.model,
+    temperature=0,
+    num_predict=20,
+    repeat_penalty=1.1,
+    top_k=10,
+    top_p=0.5
+)
+
+# ------------------------
+# MODO 1: PREDICCIÓN
+# ------------------------
+if args.mode == "predict":
+
+    df = pd.read_csv(args.csv)
+
+    # seleccionar muestras aleatorias
+    df_sample = df.sample(n=min(args.n_samples, len(df)))
+
+    template = """Classify the sentiment of the following text.
+        Respond ONLY with one word: Positive, Negative or Neutral.
+
+        Text: {text}
+        Answer:"""
+
+    prompt = PromptTemplate.from_template(template)
+    chain = prompt | model
+
+    predictions = []
+
+    for text in df_sample[args.text_column]:
+        try:
+            ans = chain.invoke({'text': str(text)}).strip()
+        except:
+            ans = "ERROR"
+
+        # limpiar salida
+        if ans not in ["Positive", "Negative", "Neutral"]:
+            ans = "Neutral"
+
+        predictions.append(ans)
+
+    df_sample['prediction'] = predictions
+
+    output_file = "predictions.csv"
+    df_sample.to_csv(output_file, index=False)
+
+    print(f"Predicciones guardadas en {output_file}")
+
+
+# ------------------------
+# MODO 2: AUGMENTACIÓN
+# ------------------------
+elif args.mode == "oversample":
+
+    df = pd.read_csv(args.csv)
+
+    if args.label_column is None:
+        raise ValueError("Necesitas --label_column para oversample")
+
+    template = """You are generating synthetic data for sentiment classification.
+
+Generate a paraphrased version of the following text.
+Keep the SAME sentiment: {label}
+s
+Text: {text}
+
+New text:"""
+
+    prompt = PromptTemplate.from_template(template)
+    chain = prompt | model
+
+    new_rows = []
+
+    df_sample = df.sample(n=min(args.n_samples, len(df)))
+
+    for _, row in df_sample.iterrows():
+        text = str(row[args.text_column])
+        label = row[args.label_column]
+
+        try:
+            new_text = chain.invoke({'text': text, 'label': label}).strip()
+        except:
+            continue
+
+        new_rows.append({
+            args.text_column: new_text,
+            args.label_column: label
+        })
+
+    df_aug = pd.concat([df, pd.DataFrame(new_rows)], ignore_index=True)
+
+    output_file = "oversampled.csv"
+    df_aug.to_csv(output_file, index=False)
+
+    print(f"Dataset aumentado guardado en {output_file}")
