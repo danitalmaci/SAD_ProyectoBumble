@@ -12,8 +12,8 @@
     "clustering": {
         "max_df": 0.85,
         "min_df": 3,
-        "max_k": 10,
-        "k_optimo": 4,
+        "max_k": 20,
+        "k_optimo": 6,
         "top_words": 10
     }
 }
