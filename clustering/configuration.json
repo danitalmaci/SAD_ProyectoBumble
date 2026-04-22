@@ -15,5 +15,9 @@
         "max_k": 20,
         "k_optimo": 6,
         "top_words": 10
+    },
+    "algorithm": {
+        "": 0.85,
+        "min_df": 3
     }
 }
