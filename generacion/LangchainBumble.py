@@ -21,23 +21,6 @@ def map_sentiment(x):
         return "Neutral"
     
 
-# ------------------------
-# EVALUACIÓN
-# ------------------------
-if args.sentiment is not None:
-
-    y_true = df_sample['sentiment_mapped']
-    y_pred = df_sample['prediction']
-
-    acc = accuracy_score(y_true, y_pred)
-    f1_macro = f1_score(y_true, y_pred, average='macro')
-
-    print("\n--- MÉTRICAS ---")
-    print(f"Accuracy: {round(acc,4)}")
-    print(f"F1 Macro: {round(f1_macro,4)}\n")
-
-    print("Classification Report:")
-    print(classification_report(y_true, y_pred))
 
 
 # ------------------------
@@ -55,7 +38,7 @@ def main():
     parser.add_argument('--csv', type=str, required=True)
     parser.add_argument('--target', type=str, required=True, help='Columna de comentarios')
     parser.add_argument('--sentiment', type=str, default=None, help='Columna numérica 1-5')
-    parser.add_argument('--samples', type=int, default=10)
+    parser.add_argument('--samples', type=int, default=10, help='Número de instancias a calsificar')
 
     args = parser.parse_args()
 
@@ -96,6 +79,7 @@ def main():
     # Si hay columna de rating → crear sentimiento
     if args.sentiment is not None:
         df['sentiment_mapped'] = df[args.sentiment].apply(map_sentiment)
+
 
     # ------------------------
     # MODO 1: PREDICT
@@ -216,6 +200,24 @@ def main():
 
         print(f"Dataset aumentado guardado en {output_file}")
 
+
+    # ------------------------
+    # EVALUACIÓN
+    # ------------------------
+    if args.sentiment is not None:
+
+        y_true = df_sample['sentiment_mapped']
+        y_pred = df_sample['prediction']
+
+        acc = accuracy_score(y_true, y_pred)
+        f1_macro = f1_score(y_true, y_pred, average='macro')
+
+        print("\n--- MÉTRICAS ---")
+        print(f"Accuracy: {round(acc,4)}")
+        print(f"F1 Macro: {round(f1_macro,4)}\n")
+
+        print("Classification Report:")
+        print(classification_report(y_true, y_pred))
 
 # ------------------------
 # EJECUCIÓN
