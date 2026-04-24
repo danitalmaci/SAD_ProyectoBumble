@@ -6,3 +6,4 @@ scipy==1.17.0
 nltk==3.9.4
 colorama==0.4.6
 tqdm==4.67.3
+emoji==2.11.1
