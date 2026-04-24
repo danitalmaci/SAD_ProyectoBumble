@@ -14,7 +14,7 @@ Script para la implementación de los siguientes algoritmos:
 
 
 # ======================= IMPORTS =======================  
-
+import emoji 
 import random  # Permite generar números aleatorios.
 import sys  # Permite interactuar con el sistema, por ejemplo salir del programa.
 import signal  # Permite capturar señales del sistema, como Ctrl+C.
@@ -136,6 +136,34 @@ def load_data(file):
 
         print(e) 
         sys.exit(1) 
+
+def convert_score_to_sentiment(df, target_column):
+    """
+    Convierte score (1-5) a:
+    NEGATIVO / NEUTRO / POSITIVO
+    """
+
+    def map_score(value):
+        if pd.isna(value):
+            return value
+
+        try:
+            value = int(value)
+        except:
+            return value
+
+        if value in [1, 2]:
+            return "NEGATIVO"
+        elif value == 3:
+            return "NEUTRO"
+        elif value in [4, 5]:
+            return "POSITIVO"
+        else:
+            return value
+
+    df[target_column] = df[target_column].apply(map_score)
+
+    return df
 
 # ---------- Funciones para cálculo de Métricas ----------  
 
@@ -460,8 +488,6 @@ def process_missing_values(x_train, x_dev, y_train, y_dev, numerical_feature, ca
             "strategy": strategy
         }
 
-        
-    
 
         if strategy == "drop_rows":  
             train_mask = x_train[col].notna()
@@ -552,6 +578,7 @@ def simplify_text(x_train, x_dev, text_feature):
     }
 
     def procesar_texto(texto):  # Función interna para procesar una cadena de texto.
+        texto = emoji.demojize(texto)
         tokens = word_tokenize(texto)
         # Divide el texto en palabras/tokens.
         tokens = [t for t in tokens if t not in stop_words]
@@ -597,7 +624,7 @@ def cat2num(x_train, x_dev, categorical_feature):
 
     print("Conversión de variables categóricas a numéricas (One-Hot Encoding)")
     
-    encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
+    encoder = OneHotEncoder(sparse_Modelos=False, handle_unknown="ignore")
     # Crea el encoder.
     # sparse=False hace que devuelva array normal en vez de matriz dispersa.
     # handle_unknown="ignore" ignora categorías nuevas en dev.
@@ -697,7 +724,7 @@ def process_text(x_train, x_dev, text_feature):  # Función para vectorizar text
             # Hace lo mismo en dev.
 
             if args.preprocessing["text_process"] == "tf-idf":  # Si se quiere TF-IDF...
-                tfidf_vectorizer = TfidfVectorizer()
+                tfidf_vectorizer = TfidfVectorizer(max_features=200)
                 # Crea el vectorizador TF-IDF.
                 tfidf_train = tfidf_vectorizer.fit_transform(text_train)
                 # Ajusta el vectorizador con train y transforma train.
@@ -836,32 +863,19 @@ def get_balancing_config():
     return args.preprocessing.get("balancing", {})
 
 def preprocesar_datos(x_train, x_dev, y_train, y_dev):  
-    """
-    Preprocesa train y dev después del split.
-    """
     global package
+    
+    x_train, x_dev = drop_features(x_train, x_dev)
     numerical_feature, text_feature, categorical_feature = select_features(x_train)
-    # Separa las columnas de x_train en numéricas, texto y categóricas.
 
     x_train, x_dev, y_train, y_dev = process_missing_values(
         x_train, x_dev, y_train, y_dev, numerical_feature, categorical_feature
     )
-    # Trata los valores faltantes.
 
     x_train, x_dev = simplify_text(x_train, x_dev, text_feature)
-    # Simplifica el texto.
-
     x_train, x_dev = cat2num(x_train, x_dev, categorical_feature)
-    # Convierte categóricas a numéricas.
-
     x_train, x_dev = reescaler(x_train, x_dev, numerical_feature)
-    # Escala las columnas numéricas.
-
     x_train, x_dev = process_text(x_train, x_dev, text_feature)
-    # Convierte texto a variables numéricas con TF-IDF o BOW.
-
-    x_train, x_dev = drop_features(x_train, x_dev)
-    # Elimina columnas indicadas en el JSON.
 
     package["final_feature_columns"] = list(x_train.columns)
     package["prediction_column"] = args.prediction
@@ -869,7 +883,6 @@ def preprocesar_datos(x_train, x_dev, y_train, y_dev):
     package["preprocessing_config"] = args.preprocessing
 
     return x_train, x_dev, y_train, y_dev
-    # Devuelve todo ya preprocesado.
 
 def divide_data():  # Función para dividir los datos.
     """
@@ -918,43 +931,106 @@ def divide_data():  # Función para dividir los datos.
         print(e)  # Muestra el error concreto.
         sys.exit(1)  # Termina el programa.
 
-def save_model(gs, algorithm_name):  # Función para guardar el modelo y resultados.
+def build_model_name(gs, algorithm_name):
+    """
+    Construye un nombre de fichero usando el mejor algoritmo y sus hiperparámetros.
+    """
+    best_params = gs.best_params_
+
+    if algorithm_name == "kNN":
+        k = best_params.get("n_neighbors", "x")
+        weights = best_params.get("weights", "x")
+        metric = best_params.get("metric", "x")
+
+        weights_map = {
+            "uniform": "uni",
+            "distance": "dist"
+        }
+
+        metric_map = {
+            "euclidean": "eucl",
+            "manhattan": "manh"
+        }
+
+        weights_short = weights_map.get(weights, str(weights))
+        metric_short = metric_map.get(metric, str(metric))
+
+        return f"kNN_k{k}_{weights_short}_{metric_short}"
+
+    elif algorithm_name == "decision_tree":
+        criterion = best_params.get("criterion", "x")
+        max_depth = best_params.get("max_depth", "none")
+        min_split = best_params.get("min_samples_split", "x")
+        min_leaf = best_params.get("min_samples_leaf", "x")
+
+        depth_str = "none" if max_depth is None else str(max_depth)
+
+        return f"decision_tree_{criterion}_d{depth_str}_split{min_split}_leaf{min_leaf}"
+
+    elif algorithm_name == "random_forest":
+        n_estimators = best_params.get("n_estimators", "x")
+        criterion = best_params.get("criterion", "x")
+        max_depth = best_params.get("max_depth", "none")
+        min_split = best_params.get("min_samples_split", "x")
+        min_leaf = best_params.get("min_samples_leaf", "x")
+
+        depth_str = "none" if max_depth is None else str(max_depth)
+
+        return f"random_forest_{n_estimators}trees_{criterion}_d{depth_str}_split{min_split}_leaf{min_leaf}"
+
+    elif algorithm_name == "naive_bayes":
+        if "var_smoothing" in best_params:
+            vs = best_params["var_smoothing"]
+            return f"naive_bayes_gaussian_vs{vs}"
+
+        elif "binarize" in best_params:
+            alpha = best_params.get("alpha", "x")
+            fit_prior = best_params.get("fit_prior", "x")
+            binarize = best_params.get("binarize", "x")
+            return f"naive_bayes_bernoulli_a{alpha}_fp{fit_prior}_bin{binarize}"
+
+        else:
+            alpha = best_params.get("alpha", "x")
+            fit_prior = best_params.get("fit_prior", "x")
+            return f"naive_bayes_multinomial_a{alpha}_fp{fit_prior}"
+
+    else:
+        return algorithm_name
+def save_model(gs, algorithm_name):
     """
     Guarda el modelo y los resultados de la búsqueda de hiperparámetros en archivos.
     """
     global package
-    try:  
-
+    try:
         package["model"] = gs
 
-        filename = f'output/modelo_{algorithm_name}.pkl'
-        with open(filename, 'wb') as file:
-            # Abre el archivo donde se guardará el modelo en binario escritura.
+        model_name = build_model_name(gs, algorithm_name)
+
+        Modelos_dir = f"Modelos/{algorithm_name}"
+        os.makedirs(Modelos_dir, exist_ok=True)
+
+        pkl_filename = f"{Modelos_dir}/{model_name}.pkl"
+        with open(pkl_filename, 'wb') as file:
             pickle.dump(package, file)
-            # Guarda el paquete completo en ese archivo.
 
-            print(Fore.CYAN+"Modelo guardado con éxito"+Fore.RESET)
+        print(Fore.CYAN + f"Modelo guardado con éxito: {pkl_filename}" + Fore.RESET)
 
-        with open('output/modelo.csv', 'w', newline='') as file:
-            # Abre un CSV para guardar el resumen de resultados.
+        csv_filename = f"{Modelos_dir}/{model_name}.csv"
+        with open(csv_filename, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            # Crea un escritor CSV.
             writer.writerow(['Algoritmo', 'Params', 'Score', 'Precision', 'Recall'])
-            # Escribe la fila de cabecera.
 
             for params, score, precision, recall in zip(
-                gs.cv_results_['params'],  # Parámetros probados.
-                gs.cv_results_['mean_test_score'],  # Score medio.
-                gs.cv_results_['mean_test_precision'],  # Precision media.
-                gs.cv_results_['mean_test_recall']  # Recall medio.
+                gs.cv_results_['params'],
+                gs.cv_results_['mean_test_score'],
+                gs.cv_results_['mean_test_precision'],
+                gs.cv_results_['mean_test_recall']
             ):
                 writer.writerow([algorithm_name, params, score, precision, recall])
-                # Escribe una fila por cada combinación de parámetros.
 
-    except Exception as e:  
-        print(Fore.RED+"Error al guardar el modelo"+Fore.RESET)
-
-        print(e)  
+    except Exception as e:
+        print(Fore.RED + "Error al guardar el modelo" + Fore.RESET)
+        print(e)
 
 def mostrar_resultados(gs, x_dev, y_dev): 
     """
@@ -1041,9 +1117,9 @@ def kNN():
             # Hace copia de x_dev.
             dev_debug[args.prediction] = y_dev.values
             # Añade la columna objetivo al dev procesado.
-            train_debug.to_csv('output/train-processed.csv', index=False)
+            train_debug.to_csv('Modelos/train-processed.csv', index=False)
             # Guarda el train procesado.
-            dev_debug.to_csv('output/dev-processed.csv', index=False)
+            dev_debug.to_csv('Modelos/dev-processed.csv', index=False)
             # Guarda el dev procesado.
             print(Fore.GREEN+"Datos preprocesados guardados con éxito"+Fore.RESET)
 
@@ -1111,9 +1187,9 @@ def decision_tree():
             # Copia x_dev.
             dev_debug[args.prediction] = y_dev.values
             # Añade etiquetas.
-            train_debug.to_csv('output/train-processed.csv', index=False)
+            train_debug.to_csv('Modelos/train-processed.csv', index=False)
             # Guarda train procesado.
-            dev_debug.to_csv('output/dev-processed.csv', index=False)
+            dev_debug.to_csv('Modelos/dev-processed.csv', index=False)
             # Guarda dev procesado.
             print(Fore.GREEN+"Datos preprocesados guardados con éxito"+Fore.RESET)
 
@@ -1190,9 +1266,9 @@ def random_forest():
             # Copia x_dev.
             dev_debug[args.prediction] = y_dev.values
             # Añade y_dev.
-            train_debug.to_csv('output/train-processed.csv', index=False)
+            train_debug.to_csv('Modelos/train-processed.csv', index=False)
             # Guarda train.
-            dev_debug.to_csv('output/dev-processed.csv', index=False)
+            dev_debug.to_csv('Modelos/dev-processed.csv', index=False)
             # Guarda dev.
             print(Fore.GREEN+"Datos preprocesados guardados con éxito"+Fore.RESET)
         except Exception as e:
@@ -1262,8 +1338,8 @@ def naive_bayes():
             dev_debug = x_dev.copy()
             dev_debug[args.prediction] = y_dev.values
 
-            train_debug.to_csv('output/train-processed.csv', index=False)
-            dev_debug.to_csv('output/dev-processed.csv', index=False)
+            train_debug.to_csv('Modelos/train-processed.csv', index=False)
+            dev_debug.to_csv('Modelos/dev-processed.csv', index=False)
 
             print(Fore.GREEN + "Datos preprocesados guardados con éxito" + Fore.RESET)
 
@@ -1337,19 +1413,19 @@ if __name__ == "__main__":
 
     args = parse_args()
 
-    print("\n- Creando carpeta output...")
+    print("\n- Creando carpeta Modelos...")
 
     try:
-        os.makedirs('output')
-        print(Fore.GREEN+"Carpeta output creada con éxito"+Fore.RESET)
+        os.makedirs('Modelos')
+        print(Fore.GREEN+"Carpeta Modelos creada con éxito"+Fore.RESET)
 
     except FileExistsError:
 
-        print(Fore.GREEN+"La carpeta output ya existe"+Fore.RESET)
+        print(Fore.GREEN+"La carpeta Modelos ya existe"+Fore.RESET)
 
     except Exception as e:
 
-        print(Fore.RED+"Error al crear la carpeta output"+Fore.RESET)
+        print(Fore.RED+"Error al crear la carpeta Modelos"+Fore.RESET)
 
         print(e)
 
@@ -1359,6 +1435,13 @@ if __name__ == "__main__":
 
     data = load_data(args.file)
     # Carga el CSV de datos y lo guarda en la variable global data.
+    
+    
+    data = data.dropna(subset=[args.prediction]).copy()
+    data = convert_score_to_sentiment(data, args.prediction)
+
+    print(Fore.GREEN + "Columna objetivo convertida a sentimiento" + Fore.RESET)
+    print(data[args.prediction].value_counts())
 
     print("\n- Descargando diccionarios...")
 
@@ -1366,6 +1449,8 @@ if __name__ == "__main__":
     # Descarga el recurso stopwords.
     nltk.download('punkt')
     # Descarga el recurso necesario para tokenizar.
+    nltk.download('punkt_tab')
+
     nltk.download('wordnet')
     # Descarga wordnet, aunque en este código realmente no se usa después.
 

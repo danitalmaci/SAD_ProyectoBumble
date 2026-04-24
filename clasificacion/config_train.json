@@ -1,7 +1,7 @@
 {
-  "data_file": "iris.csv",
-  "algorithm": "decision_tree",
-  "prediction": "Especie",
+  "data_file": "../datos/Bumble_limpio.csv",
+  "algorithm": "random_forest",
+  "prediction": "score",
   "estimator": "f1_macro",
 
   "metrics": {
@@ -17,15 +17,15 @@
     "unique_category_threshold": 10,
     "text_process": "tf-idf",
     "language": "english",
-    "drop_features": [],
+    "drop_features": ["reviewId", "date", "location", "gender"],
 
     "missing_values": {
       "default": {
-        "strategy": "mean"
+        "strategy": "mode"
       },
       "per_column": {
-        "Largo de sepalo": {
-          "strategy": "mean"
+        "gender": {
+          "strategy": "mode"
         },
         "Ancho de sepalo": {
           "strategy": "mean"
@@ -57,14 +57,14 @@
   },
 
   "kNN": {
-    "n_neighbors": [3, 5, 7, 9],
+    "n_neighbors": [3, 5],
     "weights": ["uniform", "distance"],
     "metric": ["euclidean", "manhattan"]
   },
 
   "decision_tree": {
     "criterion": ["gini", "entropy"],
-    "max_depth": [3, 5, 10, null],
+    "max_depth": [3, 5],
     "min_samples_split": [2, 5, 10],
     "min_samples_leaf": [1, 2, 4]
   },
@@ -81,7 +81,7 @@
     "selected_model": "gaussian",
 
     "gaussian": {
-      "var_smoothing": [1e-09, 1e-08, 1e-07]
+      "var_smoothing": [ 1e-07]
     },
 
     "multinomial": {

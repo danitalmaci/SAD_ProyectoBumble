@@ -1,8 +1,8 @@
 {
   "input": {
-    "file": "iris.csv",
+    "file": "../datos/Bumble_corregido.csv",
     "model_path": "output/modelo_decision_tree.pkl",
-    "target": "Especie"
+    "target": "score"
   },
   "output": {
     "predictions_file": "output/predicciones.csv"
