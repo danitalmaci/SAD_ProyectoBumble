@@ -1,2 +1,0 @@
-Algoritmo,Params,Score,Precision,Recall
-naive_bayes,{'var_smoothing': 1e-07},0.5229820825565875,0.5471002701864582,0.6015154560324997

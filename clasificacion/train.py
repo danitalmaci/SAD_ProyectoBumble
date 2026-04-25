@@ -37,6 +37,7 @@ from sklearn.metrics import f1_score, precision_score, recall_score, confusion_m
 from sklearn.model_selection import train_test_split, GridSearchCV
 
 
+
 from sklearn.preprocessing import MaxAbsScaler, MinMaxScaler, StandardScaler
 # Escaladores para normalizar o reescalar variables numéricas.
 
@@ -44,6 +45,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 # TfidfVectorizer convierte texto a números usando TF-IDF.
 # CountVectorizer convierte texto a números contando palabras (BOW).
 
+from sklearn.svm import SVC #Clasificador SVM 
+from sklearn.linear_model import LogisticRegression #Clasificador Logistic Regression
 from sklearn.neighbors import KNeighborsClassifier  # Clasificador kNN.
 from sklearn.tree import DecisionTreeClassifier  # Clasificador árbol de decisión.
 from sklearn.ensemble import RandomForestClassifier  # Clasificador Random Forest.
@@ -269,9 +272,10 @@ def get_scoring_metrics():
 
     elif average_type == "macro":  
         return {
-            "score": args.estimator, 
-            "precision": "precision_macro", 
-            "recall": "recall_macro" 
+            "accuracy": "accuracy",
+            "precision_macro": "precision_macro",
+            "recall_macro": "recall_macro",
+            "f1_macro": "f1_macro"
         }
 
     elif average_type == "none": 
@@ -556,6 +560,28 @@ def process_missing_values(x_train, x_dev, y_train, y_dev, numerical_feature, ca
     return x_train, x_dev, y_train, y_dev
     # Devuelve train y dev ya tratados.
 
+def expand_contractions(text):
+    contractions = {
+        "don't": "do not",
+        "doesn't": "does not",
+        "didn't": "did not",
+        "isn't": "is not",
+        "aren't": "are not",
+        "wasn't": "was not",
+        "weren't": "were not",
+        "can't": "can not",
+        "couldn't": "could not",
+        "won't": "will not",
+        "wouldn't": "would not",
+        "shouldn't": "should not"
+    }
+
+    for c, full in contractions.items():
+        text = text.replace(c, full)
+
+    return text
+
+
 def simplify_text(x_train, x_dev, text_feature):
     """
     Simplifica el texto en train y dev.
@@ -565,6 +591,11 @@ def simplify_text(x_train, x_dev, text_feature):
   
     language = args.preprocessing.get("language", "english")
     stop_words = set(stopwords.words(language))
+    palabras_protegidas = {
+        "no", "not", "nor", "but", "against", "very"
+    }
+
+    stop_words = stop_words - palabras_protegidas
 
     stemmer = PorterStemmer()
     # Crea el objeto para hacer stemming.
@@ -596,8 +627,10 @@ def simplify_text(x_train, x_dev, text_feature):
         x_dev[col] = x_dev[col].fillna("")
         # Sustituye NaN por cadena vacía en dev.
         x_train[col] = x_train[col].str.lower()
+        x_train[col] = x_train[col].apply(expand_contractions)  
         # Convierte a minúsculas el texto de train.
         x_dev[col] = x_dev[col].str.lower()
+        x_dev[col] = x_dev[col].apply(expand_contractions)  # ← TAMBIÉN AQUÍ
         # Convierte a minúsculas el texto de dev.
         x_train[col] = x_train[col].str.translate(str.maketrans('', '', string.punctuation))
         # Elimina signos de puntuación en train.
@@ -724,7 +757,11 @@ def process_text(x_train, x_dev, text_feature):  # Función para vectorizar text
             # Hace lo mismo en dev.
 
             if args.preprocessing["text_process"] == "tf-idf":  # Si se quiere TF-IDF...
-                tfidf_vectorizer = TfidfVectorizer(max_features=200)
+                tfidf_vectorizer = TfidfVectorizer(
+                    ngram_range=(1,2),
+                    min_df=3,
+                    max_features=1000
+                )
                 # Crea el vectorizador TF-IDF.
                 tfidf_train = tfidf_vectorizer.fit_transform(text_train)
                 # Ajusta el vectorizador con train y transforma train.
@@ -977,7 +1014,22 @@ def build_model_name(gs, algorithm_name):
         depth_str = "none" if max_depth is None else str(max_depth)
 
         return f"random_forest_{n_estimators}trees_{criterion}_d{depth_str}_split{min_split}_leaf{min_leaf}"
+        
+    elif algorithm_name == "logistic_regression":
+        C = best_params.get("C", "x")
+        penalty = best_params.get("penalty", "x")
+        solver = best_params.get("solver", "x")
+        max_iter = best_params.get("max_iter", "x")
 
+        return f"logistic_regression_C{C}_{penalty}_{solver}_iter{max_iter}"
+        
+    elif algorithm_name == "svm":
+        C = best_params.get("C", "x")
+        kernel = best_params.get("kernel", "x")
+        gamma = best_params.get("gamma", "x")
+
+        return f"svm_C{C}_{kernel}_gamma{gamma}"
+        
     elif algorithm_name == "naive_bayes":
         if "var_smoothing" in best_params:
             vs = best_params["var_smoothing"]
@@ -1006,7 +1058,16 @@ def save_model(gs, algorithm_name):
 
         model_name = build_model_name(gs, algorithm_name)
 
-        Modelos_dir = f"Modelos/{algorithm_name}"
+        balancing_cfg = get_balancing_config()
+        method = balancing_cfg.get("method", "none")
+
+        if method == "none":
+            balance_folder = "SinBalanceado"
+        else:
+            balance_folder = "Balanceado"
+
+        Modelos_dir = f"Modelos/{balance_folder}/{algorithm_name}"
+        os.makedirs(Modelos_dir, exist_ok=True)
         os.makedirs(Modelos_dir, exist_ok=True)
 
         pkl_filename = f"{Modelos_dir}/{model_name}.pkl"
@@ -1018,15 +1079,20 @@ def save_model(gs, algorithm_name):
         csv_filename = f"{Modelos_dir}/{model_name}.csv"
         with open(csv_filename, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            writer.writerow(['Algoritmo', 'Params', 'Score', 'Precision', 'Recall'])
+            writer.writerow(['Algoritmo', 'Params', 'Accuracy', 'Precision_macro', 'Recall_macro', 'F1_macro'])
 
-            for params, score, precision, recall in zip(
-                gs.cv_results_['params'],
-                gs.cv_results_['mean_test_score'],
-                gs.cv_results_['mean_test_precision'],
-                gs.cv_results_['mean_test_recall']
-            ):
-                writer.writerow([algorithm_name, params, score, precision, recall])
+            results = pd.DataFrame(gs.cv_results_)
+            results = results.sort_values(by="mean_test_f1_macro", ascending=False)
+            
+            for _, row in results.iterrows():
+                writer.writerow([
+                    algorithm_name,
+                    row["params"],
+                    row.get("mean_test_accuracy", ""),
+                    row.get("mean_test_precision_macro", ""),
+                    row.get("mean_test_recall_macro", ""),
+                    row.get("mean_test_f1_macro", "")
+                ])
 
     except Exception as e:
         print(Fore.RED + "Error al guardar el modelo" + Fore.RESET)
@@ -1135,7 +1201,7 @@ def kNN():
             cv=5,  # Validación cruzada con 5 particiones.
             n_jobs=args.cpu,  # Número de CPUs a usar.
             scoring=get_scoring_metrics(),  # Métricas de evaluación.
-            refit="score"  # Reentrena usando como métrica principal "score".
+            refit="f1_macro"  # Reentrena usando como métrica principal "score".
         )
 
         start_time = time.time()
@@ -1210,7 +1276,7 @@ def decision_tree():
             # CPUs.
             scoring=get_scoring_metrics(),
             # Métricas.
-            refit="score"
+            refit="f1_macro"
             # Reentrena con la métrica principal.
         )
 
@@ -1288,7 +1354,7 @@ def random_forest():
             # CPUs.
             scoring=get_scoring_metrics(),
             # Métricas.
-            refit="score"
+            refit="f1_macro"
             # Métrica principal para refit.
         )
 
@@ -1381,7 +1447,7 @@ def naive_bayes():
             cv=5,
             n_jobs=args.cpu,
             scoring=get_scoring_metrics(),
-            refit="score"
+            refit="f1_macro"
         )
 
         start_time = time.time()
@@ -1401,6 +1467,123 @@ def naive_bayes():
     print("Tiempo de ejecución:" + Fore.MAGENTA, execution_time, Fore.RESET + " segundos")
     mostrar_resultados(gs, x_dev, y_dev)
     save_model(gs, "naive_bayes")
+    
+def logistic_regression():
+    """
+    Función para implementar Logistic Regression.
+    Aunque se llame regresión, aquí se usa para clasificación.
+    """
+    is_imbalanced = check_imbalance()
+    x_train, x_dev, y_train, y_dev = divide_data()
+
+    if is_imbalanced:
+        x_train, y_train = over_under_sampling(x_train, y_train)
+
+    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev)
+
+    if args.debug:
+        try:
+            train_debug = x_train.copy()
+            train_debug[args.prediction] = y_train.values
+
+            dev_debug = x_dev.copy()
+            dev_debug[args.prediction] = y_dev.values
+
+            train_debug.to_csv('Modelos/train-processed.csv', index=False)
+            dev_debug.to_csv('Modelos/dev-processed.csv', index=False)
+
+            print(Fore.GREEN + "Datos preprocesados guardados con éxito" + Fore.RESET)
+
+        except Exception as e:
+            print(Fore.RED + "Error al guardar los datos preprocesados" + Fore.RESET)
+            print(e)
+
+    with tqdm(total=100, desc='Procesando logistic regression', unit='iter', leave=True) as pbar:
+
+        gs = GridSearchCV(
+            LogisticRegression(),
+            args.logistic_regression,
+            cv=5,
+            n_jobs=args.cpu,
+            scoring=get_scoring_metrics(),
+            refit="f1_macro"
+        )
+
+        start_time = time.time()
+        gs.fit(x_train, y_train)
+        end_time = time.time()
+
+        for i in range(100):
+            time.sleep(random.uniform(0.06, 0.15))
+            pbar.update(random.random() * 2)
+
+        pbar.n = 100
+        pbar.last_print_n = 100
+        pbar.update(0)
+
+    execution_time = end_time - start_time
+
+    print("Tiempo de ejecución:" + Fore.MAGENTA, execution_time, Fore.RESET + " segundos")
+    mostrar_resultados(gs, x_dev, y_dev)
+    save_model(gs, "logistic_regression")
+    
+def svm():
+    """
+    Función para implementar SVM (Support Vector Machine)
+    """
+    is_imbalanced = check_imbalance()
+    x_train, x_dev, y_train, y_dev = divide_data()
+
+    if is_imbalanced:
+        x_train, y_train = over_under_sampling(x_train, y_train)
+
+    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev)
+
+    if args.debug:
+        try:
+            train_debug = x_train.copy()
+            train_debug[args.prediction] = y_train.values
+
+            dev_debug = x_dev.copy()
+            dev_debug[args.prediction] = y_dev.values
+
+            train_debug.to_csv('Modelos/train-processed.csv', index=False)
+            dev_debug.to_csv('Modelos/dev-processed.csv', index=False)
+
+            print(Fore.GREEN + "Datos preprocesados guardados con éxito" + Fore.RESET)
+
+        except Exception as e:
+            print(Fore.RED + "Error al guardar los datos preprocesados" + Fore.RESET)
+            print(e)
+
+    with tqdm(total=100, desc='Procesando SVM', unit='iter', leave=True) as pbar:
+
+        gs = GridSearchCV(
+            SVC(),
+            args.svm,
+            cv=5,
+            n_jobs=args.cpu,
+            scoring=get_scoring_metrics(),
+            refit="f1_macro"
+        )
+
+        start_time = time.time()
+        gs.fit(x_train, y_train)
+        end_time = time.time()
+
+        for i in range(100):
+            time.sleep(random.uniform(0.06, 0.15))
+            pbar.update(random.random() * 2)
+
+        pbar.n = 100
+        pbar.last_print_n = 100
+        pbar.update(0)
+
+    execution_time = end_time - start_time
+
+    print("Tiempo de ejecución:" + Fore.MAGENTA, execution_time, Fore.RESET + " segundos")
+    mostrar_resultados(gs, x_dev, y_dev)
+    save_model(gs, "svm")
 # ======================= PROGRAMA PRINCIPAL =======================  
 
 if __name__ == "__main__":  
@@ -1492,6 +1675,26 @@ if __name__ == "__main__":
         try:
             naive_bayes()
             print(Fore.GREEN+"Algoritmo naive bayes ejecutado con éxito"+Fore.RESET)
+            sys.exit(0)
+
+        except Exception as e:
+            print(e)
+            
+    elif args.algorithm == "logistic_regression":
+
+        try:
+            logistic_regression()
+            print(Fore.GREEN+"Algoritmo logistic regression ejecutado con éxito"+Fore.RESET)
+            sys.exit(0)
+
+        except Exception as e:
+            print(e)
+            
+    elif args.algorithm == "svm":
+
+        try:
+            svm()
+            print(Fore.GREEN+"Algoritmo SVM ejecutado con éxito"+Fore.RESET)
             sys.exit(0)
 
         except Exception as e:

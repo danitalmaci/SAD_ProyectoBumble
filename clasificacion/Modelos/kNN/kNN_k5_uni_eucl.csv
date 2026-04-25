@@ -1,9 +1,0 @@
-Algoritmo,Params,Score,Precision,Recall
-kNN,"{'metric': 'euclidean', 'n_neighbors': 3, 'weights': 'uniform'}",0.48538956749085493,0.5039455764549376,0.49810072659077764
-kNN,"{'metric': 'euclidean', 'n_neighbors': 3, 'weights': 'distance'}",0.4883982167581188,0.49902827946536454,0.49999699362392214
-kNN,"{'metric': 'euclidean', 'n_neighbors': 5, 'weights': 'uniform'}",0.5070156655678917,0.5286276523471607,0.5123013842720263
-kNN,"{'metric': 'euclidean', 'n_neighbors': 5, 'weights': 'distance'}",0.4943618641136924,0.5131744182571935,0.5058350684364541
-kNN,"{'metric': 'manhattan', 'n_neighbors': 3, 'weights': 'uniform'}",0.47619640796441043,0.4942929805666755,0.49495178154219827
-kNN,"{'metric': 'manhattan', 'n_neighbors': 3, 'weights': 'distance'}",0.4849106359098497,0.5016932878744921,0.5004652640155333
-kNN,"{'metric': 'manhattan', 'n_neighbors': 5, 'weights': 'uniform'}",0.5018211425081401,0.513322009423219,0.5096158233229328
-kNN,"{'metric': 'manhattan', 'n_neighbors': 5, 'weights': 'distance'}",0.4890121709046621,0.5068711125211693,0.5042351638527455
