@@ -1,4 +1,3 @@
 reviewId,content,score,gender,location,date,Unnamed: 6,sentiment_mapped,prediction
-208d2d79-af11-48f8-a8de-3c33fd448a7c,Nice,4.0,male,"Lisbon, Portugal",2021-04-20,,Positive,Neutral
-1296909a-1f97-4139-92d6-b0bd2e7b6773,Worst experience,1.0,male,"Tel Aviv, Israel",2016-04-24,,Negative,Neutral
-93f86da7-745f-4724-893b-c6da07001c5d,Wasting of time horrible app... Until you pay you won't get match...,1.0,male,"Warsaw, Poland",2015-05-18,,Negative,Neutral
+3295c50f-9cce-4fdc-904f-dc6521029bef,"Bumble tells me nearly every day that someone swiped that they like me but no matter how many people I swipe that I like, I get no matches. It's as if swiping that you like me means I will never see your profile and vice-versa. So what's the bloody point of it? Waste of time.",2.0,male,"Hamburg, Germany",2017-02-07,,Negative,Neutral
+3bf2e73e-eaef-40f6-abfd-237f318faaf5,"For me, conversations here tend to feel more meaningful. It makes the experience better overall.",5.0,female,"Queenstown, New Zealand",2025-11-26,,Positive,Positive

@@ -27,19 +27,57 @@ def main():
     model=load_model(args.mode, args.model)
 
     # ------------------------
-    # FEW-SHOT EXAMPLES
+    # EXAMPLES
     # ------------------------
-    examples = """
+    examples_1 = """
     Example 1:
-    Text: I love this app, it works perfectly.
+    Text: it's such a amazing app to find intresting people.
     Sentiment: Positive
 
     Example 2:
-    Text: This is the worst experience ever.
+    Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
     Sentiment: Negative
 
     Example 3:
-    Text: It is okay, nothing special.
+    Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+    Sentiment: Neutral
+    """
+
+    examples_few = """
+    Example 1:
+    Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+    Sentiment: Positive
+
+    Example 2:
+    Text: one best platform to understand the feelings of others and to share the intimacy
+    Sentiment: Positive
+
+    Example 3:
+    Text: create room for video calls and audio calls, it will help alot
+    Sentiment: Positive
+
+    Example 4:
+    Text: App is not working properly
+    Sentiment: Negative
+
+    Example 5:
+    Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+    Sentiment: Negative
+
+    Example 6:
+    Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+    Sentiment: Negative
+
+    Example 7:
+    Text: Need to pay to get to talk to many women
+    Sentiment: Neutral
+
+    Example 8:
+    Text: I didn't use that much after using I will share my opinion
+    Sentiment: Neutral
+
+    Example 9:
+    Text: there has to be a free mode for a short time before asking to subscribe
     Sentiment: Neutral
     """
 
@@ -70,32 +108,32 @@ def main():
 
         if args.shot == "0":
             template = """You are a sentiment classifier. Classify the sentiment of the following text. 
-            Respond with ONLY ONE word: 'Positive', 'Negative' or 'Neutral'. Text: "In my experience, a lot of matches never reply. 
-            It takes away from the overall experience."
+            IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. 
+            Valid responses are: Positive Negative Neutral
 
             Text: {text}
 
-            Sentiment:"""
+            Your response (one word only):"""
         elif args.shot == "1":
             template = """You are a sentiment classifier. Classify the sentiment of the following text. 
-            Respond with ONLY ONE word: 'Positive', 'Negative' or 'Neutral'. Text: "In my experience, a lot of matches never reply. 
-            It takes away from the overall experience."
-            
-            Examples: {examples}
+            IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. 
+            Valid responses are: Positive Negative Neutral
+
+            Examples: {examples_1}
 
             Text: {text}
 
-            Sentiment:"""
+            Your response (one word only):"""
         elif args.shot == "few":
             template = """You are a sentiment classifier. Classify the sentiment of the following text. 
-            Respond with ONLY ONE word: 'Positive', 'Negative' or 'Neutral'. Text: "In my experience, a lot of matches never reply. 
-            It takes away from the overall experience."
-            
-            Examples: {examples}
+            IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. 
+            Valid responses are: Positive Negative Neutral
+
+            Examples: {examples_few}
 
             Text: {text}
 
-            Sentiment:"""
+            Your response (one word only):"""
 
         prompt = PromptTemplate.from_template(template)
         chain = prompt | model
@@ -148,11 +186,20 @@ def main():
         sentiment_label = map_sentiment(args.score)
 
         template = """
-        You are an expert data generator for Machine Learning training. 
-        Generate a NEW, realistic user comment or review about the Instagram app that clearly expresses a {sentiment} sentiment.
-        The comment must be natural, varied and strictly in English.
+        You are an experienced writer specialized in creating realistic user-generated content for online platforms. Write a short opinion comment (between 20–50 words) about a dating app similar to Tinder or Bumble. The tone of the comment must be {sentiment}. Keep the SAME sentiment.
+        Requirements:
+            - The text must read like a real user sharing their personal experience.
+            - Use natural, conversational English.   
+            - Include at least 2–3 specific aspects of the app.
+            - Avoid generic statements; include concrete details.
+            - Write in first person.
+            - Do NOT mention any real app names.
+            - Do NOT mention the type of app (dating app, social app, etc.).
+            - Do NOT use category references like "dating apps" or similar.
+            - Only refer to it as "the app" or "this app".
+            - End naturally.
 
-        Respond ONLY with the text of the generated comment."""
+        New opinion comment:"""
 
         prompt = PromptTemplate.from_template(template)
         chain = prompt | model
