@@ -194,7 +194,7 @@ if __name__ == "__main__":
     print(Fore.CYAN + "- Clasificando sentimientos..." + Fore.RESET)
     data['sentimiento_analisis'] = data[columna_score].apply(clasificar_estrellas)
     print(Fore.CYAN + "- Aplicando NLTK (Stopwords y Stemming)..." + Fore.RESET)
-    language = args.preprocessing.get("language", "spanish")
+    language = args.preprocessing.get("language", "english")
     
     try:
         stopwords.words(language)
@@ -210,7 +210,7 @@ if __name__ == "__main__":
 
     algoritmo = args.clustering.get("algorithm", "lda").lower()
     
-    for sentimiento in ['negativa', 'positiva']:
+    for sentimiento in ['negativa', 'neutra','positiva']:
         subset_data = data[data['sentimiento_analisis'] == sentimiento].copy()
         
         if len(subset_data) > 0:
