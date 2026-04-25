@@ -102,7 +102,7 @@ Este modo:
 ```bash
 python script.py \
   --mode oversample \
-  --sentiment 5 \
+  --score 5 \
   --samples 5
 ```
 
