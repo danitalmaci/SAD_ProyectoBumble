@@ -1,6 +1,6 @@
 {
-  "data_file": "../datos/Bumble_limpio.csv",
-  "algorithm": "random_forest",
+  "data_file": "Archivos_CSV/Bumble_limpio.csv",
+  "algorithm": "kNN",
   "prediction": "score",
   "estimator": "f1_macro",
 
@@ -50,7 +50,7 @@
     },
 
     "balancing": {
-      "method": "none",
+      "method": "undersampling",
       "random_state": 42,
       "imbalance_threshold": 0.8
     }
@@ -77,6 +77,20 @@
     "min_samples_leaf": [1, 2]
   },
 
+  "logistic_regression": {
+    "C": [0.01, 0.1, 1, 10],
+    "penalty": ["l2"],
+    "solver": ["lbfgs"],
+    "max_iter": [500, 1000],
+    "class_weight": [null, "balanced"]
+  },
+
+  "svm": {
+    "C": [0.1, 2, 10],
+    "kernel": ["linear"],
+    "gamma": ["scale"]
+ },
+
   "naive_bayes": {
     "selected_model": "gaussian",
 
@@ -94,5 +108,6 @@
       "fit_prior": [true, false],
       "binarize": [0.0]
     }
+    
   }
 }
