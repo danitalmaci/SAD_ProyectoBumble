@@ -269,7 +269,7 @@ def load_model(mode,name):
     if mode == "predict":
         model = OllamaLLM(
             model=name,           
-            temperature=0,        # creatividad/aleatoriedad del modelo (1: creativo)
+            temperature=0,        # creatividad/aleatoriedad del modelo (0: estricto)
             num_predict=20,       # número máximo de tokens  
             repeat_penalty=1.1,   # penalización por repetir palabras o frases
             top_k=10,             # tamaño del vocabulario candidato
