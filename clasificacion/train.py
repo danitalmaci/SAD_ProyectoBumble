@@ -63,6 +63,7 @@ from nltk.tokenize import word_tokenize  # Función para dividir texto en tokens
 
 from imblearn.under_sampling import RandomUnderSampler  # Para hacer undersampling.
 from imblearn.over_sampling import RandomOverSampler  # Para hacer oversampling.
+from imblearn.over_sampling import SMOTE, ADASYN  # Técnicas avanzadas de oversampling.
 
 
 # ======================= PROGRAMA =======================  # Separador decorativo principal.
@@ -441,6 +442,14 @@ def over_under_sampling(x_train, y_train):  # Función para balancear solo train
         sampler = RandomUnderSampler(random_state=random_state)
         # Crea el objeto para reducir ejemplos de la clase mayoritaria.
         print("Aplicando Undersampling SOLO en train...")
+    
+    elif method == "smote":
+        sampler = SMOTE(random_state=random_state)
+        print("Aplicando SMOTE SOLO en train...")
+
+    elif method == "adasyn":
+        sampler = ADASYN(random_state=random_state)
+        print("Aplicando ADASYN SOLO en train...")
 
     else:  
         raise ValueError(f"Método de balanceo no soportado: {method}")
@@ -899,7 +908,7 @@ def get_balancing_config():
     """
     return args.preprocessing.get("balancing", {})
 
-def preprocesar_datos(x_train, x_dev, y_train, y_dev):  
+def preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced):  
     global package
     
     x_train, x_dev = drop_features(x_train, x_dev)
@@ -913,6 +922,10 @@ def preprocesar_datos(x_train, x_dev, y_train, y_dev):
     x_train, x_dev = cat2num(x_train, x_dev, categorical_feature)
     x_train, x_dev = reescaler(x_train, x_dev, numerical_feature)
     x_train, x_dev = process_text(x_train, x_dev, text_feature)
+
+    if is_imbalanced:  # Si hay desbalanceo
+        x_train, y_train = over_under_sampling(x_train, y_train)
+        # Aplica balanceo solo al train.
 
     package["final_feature_columns"] = list(x_train.columns)
     package["prediction_column"] = args.prediction
@@ -1166,11 +1179,7 @@ def kNN():
     x_train, x_dev, y_train, y_dev = divide_data()
     # Divide los datos.
 
-    if is_imbalanced:  # Si hay desbalanceo
-        x_train, y_train = over_under_sampling(x_train, y_train)
-        # Aplica balanceo solo al train.
-
-    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev)
+    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
     # Aplica todo el preprocesado.
 
     if args.debug:  # Si modo debug está activado
@@ -1232,16 +1241,12 @@ def decision_tree():
     Función para implementar el algoritmo de árbol de decisión.
     """
     is_imbalanced = check_imbalance()
-    # Comprueba desbalanceo.
+    # Comprueba si el dataset está desbalanceado.
     x_train, x_dev, y_train, y_dev = divide_data()
     # Divide los datos.
 
-    if is_imbalanced:  # Si hay desbalanceo
-        x_train, y_train = over_under_sampling(x_train, y_train)
-        # Balancea train.
-
-    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev)
-    # Preprocesa.
+    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
+    # Aplica todo el preprocesado.
 
     if args.debug:  # Si debug activo
         try:
@@ -1311,16 +1316,12 @@ def random_forest():
     Función que entrena un modelo de Random Forest utilizando GridSearchCV para encontrar los mejores hiperparámetros.
     """
     is_imbalanced = check_imbalance()
-    # Comprueba desbalanceo.
+    # Comprueba si el dataset está desbalanceado.
     x_train, x_dev, y_train, y_dev = divide_data()
-    # Divide datos.
+    # Divide los datos.
 
-    if is_imbalanced:
-        x_train, y_train = over_under_sampling(x_train, y_train)
-        # Balancea train si hace falta.
-
-    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev)
-    # Preprocesa.
+    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
+    # Aplica todo el preprocesado.
 
     if args.debug:
         try:
@@ -1389,12 +1390,12 @@ def naive_bayes():
     Permite elegir entre Gaussian, Multinomial y Bernoulli según el JSON.
     """
     is_imbalanced = check_imbalance()
+    # Comprueba si el dataset está desbalanceado.
     x_train, x_dev, y_train, y_dev = divide_data()
+    # Divide los datos.
 
-    if is_imbalanced:
-        x_train, y_train = over_under_sampling(x_train, y_train)
-
-    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev)
+    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
+    # Aplica todo el preprocesado.
 
     if args.debug:
         try:
@@ -1474,12 +1475,12 @@ def logistic_regression():
     Aunque se llame regresión, aquí se usa para clasificación.
     """
     is_imbalanced = check_imbalance()
+    # Comprueba si el dataset está desbalanceado.
     x_train, x_dev, y_train, y_dev = divide_data()
+    # Divide los datos.
 
-    if is_imbalanced:
-        x_train, y_train = over_under_sampling(x_train, y_train)
-
-    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev)
+    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
+    # Aplica todo el preprocesado.
 
     if args.debug:
         try:
@@ -1532,12 +1533,12 @@ def svm():
     Función para implementar SVM (Support Vector Machine)
     """
     is_imbalanced = check_imbalance()
+    # Comprueba si el dataset está desbalanceado.
     x_train, x_dev, y_train, y_dev = divide_data()
+    # Divide los datos.
 
-    if is_imbalanced:
-        x_train, y_train = over_under_sampling(x_train, y_train)
-
-    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev)
+    x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
+    # Aplica todo el preprocesado.
 
     if args.debug:
         try:
