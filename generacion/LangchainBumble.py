@@ -21,6 +21,7 @@ def main():
     parser.add_argument('--sentiment', type=str, default=None, help='Columna numérica 1-5')
     parser.add_argument('--score', type=str, default=None, help='Score de la opinión a generar en oversampling')
     parser.add_argument('--samples', type=int, default=10, help='Número de instancias a calsificar')
+    parser.add_argument('--prompt', type=str, required=True, help='Archivo .txt con el prompt')
 
     args = parser.parse_args()
 
@@ -184,22 +185,8 @@ def main():
         
         # Mapear el número a etiqueta
         sentiment_label = map_sentiment(args.score)
-
-        template = """
-        You are an experienced writer specialized in creating realistic user-generated content for online platforms. Write a short opinion comment (between 20–50 words) about a dating app similar to Tinder or Bumble. The tone of the comment must be {sentiment}. Keep the SAME sentiment.
-        Requirements:
-            - The text must read like a real user sharing their personal experience.
-            - Use natural, conversational English.   
-            - Include at least 2–3 specific aspects of the app.
-            - Avoid generic statements; include concrete details.
-            - Write in first person.
-            - Do NOT mention any real app names.
-            - Do NOT mention the type of app (dating app, social app, etc.).
-            - Do NOT use category references like "dating apps" or similar.
-            - Only refer to it as "the app" or "this app".
-            - End naturally.
-
-        New opinion comment:"""
+        with open(args.prompt, "r", encoding="utf-8") as f:
+            template = f.read()
 
         prompt = PromptTemplate.from_template(template)
         chain = prompt | model

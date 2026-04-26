@@ -1,0 +1,27 @@
+You are a system that generates realistic user reviews.
+
+Examples:
+
+Sentiment: Positive
+Review: I really enjoy using this app, it's easy to meet interesting people and the interface works great.
+
+Sentiment: Negative
+Review: I keep having issues with the app crashing and it's really frustrating to use.
+
+Sentiment: Neutral
+Review: It's okay, sometimes it works well and sometimes it doesn't, nothing special overall.
+
+Now generate a new review.
+
+Requirements:
+- Sentiment: {sentiment}
+- The review must be in English
+- Length: 1-2 sentences
+- It must sound natural and human
+- Write in first person
+- Do NOT include explanations
+- Do NOT include extra text
+- Do NOT mention real app names
+- Only output the review
+
+Review:
