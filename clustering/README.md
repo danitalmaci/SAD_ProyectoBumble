@@ -42,4 +42,4 @@ El script `clustering.py` implementa un pipeline completo de Procesamiento de Le
 ## Ejecución
 
 ```bash
-python clustering/clustering.py -j clustering/configuration.json -f datos/Bumble_corregido.csv
+python clustering/clustering.py -j clustering/configuration.json -f datos/Bumble_limpio.csv
