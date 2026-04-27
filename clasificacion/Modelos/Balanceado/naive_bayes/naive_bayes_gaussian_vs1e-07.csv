@@ -1,2 +1,0 @@
-Algoritmo,Params,Accuracy,Precision_macro,Recall_macro,F1_macro
-naive_bayes,{'var_smoothing': 1e-07},0.5874643874643874,0.5804995497827201,0.5874643874643876,0.5823167530734479

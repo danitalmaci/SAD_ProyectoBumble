@@ -1,0 +1,4 @@
+algoritmo,hiperparametros,f1_macro,max_features,tipo_ngramas,usa_bigramas,balancing_method,tipo_oversampling
+svm,"{'C': 2, 'gamma': 'scale', 'kernel': 'linear'}",0.6194993291783926,2000,unigramas+bigramas,True,undersampling,-
+svm,"{'C': 10, 'gamma': 'scale', 'kernel': 'linear'}",0.5893497094203515,2000,unigramas+bigramas,True,undersampling,-
+svm,"{'C': 0.1, 'gamma': 'scale', 'kernel': 'linear'}",0.5438622258476292,2000,unigramas+bigramas,True,undersampling,-

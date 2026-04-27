@@ -4,7 +4,7 @@
 
 
 """
-Autores: Daniel Talmaci & June Castro
+Autores: Daniel Talmaci & June Castro 
 Script para la implementación de los siguientes algoritmos:
         1. kNN
         2. Decision Tree
@@ -433,9 +433,8 @@ def over_under_sampling(x_train, y_train):  # Función para balancear solo train
         # Devuelve train sin cambios.
 
     if method == "oversampling":  
-        sampler = RandomOverSampler(random_state=random_state)
-        # Crea el objeto para duplicar ejemplos de la clase minoritaria.
-        print("Aplicando Oversampling SOLO en train...")
+        sampler = SMOTE(random_state=random_state)
+        print("Aplicando Oversampling tipo SMOTE SOLO en train...")
 
 
     elif method == "undersampling": 
@@ -443,13 +442,6 @@ def over_under_sampling(x_train, y_train):  # Función para balancear solo train
         # Crea el objeto para reducir ejemplos de la clase mayoritaria.
         print("Aplicando Undersampling SOLO en train...")
     
-    elif method == "smote":
-        sampler = SMOTE(random_state=random_state)
-        print("Aplicando SMOTE SOLO en train...")
-
-    elif method == "adasyn":
-        sampler = ADASYN(random_state=random_state)
-        print("Aplicando ADASYN SOLO en train...")
 
     else:  
         raise ValueError(f"Método de balanceo no soportado: {method}")
@@ -765,95 +757,38 @@ def process_text(x_train, x_dev, text_feature):  # Función para vectorizar text
             text_dev = x_dev[text_feature.columns].apply(lambda x: ' '.join(x.astype(str)), axis=1)
             # Hace lo mismo en dev.
 
-            if args.preprocessing["text_process"] == "tf-idf":  # Si se quiere TF-IDF...
-                tfidf_vectorizer = TfidfVectorizer(
-                    ngram_range=(1,2),
-                    min_df=3,
-                    max_features=1000
-                )
-                # Crea el vectorizador TF-IDF.
-                tfidf_train = tfidf_vectorizer.fit_transform(text_train)
-                # Ajusta el vectorizador con train y transforma train.
-                tfidf_dev = tfidf_vectorizer.transform(text_dev)
-                # Transforma dev con el vectorizador aprendido en train.
+            tfidf_vectorizer = TfidfVectorizer(
+                ngram_range=(1,2),
+                min_df=3,
+                max_features=2000
+            )
+            
+            tfidf_train = tfidf_vectorizer.fit_transform(text_train)
+            tfidf_dev = tfidf_vectorizer.transform(text_dev)
 
-                train_text_df = pd.DataFrame(
-                    tfidf_train.toarray(),  # Convierte la matriz dispersa en array normal.
-                    columns=tfidf_vectorizer.get_feature_names_out(),  # Usa las palabras como nombres de columnas.
-                    index=x_train.index  # Mantiene los índices originales.
-                )
+            train_text_df = pd.DataFrame(
+                tfidf_train.toarray(),
+                columns=tfidf_vectorizer.get_feature_names_out(),
+                index=x_train.index
+            )
 
-                dev_text_df = pd.DataFrame(
-                    tfidf_dev.toarray(),  # Convierte la matriz de dev a array.
-                    columns=tfidf_vectorizer.get_feature_names_out(),  # Mismos nombres de columnas.
-                    index=x_dev.index  # Mismos índices.
-                )
+            dev_text_df = pd.DataFrame(
+                tfidf_dev.toarray(),
+                columns=tfidf_vectorizer.get_feature_names_out(),
+                index=x_dev.index
+            )
 
-                x_train = pd.concat([x_train, train_text_df], axis=1)
-                # Añade al x_train las nuevas columnas numéricas del texto.
-                x_dev = pd.concat([x_dev, dev_text_df], axis=1)
-                # Añade al x_dev las nuevas columnas.
-                x_train.drop(text_feature.columns, axis=1, inplace=True)
-                # Elimina las columnas de texto originales de train.
-                x_dev.drop(text_feature.columns, axis=1, inplace=True)
-                # Elimina las columnas de texto originales de dev.
+            x_train = pd.concat([x_train, train_text_df], axis=1)
+            x_dev = pd.concat([x_dev, dev_text_df], axis=1)
 
-                package["text_vectorizer"] = tfidf_vectorizer
-                package["text_vectorizer_type"] = "tf-idf"
-                package["text_vectorized_columns"] = list(tfidf_vectorizer.get_feature_names_out())
+            x_train.drop(text_feature.columns, axis=1, inplace=True)
+            x_dev.drop(text_feature.columns, axis=1, inplace=True)
 
-                print(Fore.GREEN+"Texto tratado con éxito usando TF-IDF"+Fore.RESET)
+            package["text_vectorizer"] = tfidf_vectorizer
+            package["text_vectorizer_type"] = "tf-idf"
 
-
-            elif args.preprocessing["text_process"] == "bow": 
-                bow_vectorizer = CountVectorizer()
-                # Crea el vectorizador BOW.
-                bow_train = bow_vectorizer.fit_transform(text_train)
-                # Ajusta y transforma train.
-                bow_dev = bow_vectorizer.transform(text_dev)
-                # Transforma dev.
-
-                train_text_df = pd.DataFrame(
-                    bow_train.toarray(),  # Convierte a array.
-                    columns=bow_vectorizer.get_feature_names_out(),  # Nombres de palabras.
-                    index=x_train.index  # Índices.
-                )
-
-                dev_text_df = pd.DataFrame(
-                    bow_dev.toarray(),  # Convierte a array.
-                    columns=bow_vectorizer.get_feature_names_out(),  # Nombres.
-                    index=x_dev.index  # Índices.
-                )
-
-                x_train = pd.concat([x_train, train_text_df], axis=1)
-                # Añade columnas BOW a train.
-                x_dev = pd.concat([x_dev, dev_text_df], axis=1)
-                # Añade columnas BOW a dev.
-                x_train.drop(text_feature.columns, axis=1, inplace=True)
-                # Elimina texto original de train.
-                x_dev.drop(text_feature.columns, axis=1, inplace=True)
-                # Elimina texto original de dev.
-
-                package["text_vectorizer"] = bow_vectorizer
-                package["text_vectorizer_type"] = "bow"
-                package["text_vectorized_columns"] = list(bow_vectorizer.get_feature_names_out())
-
-                print(Fore.GREEN+"Texto tratado con éxito usando BOW"+Fore.RESET)
-                # Informa del éxito.
-
-            else:  
-                package["text_vectorizer"] = None
-                package["text_vectorizer_type"] = "none"
-                package["text_vectorized_columns"] = []
-                print(Fore.YELLOW+"No se están tratando los textos"+Fore.RESET)
-        else:  
-            package["text_vectorizer"] = None
-            package["text_vectorizer_type"] = "none"
-            package["text_vectorized_columns"] = []
-            print(Fore.YELLOW+"No se han encontrado columnas de texto a procesar"+Fore.RESET)
-
+            print(Fore.GREEN + "Texto tratado con éxito usando TF-IDF" + Fore.RESET)
         return x_train, x_dev
-        # Devuelve train y dev.
 
     except Exception as e: 
         print(Fore.RED+"Error al tratar el texto"+Fore.RESET)
@@ -992,6 +927,7 @@ def build_model_name(gs, algorithm_name):
         weights = best_params.get("weights", "x")
         metric = best_params.get("metric", "x")
 
+
         weights_map = {
             "uniform": "uni",
             "distance": "dist"
@@ -1061,6 +997,86 @@ def build_model_name(gs, algorithm_name):
 
     else:
         return algorithm_name
+        
+        
+def guardar_historial_experimento(gs, algorithm_name):
+    """
+    Guarda TODOS los modelos probados (GridSearch) en el historial.
+    No duplica y ordena por F1 macro.
+    """
+
+    historial_path = "Historial/historial_modelos.csv"
+
+    vectorizer = package.get("text_vectorizer", None)
+
+    if vectorizer is not None:
+        max_features = vectorizer.max_features
+        ngram_range = vectorizer.ngram_range
+
+        if ngram_range == (1, 1):
+            tipo_ngramas = "unigramas"
+        elif ngram_range == (1, 2):
+            tipo_ngramas = "unigramas+bigramas"
+        else:
+            tipo_ngramas = str(ngram_range)
+
+        usa_bigramas = ngram_range[1] >= 2
+    else:
+        max_features = None
+        tipo_ngramas = "-"
+        usa_bigramas = False
+
+    balancing_cfg = args.preprocessing.get("balancing", {})
+    balancing_method = balancing_cfg.get("method", "none")
+
+    if balancing_method == "oversampling":
+        tipo_oversampling = "smote"
+    else:
+        tipo_oversampling = "-"
+
+    results = pd.DataFrame(gs.cv_results_)
+
+    nuevas_filas = []
+
+    for _, row in results.iterrows():
+        nueva_fila = {
+            "algoritmo": algorithm_name,
+            "hiperparametros": str(row["params"]),
+            "f1_macro": row["mean_test_f1_macro"],
+            "max_features": max_features,
+            "tipo_ngramas": tipo_ngramas,
+            "usa_bigramas": usa_bigramas,
+            "balancing_method": balancing_method,
+            "tipo_oversampling": tipo_oversampling
+        }
+        nuevas_filas.append(nueva_fila)
+
+    nuevas_filas_df = pd.DataFrame(nuevas_filas)
+
+    # Cargar historial
+    if os.path.exists(historial_path):
+        historial = pd.read_csv(historial_path)
+    else:
+        historial = pd.DataFrame()
+
+    # Evitar duplicados
+    if not historial.empty:
+        historial = pd.concat([historial, nuevas_filas_df], ignore_index=True)
+        historial = historial.drop_duplicates(
+            subset=["algoritmo", "hiperparametros", "max_features", "tipo_ngramas", "balancing_method"],
+            keep="first"
+        )
+    else:
+        historial = nuevas_filas_df
+
+    # Ordenar por F1
+    historial = historial.sort_values(by="f1_macro", ascending=False)
+
+    # Guardar
+    os.makedirs("Historial", exist_ok=True)
+    historial.to_csv(historial_path, index=False)
+
+    print(Fore.GREEN + f"Historial actualizado con TODOS los modelos en {historial_path}" + Fore.RESET)
 def save_model(gs, algorithm_name):
     """
     Guarda el modelo y los resultados de la búsqueda de hiperparámetros en archivos.
@@ -1088,7 +1104,7 @@ def save_model(gs, algorithm_name):
             pickle.dump(package, file)
 
         print(Fore.CYAN + f"Modelo guardado con éxito: {pkl_filename}" + Fore.RESET)
-
+        guardar_historial_experimento(gs, algorithm_name)
         csv_filename = f"{Modelos_dir}/{model_name}.csv"
         with open(csv_filename, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
@@ -1106,6 +1122,7 @@ def save_model(gs, algorithm_name):
                     row.get("mean_test_recall_macro", ""),
                     row.get("mean_test_f1_macro", "")
                 ])
+            
 
     except Exception as e:
         print(Fore.RED + "Error al guardar el modelo" + Fore.RESET)
@@ -1233,7 +1250,7 @@ def kNN():
 
     print("Tiempo de ejecución:" + Fore.MAGENTA, execution_time, Fore.RESET + " segundos")
     mostrar_resultados(gs, x_dev, y_dev)
-    save_model(gs,"kNN")
+    save_model(gs, "kNN")
     # Guarda el modelo y los resultados.
 
 def decision_tree(): 
@@ -1308,7 +1325,7 @@ def decision_tree():
     # Lo muestra.
     mostrar_resultados(gs, x_dev, y_dev)
     # Muestra resultados.
-    save_model(gs,"decision_tree")
+    save_model(gs, "decision_tree")
     # Guarda el modelo.
 
 def random_forest():  

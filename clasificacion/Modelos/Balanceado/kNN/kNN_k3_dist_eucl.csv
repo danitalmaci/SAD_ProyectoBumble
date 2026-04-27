@@ -1,9 +1,0 @@
-Algoritmo,Params,Accuracy,Precision_macro,Recall_macro,F1_macro
-kNN,"{'metric': 'euclidean', 'n_neighbors': 3, 'weights': 'distance'}",0.4621082621082621,0.5161558386721923,0.46210826210826206,0.39917416121919547
-kNN,"{'metric': 'euclidean', 'n_neighbors': 3, 'weights': 'uniform'}",0.45698005698005695,0.5189956764672365,0.456980056980057,0.39053139096592576
-kNN,"{'metric': 'manhattan', 'n_neighbors': 3, 'weights': 'distance'}",0.4564102564102564,0.5111066521897586,0.4564102564102564,0.38740696607655495
-kNN,"{'metric': 'euclidean', 'n_neighbors': 5, 'weights': 'distance'}",0.4501424501424502,0.49120719409498753,0.4501424501424502,0.3803911966114282
-kNN,"{'metric': 'euclidean', 'n_neighbors': 5, 'weights': 'uniform'}",0.4455840455840455,0.4951210767398869,0.4455840455840455,0.37306701400123005
-kNN,"{'metric': 'manhattan', 'n_neighbors': 3, 'weights': 'uniform'}",0.44672364672364673,0.5103681075060753,0.44672364672364673,0.3725785168876106
-kNN,"{'metric': 'manhattan', 'n_neighbors': 5, 'weights': 'distance'}",0.4404558404558404,0.4842891389413853,0.4404558404558404,0.36614194709816267
-kNN,"{'metric': 'manhattan', 'n_neighbors': 5, 'weights': 'uniform'}",0.42735042735042744,0.48820760231357846,0.42735042735042733,0.34486758102268683
