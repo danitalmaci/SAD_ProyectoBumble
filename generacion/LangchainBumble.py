@@ -3,6 +3,7 @@ import pandas as pd
 from langchain_core.prompts import PromptTemplate
 from langchain_ollama.llms import OllamaLLM
 from sklearn.metrics import accuracy_score, classification_report, f1_score
+import os
 
 # ------------------------
 # MAIN
@@ -12,7 +13,7 @@ def main():
     parser = argparse.ArgumentParser(description="Sentiment classification with Ollama")
 
     parser.add_argument('--mode', type=str, required=True, choices=['predict', 'oversample'])
-    parser.add_argument('--model', type=str, default='llama3:8b-text-q2_K')
+    parser.add_argument('--model', type=str, default='granite4:350m-h')
     parser.add_argument('--shot', type=str, default='0', choices=['0', '1', 'few'])
 
     # CSV
@@ -97,6 +98,9 @@ def main():
         if args.target is None:
             raise ValueError("You must provide --target (text column) for predict mode")
         
+        if args.prompt is None:
+            raise ValueError("You must provide --prompt (txt) including the prompt")
+        
         df = load_csv(args.csv, args.sentiment)
 
         if args.target not in df.columns:
@@ -107,34 +111,27 @@ def main():
         
         df_sample = df.sample(n=min(args.samples, len(df)))
 
-        if args.shot == "0":
-            template = """You are a sentiment classifier. Classify the sentiment of the following text. 
-            IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. 
-            Valid responses are: Positive Negative Neutral
+        #Abrir el prompt txt
+        with open(args.prompt, "r", encoding="utf-8") as f:
+            promptxt = f.read()
 
+        if args.shot == "0":
+            template = promptxt + """
             Text: {text}
 
             Your response (one word only):"""
         elif args.shot == "1":
-            template = """You are a sentiment classifier. Classify the sentiment of the following text. 
-            IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. 
-            Valid responses are: Positive Negative Neutral
-
-            Examples: {examples_1}
-
+            template =  promptxt + examples_1 + """
             Text: {text}
 
             Your response (one word only):"""
         elif args.shot == "few":
-            template = """You are a sentiment classifier. Classify the sentiment of the following text. 
-            IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. 
-            Valid responses are: Positive Negative Neutral
-
-            Examples: {examples_few}
-
+            template =  promptxt + examples_few + """
             Text: {text}
 
             Your response (one word only):"""
+
+
 
         prompt = PromptTemplate.from_template(template)
         chain = prompt | model
@@ -170,10 +167,36 @@ def main():
             print("Classification Report:")
             print(classification_report(y_true, y_pred))
 
-        output_file = "predictions.csv"
-        df_sample.to_csv(output_file, index=False)
 
-        print(f"Predictions saved in {output_file}")
+        ##------ CSV ------
+
+        COLUMNS = ["modelo", "prompt", "entrada", "salida"]
+        output_file = "predictions_generative.csv"
+
+        if os.path.exists(output_file):
+            df_existing = pd.read_csv(output_file)
+        else:
+            df_existing = pd.DataFrame(columns=COLUMNS)
+
+        new_rows = []
+
+        for idx, row in df_sample.iterrows():
+            new_rows.append({
+                "modelo": args.model,
+                "prompt": promptxt[:150] + "..." if len(promptxt) > 150 else promptxt,
+                "entrada": args.prompt,
+                "salida": row['prediction']
+            })
+
+        df_new = pd.DataFrame(new_rows, columns=COLUMNS)
+        df_updated = pd.concat([df_existing, df_new], ignore_index=True)
+        df_updated.to_csv(output_file, index=False)
+
+        print(f"Predictions saved in {output_file} (total rows: {len(df_updated)}, added: {len(new_rows)})")
+        df_sample.to_csv("predictions_detailed.csv", index=False)
+        print(f"Detailed predictions saved in predictions_detailed.csv")
+
+
 
     # ------------------------
     # MODO 2: OVERSAMPLING
@@ -183,12 +206,17 @@ def main():
         if args.score is None:
             raise ValueError("You must provide --score (1-5)")
         
+        if args.prompt is None:
+            raise ValueError("You must provide --prompt (txt) including the prompt")
+        
         # Mapear el número a etiqueta
         sentiment_label = map_sentiment(args.score)
-        with open(args.prompt, "r", encoding="utf-8") as f:
-            template = f.read()
 
-        prompt = PromptTemplate.from_template(template)
+        #Abrir el prompt txt
+        with open(args.prompt, "r", encoding="utf-8") as f:
+            promptxt = f.read()
+
+        prompt = PromptTemplate.from_template(promptxt)
         chain = prompt | model
 
         new_rows = []
@@ -211,7 +239,7 @@ def main():
 
         df_new = pd.DataFrame(new_rows)
 
-        output_file = "oversampled.csv"
+        output_file = "over_" + args.prompt + ".csv"
         df_new.to_csv(output_file, index=False)
 
         print(f"Generated {len(new_rows)} new samples")

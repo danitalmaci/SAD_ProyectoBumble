@@ -35,16 +35,17 @@ Si se proporciona una columna numérica (1–5), se convierte así:
 | Argumento     | Tipo    | Obligatorio   | Descripción                                                 |
 | ------------- | ------- | ------------- | ----------------------------------------------------------- |
 | `--mode`      | str     | Si            | Modo de ejecución: `predict` o `oversample`                 |
+| `--prompt`    | str     | Si            | Archivo .txt con el prompt                                  |
 | `--csv`       | str     | Si-predict    | Ruta al archivo CSV                                         |
 | `--target`    | str     | Si-predict    | Columna que contiene el texto de opinión                    |
+| `--sentiment` | str/int | Si-predict    | Columna numérica 1–5                                        |
 | `--model`     | str     | No            | Modelo de Ollama (por defecto: `llama3:8b-text-q2_K`)       |
 | `--shot`      | str     | No            | Tipo de prompting: `0`, `1` o `few` (por defecto: `0`)      |
-| `--sentiment` | str/int | No-predict    | Columna numérica 1–5                                        |
 | `--samples`   | int     | No            | Número de muestras a procesar o generar (por defecto: `10`) |
 | `--score`     | int     | Si-oversample | Score de la opinión a generar                               |
-| `--prompt`    | str     | Si-oversample | Archivo .txt con el prompt                                  |
 
-Modelos a recomendados: llama3:8b-text-q2_K / gemma2:2b-text-q4_K_S
+
+Modelos a recomendados: llama3:8b-text-q2_K / gemma2:2b-text-q4_K_S / granite4:350m-h
 
 ---
 

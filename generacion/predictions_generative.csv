@@ -1,0 +1,11 @@
+modelo,prompt,entrada,salida
+granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text....",prompt_granite4_350m-h.txt,Negative
+granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text....",prompt_granite4_350m-h.txt,Negative
+granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text....",prompt_granite4_350m-h.txt,Negative
+granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text....",prompt_granite4_350m-h.txt,Neutral
+granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text....",prompt_granite4_350m-h.txt,Neutral
+granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text....",prompt_granite4_350m-h.txt,Neutral
+granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text....",prompt_granite4_350m-h.txt,Negative
+granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text....",prompt_granite4_350m-h.txt,Negative
+granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text....",prompt_granite4_350m-h.txt,Neutral
+granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text....",prompt_granite4_350m-h.txt,Neutral
