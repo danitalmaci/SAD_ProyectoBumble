@@ -42,6 +42,7 @@ Si se proporciona una columna numérica (1–5), se convierte así:
 | `--sentiment` | str/int | No-predict    | Columna numérica 1–5                                        |
 | `--samples`   | int     | No            | Número de muestras a procesar o generar (por defecto: `10`) |
 | `--score`     | int     | Si-oversample | Score de la opinión a generar                               |
+| `--prompt`    | str     | Si-oversample | Archivo .txt con el prompt                                  |
 
 Modelos a recomendados: llama3:8b-text-q2_K / gemma2:2b-text-q4_K_S
 
