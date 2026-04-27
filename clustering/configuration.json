@@ -6,13 +6,15 @@
         "extra_stopwords": [
             "app", "application", "bumble", "people", "use", "get", "like", 
             "even", "one", "try", "really", "make", "just", "would", "also", 
-            "much", "time", "got", "know", "ca", "nt", "ve", "re", "im", "way", "thing"
-        ]
+            "much", "time", "got", "know", "ca", "nt", "ve", "re", "im", "way", "thing", "tinder", "match", "matches", "dating", "date", "dates", "datingapp", "datingapps"
+        ],
+        "bigram_min_count": 3,
+        "bigram_threshold": 5
     },
     "clustering": {
-        "algorithm": "lda", 
+        "algorithm": "lda",
         "max_df": 0.60,
-        "min_df": 15,
+        "min_df": 5,
         "max_k": 10,
         "k_optimo": 4,
         "top_words": 10,

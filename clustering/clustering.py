@@ -7,7 +7,9 @@ import os
 import matplotlib.pyplot as plt
 import gensim
 import gensim.corpora as corpora
+from gensim.models import CoherenceModel  # ¡NUEVA IMPORTACIÓN!
 from colorama import Fore
+import emoji
 
 # Sklearn 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -19,7 +21,9 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 
-# ----------------- Funciones auxiliares -----------------
+# ==========================================
+# 1. FUNCIONES AUXILIARES
+# ==========================================
 
 def parse_args(): 
     parse = argparse.ArgumentParser(description="Script de Clustering (LDA / K-Means).")
@@ -60,34 +64,89 @@ def clasificar_estrellas(estrellas):
     except:
         return 'desconocido'
 
-# ----------------- Preprocesado NLP -----------------
+# ==========================================
+# 2. PREPROCESADO NLP
+# ==========================================
 
 def procesar_texto(texto, stop_words, stemmer):
-    tokens = word_tokenize(str(texto).lower())
+    texto_con_emojis = emoji.demojize(str(texto), language='en')
+    
+    texto_con_emojis = texto_con_emojis.replace(":", " ").replace("_", " ")
+    
+    tokens = word_tokenize(texto_con_emojis.lower())
     tokens = [t for t in tokens if t not in stop_words and t not in string.punctuation]
     tokens = [stemmer.stem(t) for t in tokens if t.isalpha()]
     return " ".join(tokens)
 
-# ----------------- Funciones Clustering -----------------
+# ==========================================
+# 3. FUNCIONES CLUSTERING & MÉTRICAS
+# ==========================================
+
+def calcular_coherencia_lda(textos_tokenizados, corpus, id2word, sentimiento, args):
+    """
+    Entrena múltiples modelos LDA variando K y calcula su coherencia para encontrar el óptimo.
+    """
+    max_k = args.clustering.get("max_k", 10)
+    print(Fore.CYAN + f"\n- [COHERENCIA LDA] Evaluando modelos desde K=2 hasta K={max_k} para críticas {sentimiento}..." + Fore.RESET)
+    
+    rango_k = range(4, max_k + 1) # Subido a 4 para que no elija siempre 2 o 3
+    coherencias = []
+    modelos = []
+
+    for k in rango_k:
+        modelo_lda = gensim.models.LdaMulticore(
+            corpus=corpus,
+            id2word=id2word,
+            num_topics=k,
+            random_state=42,
+            passes=args.clustering.get("lda_passes", 10),
+            alpha=args.clustering.get("lda_alpha", 'symmetric')
+        )
+        modelos.append(modelo_lda)
+        
+        # Calcular coherencia c_v (se podría probar con otros en el JSON)
+        coherencemodel = CoherenceModel(model=modelo_lda, texts=textos_tokenizados, dictionary=id2word, coherence='c_v')
+        puntuacion = coherencemodel.get_coherence()
+        coherencias.append(puntuacion)
+        print(f"  * K={k} -> Coherencia: {puntuacion:.4f}")
+
+    # Encontrar el índice con la coherencia más alta
+    indice_optimo = coherencias.index(max(coherencias))
+    k_optimo = rango_k[indice_optimo]
+    mejor_modelo = modelos[indice_optimo]
+    
+    print(Fore.GREEN + f"  > ¡K óptimo encontrado de forma automática!: {k_optimo}" + Fore.RESET)
+
+    # Crear gráfico de Coherencia
+    plt.figure(figsize=(8, 5))
+    plt.plot(rango_k, coherencias, marker='o', linestyle='-', color='g')
+    plt.title(f'Optimización Coherencia LDA (c_v) - {sentimiento.capitalize()}')
+    plt.xlabel('Número de Tópicos (K)')
+    plt.ylabel('Score de Coherencia')
+    plt.grid(True)
+    
+    directorio_actual = os.path.dirname(os.path.abspath(__file__))
+    ruta_grafico = os.path.join(directorio_actual, 'output', f'coherencia_lda_{sentimiento}.png')
+    plt.savefig(ruta_grafico)
+    plt.close()
+
+    return k_optimo, mejor_modelo
 
 def ejecutar_lda_gensim(data, columna_texto_limpio, sentimiento, args):
-    num_topicos = args.clustering.get("k_optimo", 4)
     min_df = args.clustering.get("min_df", 3)
     max_df = args.clustering.get("max_df", 0.85)
     
-    print(Fore.CYAN + f"\n- [LDA] Descubriendo {num_topicos} tópicos para críticas {sentimiento}..." + Fore.RESET)
-
+    # Preparar el corpus
     textos_tokenizados = [str(texto).split() for texto in data[columna_texto_limpio]]
     id2word = corpora.Dictionary(textos_tokenizados)
     id2word.filter_extremes(no_below=min_df, no_above=max_df)
     corpus = [id2word.doc2bow(texto) for texto in textos_tokenizados]
 
-    lda_model = gensim.models.LdaMulticore(
-        corpus=corpus, id2word=id2word, num_topics=num_topicos, random_state=42, passes=10
-    )
+    # Ejecutar la búsqueda automática del mejor modelo
+    k_optimo, lda_model = calcular_coherencia_lda(textos_tokenizados, corpus, id2word, sentimiento, args)
 
-    print(Fore.MAGENTA + f"\nTop Palabras por Tópico (LDA - {sentimiento}):" + Fore.RESET)
-    topicos_crudos = lda_model.show_topics(num_topics=num_topicos, num_words=args.clustering.get("top_words", 10), formatted=False)
+    print(Fore.MAGENTA + f"\nTop Palabras por Tópico (Modelo Ganador K={k_optimo}):" + Fore.RESET)
+    topicos_crudos = lda_model.show_topics(num_topics=k_optimo, num_words=args.clustering.get("top_words", 10), formatted=False)
     
     palabras_por_topico = {}
     for num_topico, palabras in topicos_crudos:
@@ -146,11 +205,10 @@ def guardar_resultados(data, nombre_archivo):
 
 def metodo_del_codo(data, columna_texto_limpio, sentimiento, args):
     if not args.clustering.get("generar_codo", False):
-        return # config json
+        return
 
     print(Fore.CYAN + f"\n- [MÉTODO DEL CODO] Calculando inercias para {sentimiento}..." + Fore.RESET)
     
-    # Vectorizamos solo para evaluar el codo
     vectorizer = TfidfVectorizer(max_df=args.clustering.get("max_df", 0.95), min_df=args.clustering.get("min_df", 2))
     X_tfidf = vectorizer.fit_transform(data[columna_texto_limpio])
     
@@ -162,7 +220,6 @@ def metodo_del_codo(data, columna_texto_limpio, sentimiento, args):
         kmeans.fit(X_tfidf)
         inercias.append(kmeans.inertia_)
 
-    # crear grafico
     plt.figure(figsize=(8, 5))
     plt.plot(rango_k, inercias, marker='o', linestyle='-', color='b')
     plt.title(f'Método del Codo - Críticas {sentimiento.capitalize()}')
@@ -176,7 +233,9 @@ def metodo_del_codo(data, columna_texto_limpio, sentimiento, args):
     print(Fore.GREEN + f"Gráfico del codo guardado en {ruta_grafico}" + Fore.RESET)
     plt.close()
 
-# ----------------- Main -----------------
+# ==========================================
+# 4. MAIN
+# ==========================================
 
 if __name__ == "__main__":  
     print(Fore.YELLOW + "=== Pipeline de Topic Modeling & Clustering ===" + Fore.RESET)
@@ -190,9 +249,9 @@ if __name__ == "__main__":
     columna_texto = args.preprocessing["text_column"]
     columna_score = args.preprocessing.get("score_column", "score")
     
-    # Clasificar Sentimientos
     print(Fore.CYAN + "- Clasificando sentimientos..." + Fore.RESET)
     data['sentimiento_analisis'] = data[columna_score].apply(clasificar_estrellas)
+    
     print(Fore.CYAN + "- Aplicando NLTK (Stopwords y Stemming)..." + Fore.RESET)
     language = args.preprocessing.get("language", "english")
     
@@ -206,7 +265,22 @@ if __name__ == "__main__":
     stop_words.update(args.preprocessing.get("extra_stopwords", []))
     stemmer = PorterStemmer()
 
+    # 1. Limpieza base
     data['texto_limpio'] = data[columna_texto].apply(lambda x: procesar_texto(x, stop_words, stemmer))
+
+    print(Fore.CYAN + "- Generando bigramas..." + Fore.RESET)
+    
+    # Convertimos el texto limpio en una lista de listas de palabras
+    textos_lista = [str(texto).split() for texto in data['texto_limpio']]
+    
+    min_count = args.preprocessing.get("bigram_min_count", 5) # La pareja debe aparecer al menos X veces en todo el dataset
+    threshold = args.preprocessing.get("bigram_threshold", 10) # Nivel de "confianza" estadística para unirlas
+    
+    bigramas_detector = gensim.models.Phrases(textos_lista, min_count=min_count, threshold=threshold)
+    bigramas_mod = gensim.models.phrases.Phraser(bigramas_detector)
+    
+    # Aplicamos los bigramas y volvemos a unir el texto en un string para el dataframe
+    data['texto_limpio'] = [" ".join(bigramas_mod[doc]) for doc in textos_lista]
 
     algoritmo = args.clustering.get("algorithm", "lda").lower()
     
