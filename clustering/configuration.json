@@ -4,22 +4,25 @@
         "score_column": "score",
         "language": "english",
         "extra_stopwords": [
-            "app", "application", "bumble", "people", "use", "get", "like", 
+            "app", "application", "bumble", "people", "use", "used", "using", "get", "like", "likes",
             "even", "one", "try", "really", "make", "just", "would", "also", 
-            "much", "time", "got", "know", "ca", "nt", "ve", "re", "im", "way", "thing", "tinder", "match", "matches", "dating", "date", "dates", "datingapp", "datingapps"
+            "much", "time", "got", "know", "ca", "nt", "ve", "re", "im", "way", "thing", 
+            "tinder", "match", "matches", "dating", "date", "dates", "datingapp", "datingapps",
+            "still", "day", "days", "see", "want"
         ],
         "bigram_min_count": 3,
         "bigram_threshold": 5
     },
     "clustering": {
         "algorithm": "lda",
-        "max_df": 0.60,
+        "max_df": 0.50,
         "min_df": 5,
-        "max_k": 10,
+        "max_k": 7,
         "k_optimo": 4,
         "top_words": 10,
         "generar_codo": true,
         "lda_passes": 20,
-        "lda_alpha": "asymmetric"
+        "lda_alpha": "asymmetric",
+        "umbral_palabras_cortas": 5
     }
 }
