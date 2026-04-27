@@ -4,6 +4,8 @@ import argparse
 import pandas as pd
 import string
 import os
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import gensim
 import gensim.corpora as corpora
@@ -150,19 +152,37 @@ def ejecutar_lda_gensim(data, columna_texto_limpio, sentimiento, args):
         print(f"  > Tópico {num_topico}: {texto_topico}")
 
     topicos_dominantes = []
+    probabilidades = {i: [] for i in range(k_optimo)} # Diccionario para las nuevas columnas
+
     for bow in corpus:
         if len(bow) == 0:
             topicos_dominantes.append(-1)
+            for i in range(k_optimo): probabilidades[i].append(0.0)
             continue
-        distribucion = lda_model.get_document_topics(bow)
+            
+        # Obtenemos la distribución forzando a que devuelva probabilidad 0 si no pertenece
+        distribucion = lda_model.get_document_topics(bow, minimum_probability=0.0)
+        
+        # 1. Sacamos el dominante
         topico_principal = sorted(distribucion, key=lambda x: x[1], reverse=True)[0][0]
         topicos_dominantes.append(topico_principal)
+        
+        # 2. Guardamos la probabilidad de CADA tópico para las columnas de Tableau
+        # (Asegurándonos de que se guardan en el orden correcto)
+        dict_dist = dict(distribucion)
+        for i in range(k_optimo):
+            probabilidades[i].append(round(dict_dist.get(i, 0.0), 4))
+
+    data['Cluster_Dominante'] = topicos_dominantes
+    # Añadimos las columnas al dataframe
+    for i in range(k_optimo):
+        data[f'Prob_Topico_{i}'] = probabilidades[i]
 
     data['Cluster_Dominante'] = topicos_dominantes
     data['Palabras_Clave'] = data['Cluster_Dominante'].map(palabras_por_topico)
     data.loc[data['Cluster_Dominante'] == -1, 'Palabras_Clave'] = "Sin datos"
     
-    guardar_resultados(data, f'tableau_lda_{sentimiento}.csv')
+    return data
 
 def ejecutar_kmeans(data, columna_texto_limpio, sentimiento, args):
     k_optimo = args.clustering.get("k_optimo", 4)
@@ -189,7 +209,7 @@ def ejecutar_kmeans(data, columna_texto_limpio, sentimiento, args):
         print(f"  > Cluster {i}: {palabras_por_cluster[i]}")
 
     data['Palabras_Clave'] = data['Cluster_Dominante'].map(palabras_por_cluster)
-    guardar_resultados(data, f'tableau_kmeans_{sentimiento}.csv')
+    return data
 
 def guardar_resultados(data, nombre_archivo):
     directorio_actual = os.path.dirname(os.path.abspath(__file__))
@@ -276,19 +296,44 @@ if __name__ == "__main__":
 
     algoritmo = args.clustering.get("algorithm", "lda").lower()
     
-    for sentimiento in ['negativa', 'neutra','positiva']:
+    data['num_palabras'] = data['texto_limpio'].apply(lambda x: len(str(x).split()))
+    umbral = args.clustering.get("umbral_palabras_cortas", 5)
+
+    resultados_totales = []
+
+    for sentimiento in ['negativa', 'neutra', 'positiva']:
+        print(Fore.YELLOW + f"\n=== ANALIZANDO SENTIMIENTO: {sentimiento.upper()} ===" + Fore.RESET)
         subset_data = data[data['sentimiento_analisis'] == sentimiento].copy()
         
-        if len(subset_data) > 0:
-            metodo_del_codo(subset_data, 'texto_limpio', sentimiento, args)
-            if algoritmo == "lda":
-                ejecutar_lda_gensim(subset_data, 'texto_limpio', sentimiento, args)
-            elif algoritmo == "kmeans":
-                ejecutar_kmeans(subset_data, 'texto_limpio', sentimiento, args)
-            else:
-                print(Fore.RED + f"Error: Algoritmo '{algoritmo}' no reconocido en JSON." + Fore.RESET)
-                sys.exit(1)
-        else:
-            print(f"No hay suficientes datos para analizar críticas {sentimiento}s.")
-            
+        if len(subset_data) == 0:
+            continue
+
+        textos_cortos = subset_data[subset_data['num_palabras'] <= umbral].copy()
+        textos_largos = subset_data[subset_data['num_palabras'] > umbral].copy()
+
+        print(Fore.CYAN + f"- Comentarios largos (> {umbral} palabras): {len(textos_largos)} -> LDA" + Fore.RESET)
+        print(Fore.CYAN + f"- Comentarios cortos (<= {umbral} palabras): {len(textos_cortos)} -> K-MEANS" + Fore.RESET)
+
+        if len(textos_largos) > 0:
+            df_lda = ejecutar_lda_gensim(textos_largos, 'texto_limpio', f"{sentimiento}_largos", args)
+            df_lda['Modelo'] = 'LDA'
+            df_lda['Longitud'] = 'Largo'
+            resultados_totales.append(df_lda)
+
+        if len(textos_cortos) > 0:
+            metodo_del_codo(textos_cortos, 'texto_limpio', f"{sentimiento}_cortos", args)
+            df_kmeans = ejecutar_kmeans(textos_cortos, 'texto_limpio', f"{sentimiento}_cortos", args)
+            df_kmeans['Modelo'] = 'K-Means'
+            df_kmeans['Longitud'] = 'Corto'
+            resultados_totales.append(df_kmeans)
+
+    if resultados_totales:
+        df_final = pd.concat(resultados_totales, ignore_index=True)
+        
+        # las de kmeans tendrán 0.0
+        cols_probabilidades = [col for col in df_final.columns if 'Prob_Topico' in col]
+        df_final[cols_probabilidades] = df_final[cols_probabilidades].fillna(0.0)
+        
+        guardar_resultados(df_final, 'clustering_tableau.csv')
+        
     print(Fore.YELLOW + "\n=== Proceso completado. ===" + Fore.RESET)
