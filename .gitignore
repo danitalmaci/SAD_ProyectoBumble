@@ -11,7 +11,7 @@ __pycache__/
 
 # Directorios de salida
 #clasificacion/output/
-#clustering/output/
+clustering/output/
 #output/
 
 # macOS
