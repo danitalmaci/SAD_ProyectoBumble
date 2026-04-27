@@ -1,6 +1,6 @@
 {
   "data_file": "Archivos_CSV/Bumble_limpio.csv",
-  "algorithm": "svm",
+  "algorithm": "kNN",
   "prediction": "score",
   "estimator": "f1_macro",
 
@@ -50,14 +50,14 @@
     },
 
     "balancing": {
-      "method": "undersampling",
+      "method": "oversampling",
       "random_state": 42,
       "imbalance_threshold": 0.8
     }
   },
 
   "kNN": {
-    "n_neighbors": [7],
+    "n_neighbors": [1, 3],
     "weights": ["uniform", "distance"],
     "metric": ["euclidean", "manhattan"]
   },
