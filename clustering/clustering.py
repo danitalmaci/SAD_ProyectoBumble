@@ -21,9 +21,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 
-# ==========================================
-# 1. FUNCIONES AUXILIARES
-# ==========================================
+# FUNCIONES AUXILIARES
 
 def parse_args(): 
     parse = argparse.ArgumentParser(description="Script de Clustering (LDA / K-Means).")
@@ -64,9 +62,7 @@ def clasificar_estrellas(estrellas):
     except:
         return 'desconocido'
 
-# ==========================================
-# 2. PREPROCESADO NLP
-# ==========================================
+# PREPROCESADO
 
 def procesar_texto(texto, stop_words, stemmer):
     texto_con_emojis = emoji.demojize(str(texto), language='en')
@@ -78,9 +74,7 @@ def procesar_texto(texto, stop_words, stemmer):
     tokens = [stemmer.stem(t) for t in tokens if t.isalpha()]
     return " ".join(tokens)
 
-# ==========================================
-# 3. FUNCIONES CLUSTERING & MÉTRICAS
-# ==========================================
+# FUNCIONES CLUSTERING
 
 def calcular_coherencia_lda(textos_tokenizados, corpus, id2word, sentimiento, args):
     """
@@ -233,9 +227,7 @@ def metodo_del_codo(data, columna_texto_limpio, sentimiento, args):
     print(Fore.GREEN + f"Gráfico del codo guardado en {ruta_grafico}" + Fore.RESET)
     plt.close()
 
-# ==========================================
-# 4. MAIN
-# ==========================================
+# MAIN
 
 if __name__ == "__main__":  
     print(Fore.YELLOW + "=== Pipeline de Topic Modeling & Clustering ===" + Fore.RESET)
