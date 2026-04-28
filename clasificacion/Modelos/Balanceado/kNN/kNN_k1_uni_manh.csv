@@ -1,5 +1,0 @@
-Algoritmo,Params,Accuracy,Precision_macro,Recall_macro,F1_macro
-kNN,"{'metric': 'manhattan', 'n_neighbors': 1, 'weights': 'distance'}",0.6659507118239916,0.6935162562289211,0.6659422413622826,0.6227616772382646
-kNN,"{'metric': 'manhattan', 'n_neighbors': 1, 'weights': 'uniform'}",0.6659507118239916,0.6935162562289211,0.6659422413622826,0.6227616772382646
-kNN,"{'metric': 'euclidean', 'n_neighbors': 1, 'weights': 'distance'}",0.662131846796703,0.6905095433958877,0.6621269703487438,0.6177477001742524
-kNN,"{'metric': 'euclidean', 'n_neighbors': 1, 'weights': 'uniform'}",0.662131846796703,0.6905095433958877,0.6621269703487438,0.6177477001742524
