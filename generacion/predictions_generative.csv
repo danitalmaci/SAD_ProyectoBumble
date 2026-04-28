@@ -1510,3 +1510,623 @@ Example 9:
 Text: there has to be a free mode for a short time before asking to subscribe
 Sentiment: Neutral
 ",Not able to login the app using Facebook,Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+","Met a guy from Krugersdorp - Koushik Saroop,he was aggressive and manipulative - he bombarded me with messages and love songs before we met and after that ghosted me. I see someone says he gave her an STD 😡,glad I didn't do more than have a chat with him.",Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+","6 years no dates,maybe 10 ish matches barely any likes app doesn't work clearly.",Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+","Read the reviews & that's why I uninstall this app straight away,as it totally sounds like something fishy is going on & I don't even think I want to know what the developer has to say about my view of this app but if you spend just a little bit of time to look at some of the negative reviews,you'll see where I'm coming from & it really does sound like a scam & typically a money scam at that. To all you singles out there,Good Luck 👍",Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+","For me,many features seem locked unless you pay. It makes the app feel less rewarding.",Positive,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+",Waste app you will get inactive and bots only,Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+","No me deja entrar,no acepta mi código de país y mi número...",Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+","Entertainment,caring about people",Positive,Positive
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+","Fake likes,I don't have a twitter,the accounts are clearly bots that match and/or advertisements for only fans,i don't blame the app as much as the people but your pay walls make it too difficult to find something real",Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+",nice pple,Positive,Positive
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+",beautiful,Positive,Positive
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+","Whenever I try paying for this app..it tells me """"something went wrong"""" and the payment doesn't get through.",Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+",very poor,NotExpected,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+",this is the worst dating ever. it's good for the woman. the women get to pick an chose who they want. you can't text any of the women And introduce yourself. I would not be renewing my membership. I really want a refund.,Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+","my experience with this app is basically a big middle finger to my face. paying money to see if there's anyone around who's interested and finding out the answer is nope! you suck,go home,bye-bye. false hope is what I believe is sold here.",Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+",I have an account but for some reason bumble has signed me out and is refusing to let me sign in no matter what way I try or how many times I uninstall and then reinstall!,Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+","Honestly,i like that people seem more intentional here. It makes the experience better overall.",Positive,Positive
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+",I downloaded and paid for the full version I did speak to someone and arranged to meet but to be honest I looked further in to it their not real profiles it's a con and a scam to make money quick I recommend no one to down load this it's a waste of time and the worst experience iv had I want to know how to get a refund.,Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+",It good,Positive,Positive
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+",Likes are very limited. Its like 10 likes for 24hours and paying for premium is too complicated,Negative,Negative
+gemma2:2b-text-q4_K_S,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+",nice,Positive,Negative
+gemma2:2b-text-q4_K_S,"CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no ""I think""
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral
+","Not even good,far distance,not responding,and not even suitable match,🤦‍♂️ it's horrible,av been using this app for over a year yet nothing to show. Please why are you hiding match? Why are you hiding someone interested in one another? All the activities of this app is just nonsense 😡😡",Positive,Negative
+gemma2:2b-text-q4_K_S,"CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no ""I think""
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral
+","Very disappointed with bumble,as they continue to pressure you to buy more add ons after you went for the Top package premium,I would not recommend this dating service to anyone",NotExpected,Negative
+gemma2:2b-text-q4_K_S,"CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no ""I think""
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral
+","Horrible unless you pay a bunch of money you can't do anything but like profiles,you can't talk to anyone or anything without pop ups saying pay us lots of money to say hi!!! So stupid and a horrible way to charge crazy prices when do many fake profiles anyways,the creators are just awful.",NotExpected,Negative
+gemma2:2b-text-q4_K_S,"CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no ""I think""
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral
+",App support is non-existent. Been waiting almost a week for a reply on what should be a simple resolve. Just use something else instead folks.,Negative,Negative
+gemma2:2b-text-q4_K_S,"CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no ""I think""
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral
+","Hello bumble,I love using this application,but I cannot register my phone number because I live in Iran,please help me with this.",NotExpected,Negative
+gemma2:2b-text-q4_K_S,"CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no ""I think""
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral
+","They force you to take a subscription because they never,ever show you your likes.",NotExpected,Negative
+gemma2:2b-text-q4_K_S,"CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no ""I think""
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral
+",💪,NotExpected,Positive
+gemma2:2b-text-q4_K_S,"CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no ""I think""
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral
+",Rip off. You can't message or compliment even with a premium account. Lame. 👎. I want a refund.,NotExpected,Negative
+gemma2:2b-text-q4_K_S,"CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no ""I think""
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral
+",Bumble these nuts,NotExpected,Neutral
+gemma2:2b-text-q4_K_S,"CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no ""I think""
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral
+","Took a break to focus on someone I met elsewhere,upon coming back I see things have gotten worse on the app,it's no longer user friendly,it's more expensive,they claim to be more inclusive but what they are really doing is favoring one group of people over another & if I want to find what I want I have to pay extra. Talk about capitalizing on the dating market,they would be better off going back to how they were when bumble first came out allowing everyone to find who they are looking for",Positive,Negative
