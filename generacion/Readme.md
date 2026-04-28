@@ -120,8 +120,8 @@ Esto:
 
 | Archivo                      | Descripción                                |
 | ---------------------------- | ------------------------------------------ |
-| `predictions.csv`            | Resultados del modo `predict` acumulativos |
-| `nombrePrompt_sentiment.csv` | Dataset con datos sintéticos           s    |
+| `predictions.csv`            | Resultados del modo `predict` (acumulativo)|
+| `nombrePrompt_sentiment.csv` | Dataset con datos sintéticos               |
 
 ---
 
