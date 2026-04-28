@@ -1,1 +1,0 @@
-You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral. Text:"Scam of all scams. Get likes before you buy but they are gone once you pay" .Your response (one word only):

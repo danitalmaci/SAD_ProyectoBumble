@@ -1,0 +1,6 @@
+Write a Negative review (STRICTLY 5-45 words) of a dating app like Tinder or Bumble. Be realistic, specific, and sound like a normal user. Do not use the word "Negative". 
+Example 1: "You can't do anything on this I'm over it uninstalled"
+Example 2: "This app is extremely boring."
+Example 3: "Force to buying the product. Man..."
+
+Review:

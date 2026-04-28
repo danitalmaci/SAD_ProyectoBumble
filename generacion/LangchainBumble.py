@@ -14,7 +14,6 @@ def main():
 
     parser.add_argument('--mode', type=str, required=True, choices=['predict', 'oversample'])
     parser.add_argument('--model', type=str, default='granite4:350m-h')
-    parser.add_argument('--shot', type=str, default='0', choices=['0', '1', 'few'])
 
     # CSV
     parser.add_argument('--csv', type=str)
@@ -27,61 +26,6 @@ def main():
     args = parser.parse_args()
 
     model=load_model(args.mode, args.model)
-
-    # ------------------------
-    # EXAMPLES
-    # ------------------------
-    examples_1 = """
-    Example 1:
-    Text: it's such a amazing app to find intresting people.
-    Sentiment: Positive
-
-    Example 2:
-    Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
-    Sentiment: Negative
-
-    Example 3:
-    Text: too much interest on money more. it's fun here but it it's cut short with many demands.
-    Sentiment: Neutral
-    """
-
-    examples_few = """
-    Example 1:
-    Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
-    Sentiment: Positive
-
-    Example 2:
-    Text: one best platform to understand the feelings of others and to share the intimacy
-    Sentiment: Positive
-
-    Example 3:
-    Text: create room for video calls and audio calls, it will help alot
-    Sentiment: Positive
-
-    Example 4:
-    Text: App is not working properly
-    Sentiment: Negative
-
-    Example 5:
-    Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
-    Sentiment: Negative
-
-    Example 6:
-    Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
-    Sentiment: Negative
-
-    Example 7:
-    Text: Need to pay to get to talk to many women
-    Sentiment: Neutral
-
-    Example 8:
-    Text: I didn't use that much after using I will share my opinion
-    Sentiment: Neutral
-
-    Example 9:
-    Text: there has to be a free mode for a short time before asking to subscribe
-    Sentiment: Neutral
-    """
 
     # ------------------------
     # MODO 1: PREDICT
@@ -115,41 +59,30 @@ def main():
         with open(args.prompt, "r", encoding="utf-8") as f:
             promptxt = f.read()
 
-        if args.shot == "0":
-            template = promptxt + """
+        template = promptxt + """
             Text: {text}
 
             Your response (one word only):"""
-        elif args.shot == "1":
-            template =  promptxt + examples_1 + """
-            Text: {text}
-
-            Your response (one word only):"""
-        elif args.shot == "few":
-            template =  promptxt + examples_few + """
-            Text: {text}
-
-            Your response (one word only):"""
-
-
-
+     
         prompt = PromptTemplate.from_template(template)
         chain = prompt | model
 
         predictions = []
 
         for text in df_sample[args.target]:
+
             try:
                 ans = chain.invoke({'text': str(text)}).strip()
             except:
-                ans = "ERROR"
+                ans = "NotExpected"
 
             if ans not in ["Positive", "Negative", "Neutral"]:
-                ans = "Neutral"
+                ans = "NotExpected"
 
             predictions.append(ans)
 
         df_sample['prediction'] = predictions
+
 
         #------ Evaluación ------
         if args.sentiment is not None:
@@ -170,7 +103,7 @@ def main():
 
         ##------ CSV ------
 
-        COLUMNS = ["modelo", "prompt", "entrada", "salida"]
+        COLUMNS = ["modelo", "prompt", "entrada", "salida", "real"]
         output_file = "predictions_generative.csv"
 
         if os.path.exists(output_file):
@@ -183,9 +116,10 @@ def main():
         for idx, row in df_sample.iterrows():
             new_rows.append({
                 "modelo": args.model,
-                "prompt": promptxt[:150] + "..." if len(promptxt) > 150 else promptxt,
-                "entrada": args.prompt,
-                "salida": row['prediction']
+                "prompt": promptxt,
+                "entrada": row[args.target],
+                "salida": row['prediction'],
+                "real": row['sentiment_mapped'] 
             })
 
         df_new = pd.DataFrame(new_rows, columns=COLUMNS)
@@ -239,29 +173,13 @@ def main():
 
         df_new = pd.DataFrame(new_rows)
 
-        output_file = "over_" + args.prompt + ".csv"
+        prompt_name = os.path.splitext(os.path.basename(args.prompt))[0]
+        output_file = f"{prompt_name}_{sentiment_label}.csv"
         df_new.to_csv(output_file, index=False)
 
         print(f"Generated {len(new_rows)} new samples")
         print(f"New dataset saved to {output_file}")
 
-    # ------------------------
-    # EVALUACIÓN
-    # ------------------------
-    if args.mode == "predict":
-
-        y_true = df_sample['sentiment_mapped']
-        y_pred = df_sample['prediction']
-
-        acc = accuracy_score(y_true, y_pred)
-        f1_macro = f1_score(y_true, y_pred, average='macro')
-
-        print("\n--- MÉTRICAS ---")
-        print(f"Accuracy: {round(acc,4)}")
-        print(f"F1 Macro: {round(f1_macro,4)}\n")
-
-        print("Classification Report:")
-        print(classification_report(y_true, y_pred))
 
 # ------------------------
 # FUNCIÓN MAPEO (1–5 → sentimiento)

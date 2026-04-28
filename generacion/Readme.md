@@ -40,7 +40,6 @@ Si se proporciona una columna numérica (1–5), se convierte así:
 | `--target`    | str     | Si-predict    | Columna que contiene el texto de opinión                    |
 | `--sentiment` | str/int | Si-predict    | Columna numérica 1–5                                        |
 | `--model`     | str     | No            | Modelo de Ollama (por defecto: `llama3:8b-text-q2_K`)       |
-| `--shot`      | str     | No            | Tipo de prompting: `0`, `1` o `few` (por defecto: `0`)      |
 | `--samples`   | int     | No            | Número de muestras a procesar o generar (por defecto: `10`) |
 | `--score`     | int     | Si-oversample | Score de la opinión a generar                               |
 
@@ -63,15 +62,16 @@ Este modo:
 python LangchainBubmle.py \
   --mode predict \
   --csv Bumble_corregido.csv \
+  --prompt prompt.txt\
   --target content \
   --sentiment score \
   --samples 10 \
-  --shot 0
 ```
 
 ### Salida
 
-* `predictions.csv` → datos originales + predicción
+* `predictions_generative.csv` → modelo + prompt + entrada + salida + real
+* Nota: Si la salida es `NotExpected`, significa que el modelo no ha respondido con solo [Positive,Neutral,Negative]
 * Métricas en consola:
 
   * Accuracy
@@ -104,6 +104,7 @@ Este modo:
 ```bash
 python script.py \
   --mode oversample \
+  --prompt prompt.txt \
   --score 5 \
   --samples 5
 ```
@@ -111,7 +112,7 @@ python script.py \
 Esto:
 
 * Genera 5 comentarios **positivos**
-* Guarda el resultado en `oversampled.csv`
+* Guarda el resultado en `nombrePrompt_sentiment.csv`
 
 ---
 
