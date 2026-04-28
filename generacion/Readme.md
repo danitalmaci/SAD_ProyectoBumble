@@ -118,10 +118,10 @@ Esto:
 
 ## Archivos de salida
 
-| Archivo           | Descripción                            |
-| ----------------- | -------------------------------------- |
-| `predictions.csv` | Resultados del modo `predict`          |
-| `oversampled.csv` | Dataset con datos sintéticos           |
+| Archivo                      | Descripción                                |
+| ---------------------------- | ------------------------------------------ |
+| `predictions.csv`            | Resultados del modo `predict` acumulativos |
+| `nombrePrompt_sentiment.csv` | Dataset con datos sintéticos           s    |
 
 ---
 
