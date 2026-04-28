@@ -132,5 +132,5 @@ Esto:
 * Librerías necesarias:
 
 ```bash
-pip install pandas scikit-learn langchain langchain-ollama
+pip install -r requieremnts.txt
 ```
