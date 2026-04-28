@@ -760,7 +760,7 @@ def process_text(x_train, x_dev, text_feature):  # Función para vectorizar text
             tfidf_vectorizer = TfidfVectorizer(
                 ngram_range=(1,2),
                 min_df=3,
-                max_features=2000
+                max_features=3500
             )
             
             tfidf_train = tfidf_vectorizer.fit_transform(text_train)
