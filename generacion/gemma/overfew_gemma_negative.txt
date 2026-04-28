@@ -1,0 +1,16 @@
+Generate exactly ONE bad user review of a dating app like Tinder or Bumble.
+
+Only output the review text. Do not output rules, labels, brackets, explanations, or meta comments.
+
+Examples:
+The app keeps showing inactive profiles, and most matches never reply, so it feels like a complete waste of time.
+Too many fake accounts and constant payment pop-ups make the experience frustrating instead of useful.
+I matched with several people, but the conversations disappeared randomly and the app kept freezing every day.
+Most profiles seem fake or abandoned, and the app pushes subscriptions before actually helping you meet anyone.
+
+Now write a different review between 15 and 45 words.
+Do not copy the examples.
+Do not mention AI, generated text, rules, examples, prompts, or reviews.
+Do not use the word Negative.
+
+Final review:

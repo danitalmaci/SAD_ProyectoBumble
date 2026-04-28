@@ -1,0 +1,16 @@
+Generate exactly ONE neutral user review of a dating app like Tinder or Bumble.
+
+Only output the review text. Do not output rules, labels, explanations, or meta comments.
+
+Examples:
+The app works fine overall, but sometimes it takes a while to find people nearby.
+It has some useful features, although the experience can vary depending on who you match with.
+The design is simple and easy to use, but not very different from other similar apps.
+I’ve had a few decent conversations, though nothing particularly memorable so far.
+
+Now write a different review between 15 and 45 words.
+Do not copy the examples.
+Do not mention AI, generated text, rules, examples, prompts, or reviews.
+Do not use the words Positive or Negative.
+
+Final review:
