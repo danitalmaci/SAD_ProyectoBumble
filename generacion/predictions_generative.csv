@@ -890,3 +890,423 @@ Sentiment: Neutral
 Example 9:
 Text: there has to be a free mode for a short time before asking to subscribe
 Sentiment: Neutral","Geographically horrible. There is no way to avoid people from different states. Even the """"best bees"""" are not geographically desirable. Need to make it possible to see locals for those that want more than a fling.",Neutral,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",I did subscribe for a membership one time and canceled it. today I see bumble charging me 60$ for a membership I don't have,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",I get banned after 3 days for no reason every time I use this app. I've had to buy like 10 new phones with new numbers over the years because this stupid app bans your IP address. Customer service is non existent,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",Simply dont use this app. Women in Turkey think that they are princesses and they never write first because they are simply incapable to do it haha,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",Blocked? I have never used this app and I'm already blocked. Lol,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.","Your photo verification sucks,i've tried it a thousand time but im still failed... then I cannot proceed,so Ive paid the premium just to take and retake picture of myself,in the mercy for you to approve it... waste of money!!!!!!!! Rating negative 5",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",I have done payment for premium plan but my premium plan is not working ...I think my money is waste .... it's is type of fraud to take money through user's...,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.","This app does have potential,but unfortunately doesn't really seem to work unless you're a Premium Member. The """"compliment"""" thing is nice,but I'm betting that they're impossible to see without Premium Membership. The fact that """"Likes"""" only last 24hrs isn't at all a good idea - should really be 72hrs,MINIMUM. Still,it's better than Tinder,because you actually CAN talk before liking,through the compliments. Unfortunately,it's more expensive than Badoo,so it's just not worth it,alas.",Negative,Neutral
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",Worst dating app,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.","I can't cancel my renewal. I can't contact support. I don't get a prompt to continue when I put in my email to make my request. This makes no sense. It seems the only way to ensure I don't get charged is to just request a new card from the bank,which I will be doing shortly... Edit: I ended up just deleting the Bumble account altogether. I'm not going to sit here & request a new card from the bank whenever I feel like taking a break from the app.",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",I’d say the app feels well moderated and safer to use. It makes using the app more enjoyable.,Positive,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.","Had for 3 months,got 3 matches. What a joke. I had 300 matches in tinder",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",thanks u god bless u amen,Positive,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.","Tried to use this app multiple times,had the free and premium and these are my thoughts. This app is racist,it keeps giving me people that I don't share interests with,that my own race or of a darker pigmentation. Best bees are not like people I have liked. Not that difficult when i have specific type of women i have been swiping on. Lastly it keeps lumping me into to the terrible location near me when I am no where near it. I would like my money back or compensation.",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",Worst application,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.","I've used tinder,iris,hinge,and bumble and ive gotten far fewer results with this. Results meaning actual real human beings to talk to. Edit: the system notifications on this app are so unbearablly annoying you're better off turning all of them off,checking semi-regularly,and getting your conversations off the app ASAP. No,I'm not paying for your service again,it's terrible.",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",needs fixin,Negative,Neutral
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.","The app itself works great,but customer support is severely lacking. I have submitted an issue both via the website and Instagram and in 5 days have yet to receive a response",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",It's not free..,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.","I found my recent relationship now on this app. I've tried tinder for 4 years and had bot issues and no real conversation,but Bumble forces conversation to at least begin. Whether it gets somewhere depends on many other things. I got lucky enough to find someone I just clicked with right away after being on the app for a year. I'm giving a 4 star since it takes time to find that some one and ain't nobody got time like that. Cool question prompts feature,too. Hopefully,you get lucky too!",Positive,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.",Bumble is ok 👍,Neutral,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative","They neither restored my paid membership nor responded to my inquiry. The app is also getting ever more annoying to use,as they want to sell more and more functions.",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",Too expensive and its full of single mums and gold diggers,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",Nowhere to cancel my 1 day subscription all because I paid through Venmo. Makes absolutely no sense,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative","Matching nhi hota,2 din koi matching nhi,msg bhi nhi kr skte",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",Worst dating app. Why there is need to keep the app paid not fair.,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",interesting,Neutral,Neutral
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",For average guys: Just horrible! Don't waste your time or money. For girls: Amazing! You'll get a huge boost to your self-esteem. Enjoy!,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",The app asks for making payment or subscribing to premium which are way too expensive as compared to othe dating apps.,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",Farc MAGA,Neutral,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative","Just chill type of fella,hard working,keep my home clean,quiet & relaxing...welcome",Positive,Neutral
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",nice app,Positive,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",My account is stuck on verify and I have a premium subscription. I have been trying to verify for 12 hours and yet no one responds to my emails. This is the worst experience I have ever had with Bumble. You have no customer service what so ever! I have used this before and never had a problem. But it's not worth the money I have to pay and you have increased your prices over the last few months! Fix your verification process or get people who know what they are doing!,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative","BEWARE of the FINE PRINT! Disconnecting your payment information isn't enough,you have to find the cleverly hidden way to cancel your subscription or you will continue to be charged!",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative","The app wasn't bad but the experience was. Been on here off and on for a year now and haven't actually met anyone in person. I deleted my account after having a great conversation for about two weeks and then the day before we were to meet the account gets deleted and with the rest you get ghosted. 12/21/23 Created new account and would have kept four star rating but I have received messages saying I have matched or I received a super like but alas it was a lie. Fix your code,it's not that hard",Negative,Neutral
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",This app is a joke! You can't even see who you match to without paying ridiculous prices!,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative","You can't just force us to use Opening Prompts... I couldn't use the app until I added one. Should not be a required feature,and it should be removable. It provides no value whatsoever",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative",I'm new too it. giving it a go but it looks like it'll drain your wallet with all these different subscriptions,Negative,Neutral
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative","Terrible app I've used it off and on for about 2 years now and only matched with 2 girls,It's mostly bots don't bother downloading",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative","Bumble is a legit app that actually works. It is well worth buying to premium version. If your patient and give it time,you can meet a match. Best app I've used. It is what it claims it is. Again,patience is the key!",Positive,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative","They took my monthly payment for premium a day earlier than listed in my Play Store subscriptions,upon trying to cancel,they refused refund which was fair enough,but my premium service has now been stopped,even though I'm effectively paid through to the beginning of March now. Support not replying to emails. As for the service itself,when you get matches,they expire a lot of times because the girl doesn't message first within 24hrs....which is supposed to be the whole USP of this app!",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral","I'm giving 2 stars because there isn't any restriction to take a screen shot to save someone's photo,which is very sensitive. Over all app experience is good. Would be great if app restricted you from clicking pictures from other phones or a screenshot",Neutral,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral","Its also same like other dating app,just user interface is attractive,otherwise they also just try to extract money from the individual... Bad...",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",good for who dtf,Neutral,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",Good apo,Neutral,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral","Super annoying popups every few swipes even if you are paying. Get your stupid app out of the way,I'm trying to use it...",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral","Nice application,but for sometime now I can't see the speed dating icon anymore,was speed dating removed from Bumble?",Neutral,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral","This used to be a better service to actually meet up with people. Now,I'm just finding more rude people who have no intention of meeting up. I don't think this is Bumble's fault,but there definitely feels like more barriers now than before. Not sure why people feel empowered to be rude through a screen.",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",They want ridiculous fees for everything. $25/week just to see who may be Interested. Awful. $3/week would be a soft maby.,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",nice,Positive,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",App is not working in UAE,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",nice,Positive,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",Useless - not enough reliable profiles,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",It is by far the worst dating app out there.,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral","Gained the situationship experience with a person from this app. Dear Mas F,thanks for the memories of our 8 months.",Neutral,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral","This app doesn't allow you to do much. There are no I instructions on what to do after you have """"liked"""" someone. Lots opportunities missed",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",Madaming scammer,Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",I've made connections both using the site for free and for fee.,Neutral,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral","Terrible,have used bumble on and off for many years no problem. Uninstalled it in May and just re-download it and tried to log in with my number as I always did and it won't get past the code screen,after some googling it looks like I'm banned and is very common to happen on bumble. Absolutely SO stupid,haven't been on in almost 6 months and have not broken any ToS rules and tried to log back in and I'm banned. Don't recommend at all",Negative,Negative
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",Err duh I rally enjoy da game side of It & duhh duh the roulette are gud adn the slots so guud game haha like casino 5☆ for clowns in circus was bestest,Positive,Positive
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",I paid for the premium but still did not get the premium account,Negative,Negative

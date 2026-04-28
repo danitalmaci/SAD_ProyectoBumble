@@ -1,0 +1,19 @@
+python3 LangchainBumble.py --mode predict --model llama3.1 --prompt PromptsClasificacion/1shot.txt --csv Bumble_limpio.csv --target content --sentiment score --samples 20
+
+--- MÉTRICAS ---
+Accuracy: 0.8
+F1 Macro: 0.6429
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    Negative       0.87      1.00      0.93        13
+     Neutral       0.50      0.25      0.33         4
+    Positive       0.67      0.67      0.67         3
+
+    accuracy                           0.80        20
+   macro avg       0.68      0.64      0.64        20
+weighted avg       0.76      0.80      0.77        20
+
+Predictions saved in predictions_generative.csv (total rows: 82, added: 20)
+Detailed predictions saved in predictions_detailed.csv

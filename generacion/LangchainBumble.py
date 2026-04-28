@@ -70,14 +70,24 @@ def main():
         predictions = []
 
         for text in df_sample[args.target]:
-
             try:
-                ans = chain.invoke({'text': str(text)}).strip()
-            except:
+                raw_ans = chain.invoke({'text': str(text)}).strip()
+                ans_lower = raw_ans.lower() # Pasamos a minúsculas para evitar fallos
+                
+                # Buscamos la palabra clave dentro de la respuesta
+                if "positive" in ans_lower:
+                    ans = "Positive"
+                elif "negative" in ans_lower:
+                    ans = "Negative"
+                elif "neutral" in ans_lower:
+                    ans = "Neutral"
+                else:
+                    ans = "NotExpected"
+                    print(f"[!] Respuesta rara del modelo: {raw_ans}")
+                    
+            except Exception as e: # <--- AHORA ATRAPAMOS EL ERROR REAL
                 ans = "NotExpected"
-
-            if ans not in ["Positive", "Negative", "Neutral"]:
-                ans = "NotExpected"
+                print(f"\n[ERROR FATAL] Fallo al llamar a Ollama: {e}") # <--- LO IMPRIMIMOS
 
             predictions.append(ans)
 
