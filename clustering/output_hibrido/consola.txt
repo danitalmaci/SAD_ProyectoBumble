@@ -1,0 +1,93 @@
+=== Pipeline de Topic Modeling & Clustering ===
+Datos cargados con éxito: 10000 filas.
+- Clasificando sentimientos...
+- Aplicando NLTK (Stopwords y Stemming)...
+- Generando bigramas...
+
+=== ANALIZANDO SENTIMIENTO: NEGATIVA ===
+- Comentarios largos (> 5 palabras): 4557 -> LDA
+- Comentarios cortos (<= 5 palabras): 2425 -> K-MEANS
+
+- [COHERENCIA LDA] Evaluando modelos desde K=2 hasta K=6 para críticas negativa_largos...
+  * K=3 -> Coherencia: 0.3792
+  * K=4 -> Coherencia: 0.4096
+  * K=5 -> Coherencia: 0.3591
+  * K=6 -> Coherencia: 0.3485
+  > ¡K óptimo encontrado de forma automática!: 4
+
+Top Palabras por Tópico (Modelo Ganador K=4):
+  > Tópico 0: account, subscript, premium, money, pay, tri, scam, week, work, charg
+  > Tópico 1: pay, swipe, premium, free, women, messag, money, profil, app, never
+  > Tópico 2: profil, photo, look, wast, pictur, women, verifi, never, app, tri
+  > Tópico 3: paywal, roll_floor, open, take, slow, worst, profil, skin_tone, laugh, go
+
+- [MÉTODO DEL CODO] Calculando inercias para negativa_cortos...
+Gráfico del codo guardado en /home/davidmiguez/SAD/SAD_ProyectoBumble/clustering/output/codo_negativa_cortos.png
+
+- [K-MEANS] Vectorizando (TF-IDF) y agrupando en 4 clusters para negativa_cortos...
+
+Top 10 palabras por Cluster (K-Means - negativa_cortos):
+  > Cluster 0: wast, worst, useless, bad, terribl, expens, open, suck, free, wast_money
+  > Cluster 1: scam, money, total_wast, pay, anoth, almost, straight, everyth, give, free
+  > Cluster 2: good, anyon, compliment, quickli, servic, think, chat, year, money, go
+  > Cluster 3: pay, work, fake, premium, swipe, subscript, stupid, messag, week, profil
+
+=== ANALIZANDO SENTIMIENTO: NEUTRA ===
+- Comentarios largos (> 5 palabras): 386 -> LDA
+- Comentarios cortos (<= 5 palabras): 345 -> K-MEANS
+
+- [COHERENCIA LDA] Evaluando modelos desde K=2 hasta K=6 para críticas neutra_largos...
+  * K=3 -> Coherencia: 0.2367
+  * K=4 -> Coherencia: 0.2317
+  * K=5 -> Coherencia: 0.2737
+  * K=6 -> Coherencia: 0.2592
+  > ¡K óptimo encontrado de forma automática!: 5
+
+Top Palabras por Tópico (Modelo Ganador K=5):
+  > Tópico 0: women, work, profil, messag, good, need, girl, mani, show, pay
+  > Tópico 1: subscript, week, think, profil, pay, good, show, howev, convers, end
+  > Tópico 2: pay, filter, someon, good, great, though, premium, free, give, interest
+  > Tópico 3: face, issu, bit, pleas, talk, let, work, show, via, everi
+  > Tópico 4: pay, superswip, free, worth, swipe, match, featur, month, button, less
+
+- [MÉTODO DEL CODO] Calculando inercias para neutra_cortos...
+Gráfico del codo guardado en /home/davidmiguez/SAD/SAD_ProyectoBumble/clustering/output/codo_neutra_cortos.png
+
+- [K-MEANS] Vectorizando (TF-IDF) y agrupando en 3 clusters para neutra_cortos...
+
+Top 10 palabras por Cluster (K-Means - neutra_cortos):
+  > Cluster 0: ok, better, expens, yet, work, pay, mani, okay, lot, chat
+  > Cluster 1: nice, wish, messag, women, without_pay, want, wait, updat, ugli, work
+  > Cluster 2: good, connect, though, run, respons, mani, want, women, without_pay, work
+
+=== ANALIZANDO SENTIMIENTO: POSITIVA ===
+- Comentarios largos (> 5 palabras): 498 -> LDA
+- Comentarios cortos (<= 5 palabras): 1789 -> K-MEANS
+
+- [COHERENCIA LDA] Evaluando modelos desde K=2 hasta K=6 para críticas positiva_largos...
+  * K=3 -> Coherencia: 0.3035
+  * K=4 -> Coherencia: 0.3123
+  * K=5 -> Coherencia: 0.3110
+  * K=6 -> Coherencia: 0.3245
+  > ¡K óptimo encontrado de forma automática!: 6
+
+Top Palabras por Tópico (Modelo Ganador K=6):
+  > Tópico 0: good, great, free, premium, pay, profil, smile_face, say, thank, mani
+  > Tópico 1: good, need, option, love, lot, featur, subscript, abl, better, seem
+  > Tópico 2: woman, actual, app, life, profil, women, guy, interest, feel, bad
+  > Tópico 3: money, app, sometim, issu, help, understand, hand, mayb, rate, friend
+  > Tópico 4: great, servic, lot, payment, met, suggest, answer, platform, like, better
+  > Tópico 5: enjoy, messag, abl, guy, feel, good, delet, featur, messag_first, ladi
+
+- [MÉTODO DEL CODO] Calculando inercias para positiva_cortos...
+Gráfico del codo guardado en /home/davidmiguez/SAD/SAD_ProyectoBumble/clustering/output/codo_positiva_cortos.png
+
+- [K-MEANS] Vectorizando (TF-IDF) y agrupando en 3 clusters para positiva_cortos...
+
+Top 10 palabras por Cluster (K-Means - positiva_cortos):
+  > Cluster 0: good, love, hundr_point, meet, experi, work, wonder, women, yet, year_ago
+  > Cluster 1: nice, app, love, good, meet, red_heart, yet, make_enjoy, say, cool
+  > Cluster 2: great, love, best, awesom, amaz, good, cool, far, better, ok
+Datos guardados en /home/davidmiguez/SAD/SAD_ProyectoBumble/clustering/output/clustering_hibrido_tableau.csv
+
+=== Proceso completado. ===

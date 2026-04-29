@@ -85,7 +85,7 @@ def calcular_coherencia_lda(textos_tokenizados, corpus, id2word, sentimiento, ar
     max_k = args.clustering.get("max_k", 10)
     print(Fore.CYAN + f"\n- [COHERENCIA LDA] Evaluando modelos desde K=2 hasta K={max_k} para críticas {sentimiento}..." + Fore.RESET)
     
-    rango_k = range(4, max_k + 1) # Subido a 4 para que no elija siempre 2 o 3
+    rango_k = range(3, max_k + 1)
     coherencias = []
     modelos = []
 
@@ -185,7 +185,8 @@ def ejecutar_lda_gensim(data, columna_texto_limpio, sentimiento, args):
     return data
 
 def ejecutar_kmeans(data, columna_texto_limpio, sentimiento, args):
-    k_optimo = args.clustering.get("k_optimo", 4)
+    diccionario_k = args.clustering.get("k_optimo_dict", {})
+    k_optimo = diccionario_k.get(sentimiento, 4)
     print(Fore.CYAN + f"\n- [K-MEANS] Vectorizando (TF-IDF) y agrupando en {k_optimo} clusters para {sentimiento}..." + Fore.RESET)
 
     vectorizer = TfidfVectorizer(max_df=args.clustering.get("max_df", 0.95), min_df=args.clustering.get("min_df", 2))
@@ -294,7 +295,8 @@ if __name__ == "__main__":
     # Aplicamos los bigramas y volvemos a unir el texto en un string para el dataframe
     data['texto_limpio'] = [" ".join(bigramas_mod[doc]) for doc in textos_lista]
 
-    algoritmo = args.clustering.get("algorithm", "lda").lower()
+    # Leemos el algoritmo del JSON (por defecto 'hibrido' si no se especifica)
+    algoritmo = args.clustering.get("algorithm", "hibrido").lower()
     
     data['num_palabras'] = data['texto_limpio'].apply(lambda x: len(str(x).split()))
     umbral = args.clustering.get("umbral_palabras_cortas", 5)
@@ -307,33 +309,56 @@ if __name__ == "__main__":
         
         if len(subset_data) == 0:
             continue
+        
+        if algoritmo == "hibrido":
+            textos_cortos = subset_data[subset_data['num_palabras'] <= umbral].copy()
+            textos_largos = subset_data[subset_data['num_palabras'] > umbral].copy()
 
-        textos_cortos = subset_data[subset_data['num_palabras'] <= umbral].copy()
-        textos_largos = subset_data[subset_data['num_palabras'] > umbral].copy()
+            print(Fore.CYAN + f"- Comentarios largos (> {umbral} palabras): {len(textos_largos)} -> LDA" + Fore.RESET)
+            print(Fore.CYAN + f"- Comentarios cortos (<= {umbral} palabras): {len(textos_cortos)} -> K-MEANS" + Fore.RESET)
 
-        print(Fore.CYAN + f"- Comentarios largos (> {umbral} palabras): {len(textos_largos)} -> LDA" + Fore.RESET)
-        print(Fore.CYAN + f"- Comentarios cortos (<= {umbral} palabras): {len(textos_cortos)} -> K-MEANS" + Fore.RESET)
+            if len(textos_largos) > 0:
+                df_lda = ejecutar_lda_gensim(textos_largos, 'texto_limpio', f"{sentimiento}_largos", args)
+                df_lda['Modelo'] = 'LDA'
+                df_lda['Longitud'] = 'Largo'
+                resultados_totales.append(df_lda)
 
-        if len(textos_largos) > 0:
-            df_lda = ejecutar_lda_gensim(textos_largos, 'texto_limpio', f"{sentimiento}_largos", args)
-            df_lda['Modelo'] = 'LDA'
-            df_lda['Longitud'] = 'Largo'
-            resultados_totales.append(df_lda)
+            if len(textos_cortos) > 0:
+                metodo_del_codo(textos_cortos, 'texto_limpio', f"{sentimiento}_cortos", args)
+                df_kmeans = ejecutar_kmeans(textos_cortos, 'texto_limpio', f"{sentimiento}_cortos", args)
+                df_kmeans['Modelo'] = 'K-Means'
+                df_kmeans['Longitud'] = 'Corto'
+                resultados_totales.append(df_kmeans)
 
-        if len(textos_cortos) > 0:
-            metodo_del_codo(textos_cortos, 'texto_limpio', f"{sentimiento}_cortos", args)
-            df_kmeans = ejecutar_kmeans(textos_cortos, 'texto_limpio', f"{sentimiento}_cortos", args)
-            df_kmeans['Modelo'] = 'K-Means'
-            df_kmeans['Longitud'] = 'Corto'
-            resultados_totales.append(df_kmeans)
+        elif algoritmo == "lda":
+            print(Fore.CYAN + f"- Todo el dataset ({len(subset_data)} reseñas) -> LDA" + Fore.RESET)
+            if len(subset_data) > 0:
+                df_lda = ejecutar_lda_gensim(subset_data, 'texto_limpio', f"{sentimiento}_todos", args)
+                df_lda['Modelo'] = 'LDA'
+                df_lda['Longitud'] = 'Todos'
+                resultados_totales.append(df_lda)
+
+        elif algoritmo == "kmeans":
+            print(Fore.CYAN + f"- Todo el dataset ({len(subset_data)} reseñas) -> K-MEANS" + Fore.RESET)
+            if len(subset_data) > 0:
+                metodo_del_codo(subset_data, 'texto_limpio', f"{sentimiento}_todos", args)
+                df_kmeans = ejecutar_kmeans(subset_data, 'texto_limpio', f"{sentimiento}_todos", args)
+                df_kmeans['Modelo'] = 'K-Means'
+                df_kmeans['Longitud'] = 'Todos'
+                resultados_totales.append(df_kmeans)
+                
+        else:
+            print(Fore.RED + f"Error: Algoritmo '{algoritmo}' no reconocido en el JSON. Usa 'lda', 'kmeans' o 'hibrido'." + Fore.RESET)
+            sys.exit(1)
 
     if resultados_totales:
         df_final = pd.concat(resultados_totales, ignore_index=True)
         
-        # las de kmeans tendrán 0.0
+        # Rellenar con ceros las columnas de probabilidad si existen (por K-Means)
         cols_probabilidades = [col for col in df_final.columns if 'Prob_Topico' in col]
-        df_final[cols_probabilidades] = df_final[cols_probabilidades].fillna(0.0)
+        if cols_probabilidades:
+            df_final[cols_probabilidades] = df_final[cols_probabilidades].fillna(0.0)
         
-        guardar_resultados(df_final, 'clustering_tableau.csv')
-        
+        # Guardar archivo con el nombre del algoritmo para no sobreescribir pruebas
+        guardar_resultados(df_final, f'clustering_{algoritmo}_tableau.csv')       
     print(Fore.YELLOW + "\n=== Proceso completado. ===" + Fore.RESET)

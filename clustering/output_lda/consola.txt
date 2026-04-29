@@ -1,0 +1,75 @@
+=== Pipeline de Topic Modeling & Clustering ===
+Datos cargados con éxito: 10000 filas.
+- Clasificando sentimientos...
+- Aplicando NLTK (Stopwords y Stemming)...
+- Generando bigramas...
+
+=== ANALIZANDO SENTIMIENTO: NEGATIVA ===
+- Todo el dataset (6982 reseñas) -> LDA
+
+- [COHERENCIA LDA] Evaluando modelos desde K=2 hasta K=10 para críticas negativa_todos...
+  * K=2 -> Coherencia: 0.5443
+  * K=3 -> Coherencia: 0.4803
+  * K=4 -> Coherencia: 0.5257
+  * K=5 -> Coherencia: 0.4585
+  * K=6 -> Coherencia: 0.5003
+  * K=7 -> Coherencia: 0.4967
+  * K=8 -> Coherencia: 0.4757
+  * K=9 -> Coherencia: 0.4640
+  * K=10 -> Coherencia: 0.4789
+  > ¡K óptimo encontrado de forma automática!: 2
+
+Top Palabras por Tópico (Modelo Ganador K=2):
+  > Tópico 0: pay, premium, money, subscript, account, work, scam, tri, wast, month
+  > Tópico 1: profil, pay, swipe, women, app, never, men, show, girl, guy
+
+=== ANALIZANDO SENTIMIENTO: NEUTRA ===
+- Todo el dataset (731 reseñas) -> LDA
+
+- [COHERENCIA LDA] Evaluando modelos desde K=2 hasta K=10 para críticas neutra_todos...
+  * K=2 -> Coherencia: 0.2043
+  * K=3 -> Coherencia: 0.2594
+  * K=4 -> Coherencia: 0.2628
+  * K=5 -> Coherencia: 0.2972
+  * K=6 -> Coherencia: 0.2960
+  * K=7 -> Coherencia: 0.2866
+  * K=8 -> Coherencia: 0.2973
+  * K=9 -> Coherencia: 0.3166
+  * K=10 -> Coherencia: 0.2980
+  > ¡K óptimo encontrado de forma automática!: 9
+
+Top Palabras por Tópico (Modelo Ganador K=9):
+  > Tópico 0: good, better, nice, get, find, work, yet, could, app, pay
+  > Tópico 1: good, pay, need, think, though, limit, interest, activ, convers, tell
+  > Tópico 2: work, person, money, lot, interest, talk, locat, messag, profil, pay
+  > Tópico 3: ok, profil, back, mani, meet, notif, photo, problem, good, say
+  > Tópico 4: chat, swipe, women, messag, messag_first, pay, love, issu, wo, girl
+  > Tópico 5: filter, free, profil, pay, pleas, part, howev, month, issu, thumb
+  > Tópico 6: premium, messag, girl, compliment, sure, first, pay, app, support, notif
+  > Tópico 7: show, subscript, via, recent, noth, fix, say, keep_get, annoy, set
+  > Tópico 8: expens, account, pay, premium, subscript, chang, updat, someon, unfortun, meet
+
+=== ANALIZANDO SENTIMIENTO: POSITIVA ===
+- Todo el dataset (2287 reseñas) -> LDA
+
+- [COHERENCIA LDA] Evaluando modelos desde K=2 hasta K=10 para críticas positiva_todos...
+  * K=2 -> Coherencia: 0.3631
+  * K=3 -> Coherencia: 0.3212
+  * K=4 -> Coherencia: 0.3792
+  * K=5 -> Coherencia: 0.4389
+  * K=6 -> Coherencia: 0.4067
+  * K=7 -> Coherencia: 0.4185
+  * K=8 -> Coherencia: 0.4299
+  * K=9 -> Coherencia: 0.4037
+  * K=10 -> Coherencia: 0.3973
+  > ¡K óptimo encontrado de forma automática!: 5
+
+Top Palabras por Tópico (Modelo Ganador K=5):
+  > Tópico 0: good, nice, great, love, thank, meet, met, find, fun, amaz
+  > Tópico 1: better, pay, premium, free, need, think, option, could, say, face
+  > Tópico 2: best, red_heart, say, experi, enjoy, person, valu_experi, add_lot, use, make_enjoy
+  > Tópico 3: smile_face, heart, interact, improv_qualiti, new, seem_intent, found, smile_eye, select, featur
+  > Tópico 4: profil_detail, qualiti_interact, back, heart_suit, app_improv, messag, better_app, sometim, grin_face, serious
+Datos guardados en /home/davidmiguez/SAD/SAD_ProyectoBumble/clustering/output/clustering_lda_tableau.csv
+
+=== Proceso completado. ===

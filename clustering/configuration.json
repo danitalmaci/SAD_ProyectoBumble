@@ -14,15 +14,19 @@
         "bigram_threshold": 5
     },
     "clustering": {
-        "algorithm": "lda",
-        "max_df": 0.50,
-        "min_df": 5,
-        "max_k": 7,
-        "k_optimo": 4,
+        "algorithm": "hibrido",
+        "max_df": 0.85,
+        "min_df": 3,
+        "max_k": 6,
+        "k_optimo_dict": {
+        "negativa_cortos": 4,
+        "neutra_cortos": 3,
+        "positiva_cortos": 3},
         "top_words": 10,
         "generar_codo": true,
-        "lda_passes": 20,
+        "lda_passes": 50,
         "lda_alpha": "asymmetric",
-        "umbral_palabras_cortas": 5
+        "umbral_palabras_cortas": 5,
+        "random_state": 42
     }
 }
