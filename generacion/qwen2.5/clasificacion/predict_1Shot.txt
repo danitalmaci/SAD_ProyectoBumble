@@ -1,0 +1,30 @@
+You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: it's such a amazing app to find intresting people.
+Sentiment: Positive
+
+Example 2:
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
+
+Example 3:
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
+Sentiment: Neutral
+
+
+--- MÉTRICAS ---
+Accuracy: 0.8
+F1 Macro: 0.619
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    Negative       0.86      0.86      0.86         7
+     Neutral       0.00      0.00      0.00         1
+    Positive       1.00      1.00      1.00         2
+
+    accuracy                           0.80        10
+   macro avg       0.62      0.62      0.62        10
+weighted avg       0.80      0.80      0.80        10

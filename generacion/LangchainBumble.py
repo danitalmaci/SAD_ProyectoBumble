@@ -13,7 +13,7 @@ def main():
     parser = argparse.ArgumentParser(description="Sentiment classification with Ollama")
 
     parser.add_argument('--mode', type=str, required=True, choices=['predict', 'oversample'])
-    parser.add_argument('--model', type=str, default='granite4:350m-h')
+    parser.add_argument('--model', type=str, default='qwen2.5:7b')
 
     # CSV
     parser.add_argument('--csv', type=str)
@@ -233,12 +233,12 @@ def load_model(mode,name):
         )
     else:
         model = OllamaLLM(
-            model=name,  
-            temperature=0.35,     # creatividad/aleatoriedad del modelo (1: creativo)
-            num_predict=45,       # número máximo de tokens  
-            repeat_penalty=1.4,  # penalización por repetir palabras o frases 
-            top_k=10,             # tamaño del vocabulario candidato
-            top_p=0.5             # masa de probabilidad acumulada
+            model=name,
+            temperature=0.85,       # creatividad/aleatoriedad del modelo (1: creativo)
+            num_predict=50,         # número máximo de tokens
+            repeat_penalty=1.15,    # penalización por repetir palabras o frases
+            top_k=40,               # tamaño del vocabulario candidato
+            top_p=0.9
         )
 
     return model

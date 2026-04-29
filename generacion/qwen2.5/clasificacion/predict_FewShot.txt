@@ -1,0 +1,54 @@
+You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+
+Here are some examples: 
+Example 1:
+Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Sentiment: Positive
+
+Example 2:
+Text: one best platform to understand the feelings of others and to share the intimacy
+Sentiment: Positive
+
+Example 3:
+Text: create room for video calls and audio calls, it will help alot
+Sentiment: Positive
+
+Example 4:
+Text: App is not working properly
+Sentiment: Negative
+
+Example 5:
+Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
+Sentiment: Negative
+
+Example 6:
+Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
+Sentiment: Negative
+
+Example 7:
+Text: Need to pay to get to talk to many women
+Sentiment: Neutral
+
+Example 8:
+Text: I didn't use that much after using I will share my opinion
+Sentiment: Neutral
+
+Example 9:
+Text: there has to be a free mode for a short time before asking to subscribe
+Sentiment: Neutral
+
+
+--- MÉTRICAS ---
+Accuracy: 0.8
+F1 Macro: 0.7302
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    Negative       0.86      0.86      0.86         7
+     Neutral       0.50      1.00      0.67         1
+    Positive       1.00      0.50      0.67         2
+
+    accuracy                           0.80        10
+   macro avg       0.79      0.79      0.73        10
+weighted avg       0.85      0.80      0.80        10
