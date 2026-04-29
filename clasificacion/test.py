@@ -343,32 +343,52 @@ def align_features_to_model(X_test, package):  # Función para asegurar que las 
     print(Fore.GREEN + "Columnas alineadas con el modelo" + Fore.RESET)  # Muestra mensaje de éxito.
     return X_test  # Devuelve el conjunto de test alineado.
 
-def preprocess_test_data(data, config, package, target_column=None):  # Función principal de preprocesado del conjunto de test.
-    """
-    Separa la columna objetivo, preprocesa el resto y devuelve X_test e y_real.
-    """
-    print("\n- Preprocesando datos de test...")  # Informa de que empieza el preprocesado.
+def preprocess_test_data(data, config, package, target_column=None):
+    print("\n- Preprocesando datos de test...")
 
-    y_real = None  # Inicializa la variable donde se guardará la columna real objetivo, si existe.
-    if target_column and target_column in data.columns:  # Comprueba si se ha indicado columna objetivo y si está en el DataFrame.
-        y_real = data[target_column].copy()  # Guarda una copia de la columna objetivo real.
-        data = data.drop(columns=[target_column])  # Elimina la columna objetivo de los datos de entrada para no usarla como característica.
-        print(f"Columna objetivo '{target_column}' separada correctamente")  # Informa de que se ha separado bien.
+    y_real = None
 
-    numerical_feature, text_feature, categorical_feature = select_features(data, config, package)  # Separa las columnas por tipos.
+    if target_column and target_column in data.columns:
+        y_real = data[target_column].copy()
 
-    data = process_missing_values(data, numerical_feature, categorical_feature, config, package)  # Trata los valores nulos siguiendo lo aprendido en train.
+        def map_score(value):
+            if pd.isna(value):
+                return value
+
+            try:
+                value = int(value)
+            except:
+                return value
+
+            if value in [1, 2]:
+                return "NEGATIVO"
+            elif value == 3:
+                return "NEUTRO"
+            elif value in [4, 5]:
+                return "POSITIVO"
+            else:
+                return value
+
+        y_real = y_real.apply(map_score)
+
+        data = data.drop(columns=[target_column])
+        print(f"Columna objetivo '{target_column}' separada correctamente")
+        print("Columna objetivo convertida a sentimiento")
+
+    numerical_feature, text_feature, categorical_feature = select_features(data, config, package)
+
+    data = process_missing_values(data, numerical_feature, categorical_feature, config, package)
     data = simplify_text(data, text_feature, config)
-    data = cat2num(data, categorical_feature, package)  # Convierte variables categóricas a numéricas.
-    data = reescaler(data, numerical_feature, config, package)  # Aplica escalado a las columnas numéricas.
-    data = process_text(data, text_feature, config, package)  # Convierte el texto a representación numérica.
-    data = drop_features(data, config)  # Elimina columnas no deseadas.
-    data = align_features_to_model(data, package)  # Alinea el DataFrame final con las columnas exactas del modelo.
+    data = cat2num(data, categorical_feature, package)
+    data = reescaler(data, numerical_feature, config, package)
+    data = process_text(data, text_feature, config, package)
+    data = drop_features(data, config)
+    data = align_features_to_model(data, package)
 
-    if y_real is not None:  # Si existe la columna real...
-        y_real = y_real.loc[data.index]  # ...la reajusta al mismo índice que los datos finales por si se eliminaron filas.
+    if y_real is not None:
+        y_real = y_real.loc[data.index]
 
-    return data, y_real  # Devuelve X_test ya preparado y la columna real, si existe.
+    return data, y_real
 
 def calculate_metrics(y_real, predictions, config):  # Función para calcular métricas de evaluación.
     """
@@ -391,6 +411,27 @@ def calculate_metrics(y_real, predictions, config):  # Función para calcular m�
 
     return f1, precision, recall  # Devuelve las tres métricas calculadas.
 
+def guardar_historial_test(model_path, f1_macro):
+    historial_dir = "ResultadosTest"
+    historial_path = os.path.join(historial_dir, "historial_test.csv")
+
+    os.makedirs(historial_dir, exist_ok=True)
+
+    nueva_fila = pd.DataFrame([{
+        "modelo_pkl": model_path,
+        "f1_macro": f1_macro
+    }])
+
+    if os.path.exists(historial_path):
+        historial = pd.read_csv(historial_path)
+        historial = pd.concat([historial, nueva_fila], ignore_index=True)
+    else:
+        historial = nueva_fila
+
+    historial = historial.sort_values(by="f1_macro", ascending=False)
+    historial.to_csv(historial_path, index=False)
+
+    print(Fore.GREEN + f"Historial de test actualizado en: {historial_path}" + Fore.RESET)
 
 # ======================= PROGRAMA PRINCIPAL =======================  
 
@@ -461,7 +502,7 @@ if __name__ == '__main__':
         print("\n=== MÉTRICAS === ")  # Muestra un encabezado para las métricas.
         try:  # Intenta calcular y mostrar las métricas.
             f1, precision, recall = calculate_metrics(y_real, predictions, config)  # Calcula F1, precisión y recall.
-            
+            guardar_historial_test(model_path, f1)
             print("F1: ", f1)  # Muestra el valor de F1.
             print("Precision: ", precision)  # Muestra la precisión.
             print("Recall: ", recall)  # Muestra el recall.

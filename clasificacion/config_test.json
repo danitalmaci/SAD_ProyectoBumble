@@ -1,10 +1,13 @@
 {
   "input": {
-    "file": "../datos/Bumble_corregido.csv",
-    "model_path": "output/modelo_decision_tree.pkl",
+    "file": "Archivos_CSV/test_set.csv",
+    "model_path": "Modelos/Balanceado/random_forest/random_forest_100trees_entropy_dnone_split2_leaf1.pkl",
     "target": "score"
   },
   "output": {
-    "predictions_file": "output/predicciones.csv"
+    "predictions_file": "ResultadosTest/predicciones1.csv"
+  },
+  "metrics": {
+    "fscore_average": "macro"
   }
 }

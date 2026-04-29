@@ -1,5 +1,13 @@
 Algoritmo,Params,Accuracy,Precision_macro,Recall_macro,F1_macro
-logistic_regression,"{'C': 100, 'class_weight': None, 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8619177191434325,0.869556219781946,0.8619171699474004,0.8622885130015858
-logistic_regression,"{'C': 100, 'class_weight': None, 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8619177191434325,0.869556219781946,0.8619171699474004,0.8622885130015858
-logistic_regression,"{'C': 100, 'class_weight': 'balanced', 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8611420628188501,0.8688145756693766,0.8611412287683862,0.8614933843447723
-logistic_regression,"{'C': 100, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8611420628188501,0.8688145756693766,0.8611412287683862,0.8614933843447723
+logistic_regression,"{'C': 100, 'class_weight': None, 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6066274935598561,0.6026968838433142,0.6065994035154516,0.6029926206881894
+logistic_regression,"{'C': 100, 'class_weight': None, 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6066274935598561,0.6026968838433142,0.6065994035154516,0.6029926206881894
+logistic_regression,"{'C': 100, 'class_weight': 'balanced', 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6059760277618105,0.6021082797753288,0.6059458087442098,0.6024042730147308
+logistic_regression,"{'C': 100, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6059760277618105,0.6021082797753288,0.6059458087442098,0.6024042730147308
+logistic_regression,"{'C': 150, 'class_weight': 'balanced', 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6033701645696281,0.6001272360189057,0.6033377752395457,0.5998775885052714
+logistic_regression,"{'C': 150, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6033701645696281,0.6001272360189057,0.6033377752395457,0.5998775885052714
+logistic_regression,"{'C': 125, 'class_weight': None, 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6027165697983863,0.5991869303992055,0.6026968716289105,0.5992769255324977
+logistic_regression,"{'C': 125, 'class_weight': None, 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6027165697983863,0.5991869303992055,0.6026968716289105,0.5992769255324977
+logistic_regression,"{'C': 125, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6027165697983863,0.5988628649452672,0.6026905260486072,0.5991165330443913
+logistic_regression,"{'C': 125, 'class_weight': 'balanced', 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6027165697983863,0.5988628649452672,0.6026905260486072,0.5991165330443913
+logistic_regression,"{'C': 150, 'class_weight': None, 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6007643013774457,0.5966975490600107,0.6007297417348817,0.5969121054598165
+logistic_regression,"{'C': 150, 'class_weight': None, 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.6007643013774457,0.5966975490600107,0.6007297417348817,0.5969121054598165

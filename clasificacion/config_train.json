@@ -1,9 +1,10 @@
 {
   "data_file": "Archivos_CSV/Bumble_limpio.csv",
-  "algorithm": "svm",
+  "algorithm": "logistic_regression",
   "prediction": "score",
   "estimator": "f1_macro",
-
+  "train_file": "Archivos_CSV/Bumble_limpio_train.csv",
+  "dev_file": "Archivos_CSV/Bumble_limpio_dev.csv",
   "metrics": {
     "fscore_average": "macro"
   },
@@ -50,7 +51,7 @@
     },
 
     "balancing": {
-      "method": "oversampling",
+      "method": "undersampling",
       "random_state": 42,
       "imbalance_threshold": 0.8
     }

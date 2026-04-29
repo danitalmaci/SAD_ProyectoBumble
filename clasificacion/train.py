@@ -379,7 +379,7 @@ def check_imbalance():  # Función para comprobar si el dataset está desbalance
     threshold = balancing_cfg.get("imbalance_threshold", 0.8)
     # Obtiene el umbral de desbalanceo. Por defecto 0.8.
 
-    class_counts = data[args.prediction].value_counts()
+    class_counts = train_data[args.prediction].value_counts()
     # Cuenta cuántas muestras hay de cada clase en la variable objetivo.
 
     if len(class_counts) < 2:  # Si solo hay una clase...
@@ -658,7 +658,7 @@ def cat2num(x_train, x_dev, categorical_feature):
 
     print("Conversión de variables categóricas a numéricas (One-Hot Encoding)")
     
-    encoder = OneHotEncoder(sparse_Modelos=False, handle_unknown="ignore")
+    encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
     # Crea el encoder.
     # sparse=False hace que devuelva array normal en vez de matriz dispersa.
     # handle_unknown="ignore" ignora categorías nuevas en dev.
@@ -760,7 +760,7 @@ def process_text(x_train, x_dev, text_feature):  # Función para vectorizar text
             tfidf_vectorizer = TfidfVectorizer(
                 ngram_range=(1,2),
                 min_df=3,
-                max_features=3500
+                max_features=2000
             )
             
             tfidf_train = tfidf_vectorizer.fit_transform(text_train)
@@ -869,52 +869,18 @@ def preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced):
 
     return x_train, x_dev, y_train, y_dev
 
-def divide_data():  # Función para dividir los datos.
-    """
-    Función que divide los datos en conjuntos de entrenamiento y desarrollo.
+def load_train_dev():
+    global train_data, dev_data
 
-    Retorna:
-    - x_train: DataFrame con las características de entrenamiento.
-    - x_dev: DataFrame con las características de desarrollo.
-    - y_train: Serie con las etiquetas de entrenamiento. (a predecir)
-    - y_dev: Serie con las etiquetas de desarrollo. (a predecir)
-    """
-    global data  
+    X_train = train_data.drop(columns=[args.prediction])
+    y_train = train_data[args.prediction]
 
-    try:  
-        X = data.drop(columns=[args.prediction])
-        # Crea X quitando la columna objetivo.
-        y = data[args.prediction]
-        # Crea y con la columna objetivo.
+    X_dev = dev_data.drop(columns=[args.prediction])
+    y_dev = dev_data[args.prediction]
 
-        x_train, x_dev, y_train, y_dev = train_test_split(
-            X,  # Variables de entrada.
-            y,  # Variable objetivo.
-            test_size=args.split["test_size"],  # Proporción para dev/test.
-            random_state=args.split["random_state"],  # Semilla para reproducibilidad.
-            stratify=y  # Mantiene la proporción de clases en train y dev.
-        )
+    print("Train y Dev cargados correctamente")
 
-        print(Fore.GREEN + "Datos divididos con éxito" + Fore.RESET)
-        # Informa de que la división ha salido bien.
-
-        if args.debug:  # Si debug está activado...
-            print(Fore.MAGENTA + "> Tamaño x_train:" + Fore.RESET, x_train.shape)
-            # Imprime tamaño de x_train.
-            print(Fore.MAGENTA + "> Tamaño x_dev:" + Fore.RESET, x_dev.shape)
-            # Imprime tamaño de x_dev.
-            print(Fore.MAGENTA + "> Tamaño y_train:" + Fore.RESET, y_train.shape)
-            # Imprime tamaño de y_train.
-            print(Fore.MAGENTA + "> Tamaño y_dev:" + Fore.RESET, y_dev.shape)
-            # Imprime tamaño de y_dev.
-
-        return x_train, x_dev, y_train, y_dev
-        # Devuelve los cuatro conjuntos.
-
-    except Exception as e:  
-        print(Fore.RED + "Error al dividir los datos" + Fore.RESET)
-        print(e)  # Muestra el error concreto.
-        sys.exit(1)  # Termina el programa.
+    return X_train, X_dev, y_train, y_dev
 
 def build_model_name(gs, algorithm_name):
     """
@@ -1005,7 +971,7 @@ def guardar_historial_experimento(gs, algorithm_name):
     No duplica y ordena por F1 macro.
     """
 
-    historial_path = "Historial/historial_modelos.csv"
+    historial_path = "Historial_Train/historial_modelos.csv"
 
     vectorizer = package.get("text_vectorizer", None)
 
@@ -1073,7 +1039,7 @@ def guardar_historial_experimento(gs, algorithm_name):
     historial = historial.sort_values(by="f1_macro", ascending=False)
 
     # Guardar
-    os.makedirs("Historial", exist_ok=True)
+    os.makedirs("Historial_Train", exist_ok=True)
     historial.to_csv(historial_path, index=False)
 
     print(Fore.GREEN + f"Historial actualizado con TODOS los modelos en {historial_path}" + Fore.RESET)
@@ -1193,7 +1159,7 @@ def kNN():
     """
     is_imbalanced = check_imbalance()
     # Comprueba si el dataset está desbalanceado.
-    x_train, x_dev, y_train, y_dev = divide_data()
+    x_train, x_dev, y_train, y_dev = load_train_dev()
     # Divide los datos.
 
     x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
@@ -1259,7 +1225,7 @@ def decision_tree():
     """
     is_imbalanced = check_imbalance()
     # Comprueba si el dataset está desbalanceado.
-    x_train, x_dev, y_train, y_dev = divide_data()
+    x_train, x_dev, y_train, y_dev = load_train_dev()
     # Divide los datos.
 
     x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
@@ -1334,7 +1300,7 @@ def random_forest():
     """
     is_imbalanced = check_imbalance()
     # Comprueba si el dataset está desbalanceado.
-    x_train, x_dev, y_train, y_dev = divide_data()
+    x_train, x_dev, y_train, y_dev = load_train_dev()
     # Divide los datos.
 
     x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
@@ -1408,7 +1374,7 @@ def naive_bayes():
     """
     is_imbalanced = check_imbalance()
     # Comprueba si el dataset está desbalanceado.
-    x_train, x_dev, y_train, y_dev = divide_data()
+    x_train, x_dev, y_train, y_dev = load_train_dev()
     # Divide los datos.
 
     x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
@@ -1493,7 +1459,7 @@ def logistic_regression():
     """
     is_imbalanced = check_imbalance()
     # Comprueba si el dataset está desbalanceado.
-    x_train, x_dev, y_train, y_dev = divide_data()
+    x_train, x_dev, y_train, y_dev = load_train_dev()
     # Divide los datos.
 
     x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
@@ -1551,7 +1517,7 @@ def svm():
     """
     is_imbalanced = check_imbalance()
     # Comprueba si el dataset está desbalanceado.
-    x_train, x_dev, y_train, y_dev = divide_data()
+    x_train, x_dev, y_train, y_dev = load_train_dev()
     # Divide los datos.
 
     x_train, x_dev, y_train, y_dev = preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced)
@@ -1634,15 +1600,23 @@ if __name__ == "__main__":
 
     print("\n- Cargando datos...")
 
-    data = load_data(args.file)
+    train_data = load_data(args.train_file)
+    dev_data = load_data(args.dev_file)
     # Carga el CSV de datos y lo guarda en la variable global data.
     
     
-    data = data.dropna(subset=[args.prediction]).copy()
-    data = convert_score_to_sentiment(data, args.prediction)
+    train_data = train_data.dropna(subset=[args.prediction]).copy()
+    dev_data = dev_data.dropna(subset=[args.prediction]).copy()
+
+    train_data = convert_score_to_sentiment(train_data, args.prediction)
+    dev_data = convert_score_to_sentiment(dev_data, args.prediction)
 
     print(Fore.GREEN + "Columna objetivo convertida a sentimiento" + Fore.RESET)
-    print(data[args.prediction].value_counts())
+    print("Distribución TRAIN:")
+    print(train_data[args.prediction].value_counts())
+
+    print("Distribución DEV:")
+    print(dev_data[args.prediction].value_counts())
 
     print("\n- Descargando diccionarios...")
 
