@@ -1,38 +1,15 @@
-You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+You are an expert sentiment analyzer. Classify the comment as 'Positive', 'Negative', or 'Neutral'. 
+Respond ONLY with the label. Do not use think reasoning tags or provide explanations.
 
 Here are some examples: 
 Example 1:
-Text: I really enjoy this app. it's easy to use and the prompts add a personal touch. this isn't a sex app it's a chance to meet someone friends, and potentially more.
+Text: it's such a amazing app to find intresting people.
 Sentiment: Positive
 
 Example 2:
-Text: one best platform to understand the feelings of others and to share the intimacy
-Sentiment: Positive
+Text: Horrible matching algorithm, becomes unfavorable after a while, nearly impossible to get matches as an average male..
+Sentiment: Negative
 
 Example 3:
-Text: create room for video calls and audio calls, it will help alot
-Sentiment: Positive
-
-Example 4:
-Text: App is not working properly
-Sentiment: Negative
-
-Example 5:
-Text: I have been banned from the app for no reason? Can this issue pls be resolved. The customer support isn't working either.
-Sentiment: Negative
-
-Example 6:
-Text: When it's free you get all kinds of likes to make u pay once u pay there's no likes lol
-Sentiment: Negative
-
-Example 7:
-Text: Need to pay to get to talk to many women
-Sentiment: Neutral
-
-Example 8:
-Text: I didn't use that much after using I will share my opinion
-Sentiment: Neutral
-
-Example 9:
-Text: there has to be a free mode for a short time before asking to subscribe
+Text: too much interest on money more. it's fun here but it it's cut short with many demands.
 Sentiment: Neutral
