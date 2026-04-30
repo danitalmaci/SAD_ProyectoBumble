@@ -13,7 +13,7 @@ def main():
     parser = argparse.ArgumentParser(description="Sentiment classification with Ollama")
 
     parser.add_argument('--mode', type=str, required=True, choices=['predict', 'oversample'])
-    parser.add_argument('--model', type=str, default='qwen2.5:7b')
+    parser.add_argument('--model', type=str, default='granite4:350m-h')
 
     # CSV
     parser.add_argument('--csv', type=str)
