@@ -36,19 +36,3 @@ Sentiment: Neutral
 Example 9:
 Text: there has to be a free mode for a short time before asking to subscribe
 Sentiment: Neutral
-
-
---- MÉTRICAS ---
-Accuracy: 0.8
-F1 Macro: 0.7302
-
-Classification Report:
-              precision    recall  f1-score   support
-
-    Negative       0.86      0.86      0.86         7
-     Neutral       0.50      1.00      0.67         1
-    Positive       1.00      0.50      0.67         2
-
-    accuracy                           0.80        10
-   macro avg       0.79      0.79      0.73        10
-weighted avg       0.85      0.80      0.80        10

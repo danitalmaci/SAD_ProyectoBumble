@@ -1,6 +1,7 @@
-You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
+You are an expert sentiment analyzer. Classify the comment as 'Positive', 'Negative', or 'Neutral'.
+Respond ONLY with the label. Do not use think reasoning tags or provide explanations.
 
-Here are some examples: 
+Here are some examples:
 Example 1:
 Text: it's such a amazing app to find intresting people.
 Sentiment: Positive

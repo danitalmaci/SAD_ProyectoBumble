@@ -5,18 +5,3 @@ RULES (VIOLATION = ERROR):
 3. No extra text, no explanations, no "I think"
 4. Valid words only: Positive, Negative, Neutral
 5. If uncertain, answer Neutral
-
-
---- MÉTRICAS ---
-Accuracy: 0.9
-F1 Macro: 0.6
-
-              precision    recall  f1-score   support
-
-    Negative       1.00      1.00      1.00         7
-     Neutral       0.00      0.00      0.00         0
-    Positive       1.00      0.67      0.80         3
-
-    accuracy                           0.90        10
-   macro avg       0.67      0.56      0.60        10
-weighted avg       1.00      0.90      0.94        10
