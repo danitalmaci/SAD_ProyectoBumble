@@ -1,0 +1,13 @@
+Algoritmo,Params,Accuracy,Precision_macro,Recall_macro,F1_macro
+logistic_regression,"{'C': 150, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8739090250705965,0.8836210479668074,0.8739056932487429,0.8742626670301288
+logistic_regression,"{'C': 150, 'class_weight': 'balanced', 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8739090250705965,0.8836210479668074,0.8739056932487429,0.8742626670301288
+logistic_regression,"{'C': 150, 'class_weight': None, 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8730225606996453,0.8829969185464753,0.8730192519286465,0.8733652178174829
+logistic_regression,"{'C': 150, 'class_weight': None, 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8730225606996453,0.8829969185464753,0.8730192519286465,0.8733652178174829
+logistic_regression,"{'C': 125, 'class_weight': 'balanced', 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8726134465546826,0.882279372653279,0.8726103935157568,0.8729933459180403
+logistic_regression,"{'C': 125, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8726134465546826,0.882279372653279,0.8726103935157568,0.8729933459180403
+logistic_regression,"{'C': 125, 'class_weight': None, 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8719315741417348,0.8816748649075841,0.8719287302574064,0.8722960577032464
+logistic_regression,"{'C': 125, 'class_weight': None, 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8719315741417348,0.8816748649075841,0.8719287302574064,0.8722960577032464
+logistic_regression,"{'C': 100, 'class_weight': 'balanced', 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8708404712987509,0.8806106123214269,0.8708369527070824,0.8712345806502821
+logistic_regression,"{'C': 100, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8708404712987509,0.8806106123214269,0.8708369527070824,0.8712345806502821
+logistic_regression,"{'C': 100, 'class_weight': None, 'max_iter': 500, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8702949082487514,0.8800151218512863,0.8702910639319201,0.8706982431056783
+logistic_regression,"{'C': 100, 'class_weight': None, 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8702949082487514,0.8800151218512863,0.8702910639319201,0.8706982431056783
