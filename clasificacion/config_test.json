@@ -1,7 +1,7 @@
 {
   "input": {
-    "file": "Archivos_CSV/test_set.csv",
-    "model_path": "Modelos/Balanceado/random_forest/random_forest_100trees_entropy_dnone_split2_leaf1.pkl",
+    "file": "Archivos_CSV/Bumble_limpio_test.csv",
+    "model_path": "Modelos/SinBalanceado/logistic_regression/logistic_regression_C1_l2_lbfgs_iter1000.pkl",
     "target": "score"
   },
   "output": {

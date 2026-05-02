@@ -658,7 +658,7 @@ def cat2num(x_train, x_dev, categorical_feature):
 
     print("Conversión de variables categóricas a numéricas (One-Hot Encoding)")
     
-    encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
+    encoder = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
     # Crea el encoder.
     # sparse=False hace que devuelva array normal en vez de matriz dispersa.
     # handle_unknown="ignore" ignora categorías nuevas en dev.
@@ -759,8 +759,8 @@ def process_text(x_train, x_dev, text_feature):  # Función para vectorizar text
 
             tfidf_vectorizer = TfidfVectorizer(
                 ngram_range=(1,2),
-                min_df=3,
-                max_features=2000
+                min_df=5,
+                max_features=15000
             )
             
             tfidf_train = tfidf_vectorizer.fit_transform(text_train)

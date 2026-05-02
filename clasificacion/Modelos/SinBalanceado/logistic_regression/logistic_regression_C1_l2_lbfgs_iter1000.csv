@@ -1,0 +1,5 @@
+Algoritmo,Params,Accuracy,Precision_macro,Recall_macro,F1_macro
+logistic_regression,"{'C': 1, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8189004221786401,0.8257073839275206,0.8165974909764184,0.8174431920759819
+logistic_regression,"{'C': 0.1, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8126875045397934,0.8260289308572901,0.8091235532818206,0.8120959456351576
+logistic_regression,"{'C': 10, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.8021472115481714,0.8030236417691621,0.802030642154425,0.8013754998939657
+logistic_regression,"{'C': 50, 'class_weight': 'balanced', 'max_iter': 1000, 'penalty': 'l2', 'solver': 'lbfgs'}",0.7868988206281126,0.7867221038472679,0.7874421873075467,0.7864374458469132

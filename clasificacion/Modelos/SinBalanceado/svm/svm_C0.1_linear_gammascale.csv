@@ -1,0 +1,4 @@
+Algoritmo,Params,Accuracy,Precision_macro,Recall_macro,F1_macro
+svm,"{'C': 0.1, 'class_weight': 'balanced', 'gamma': 'scale', 'kernel': 'linear'}",0.8230419538916438,0.8529308595547354,0.8164665452479293,0.822839297415622
+svm,"{'C': 1, 'class_weight': 'balanced', 'gamma': 'scale', 'kernel': 'linear'}",0.8151360697879186,0.8241098393783289,0.8128029784697084,0.8140398639348959
+svm,"{'C': 10, 'class_weight': 'balanced', 'gamma': 'scale', 'kernel': 'linear'}",0.772969051453354,0.7734460083646597,0.7734995235256322,0.7725736853893437
