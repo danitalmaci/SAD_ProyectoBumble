@@ -1,0 +1,25 @@
+python3 LangchainBumble.py --mode predict --model llama3.1 --prompt PromptsClasificacion/fewShot.txt --csv Bumble_limpio.csv --target content --sentiment score --samples 20
+
+--- MÉTRICAS ---
+Accuracy: 0.7
+F1 Macro: 0.5007
+
+Classification Report:
+/home/david/.local/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1471: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/david/.local/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1471: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/david/.local/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1471: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+              precision    recall  f1-score   support
+
+    Negative       1.00      0.92      0.96        12
+     Neutral       0.00      0.00      0.00         0
+    Positive       1.00      0.38      0.55         8
+
+    accuracy                           0.70        20
+   macro avg       0.67      0.43      0.50        20
+weighted avg       1.00      0.70      0.79        20
+
+Predictions saved in predictions_generative.csv (total rows: 102, added: 20)
+Detailed predictions saved in predictions_detailed.csv

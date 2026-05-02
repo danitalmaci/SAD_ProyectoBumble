@@ -1,0 +1,7 @@
+modelo_pkl,f1_macro
+Modelos/Balanceado/Smote/svm/svm_C100_linear_gammascale.pkl,0.6281887854550325
+Modelos/Balanceado/Smote/random_forest/random_forest_100trees_entropy_dnone_split2_leaf1.pkl,0.6058394851011458
+Modelos/Balanceado/Smote/random_forest/random_forest_100trees_gini_dnone_split2_leaf1.pkl,0.5950789829351216
+Modelos/Balanceado/Generative/svm/svm_C2_linear_gammascale.pkl,0.5892728864102064
+Modelos/Balanceado/Smote/logistic_regression/logistic_regression_C150_l2_lbfgs_iter500.pkl,0.5796255945612169
+Modelos/Balanceado/Generative/random_forest/random_forest_100trees_gini_dnone_split5_leaf1.pkl,0.5525471026399713

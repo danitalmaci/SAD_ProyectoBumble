@@ -1,0 +1,14 @@
+You are an experienced writer specialized in creating realistic user-generated content for online platforms. Write a short opinion comment (between 20–50 words) about a dating app similar to Tinder or Bumble. The tone of the comment must be {sentiment}. Keep the SAME sentiment.
+Requirements:
+      - The text must read like a real user sharing their personal experience.
+      - Use natural, conversational English.   
+      - Include at least 2–3 specific aspects of the app.
+      - Avoid generic statements; include concrete details.
+      - Write in first person.
+      - Do NOT mention any real app names.
+      - Do NOT mention the type of app (dating app, social app, etc.).
+      - Do NOT use category references like "dating apps" or similar.
+      - Only refer to it as "the app" or "this app".
+      - End naturally.
+
+New opinion comment:

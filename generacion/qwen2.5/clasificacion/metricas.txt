@@ -1,0 +1,51 @@
+0 shot:
+--- MÉTRICAS ---
+Accuracy: 0.9
+F1 Macro: 0.6
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    Negative       1.00      1.00      1.00         7
+     Neutral       0.00      0.00      0.00         0
+    Positive       1.00      0.67      0.80         3
+
+    accuracy                           0.90        10
+   macro avg       0.67      0.56      0.60        10
+weighted avg       1.00      0.90      0.94        10
+
+
+1 shot:
+--- MÉTRICAS ---
+Accuracy: 0.8
+F1 Macro: 0.619
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    Negative       0.86      0.86      0.86         7
+     Neutral       0.00      0.00      0.00         1
+    Positive       1.00      1.00      1.00         2
+
+    accuracy                           0.80        10
+   macro avg       0.62      0.62      0.62        10
+weighted avg       0.80      0.80      0.80        10
+
+
+few shot;
+
+
+--- MÉTRICAS ---
+Accuracy: 0.8
+F1 Macro: 0.7302
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    Negative       0.86      0.86      0.86         7
+     Neutral       0.50      1.00      0.67         1
+    Positive       1.00      0.50      0.67         2
+
+    accuracy                           0.80        10
+   macro avg       0.79      0.79      0.73        10
+weighted avg       0.85      0.80      0.80        10

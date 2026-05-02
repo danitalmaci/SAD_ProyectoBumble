@@ -1,0 +1,10 @@
+1.500
+
+--- MÉTRICAS ---
+Accuracy: 0.726
+F1 Macro: 0.2463
+
+2.500
+
+Accuracy: 0.704
+F1 Macro: 0.2585

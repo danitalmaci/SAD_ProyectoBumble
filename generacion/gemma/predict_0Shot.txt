@@ -1,0 +1,7 @@
+CLASSIFY THE SENTIMENT BELOW.
+RULES (VIOLATION = ERROR):
+1. Respond with EXACTLY ONE WORD
+2. No punctuation, no periods, no commas
+3. No extra text, no explanations, no "I think"
+4. Valid words only: Positive, Negative, Neutral
+5. If uncertain, answer Neutral

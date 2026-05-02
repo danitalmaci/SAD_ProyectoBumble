@@ -1,0 +1,113 @@
+{
+  "algorithm": "random_forest",
+  "prediction": "score",
+  "estimator": "f1_macro",
+  "train_file": "Archivos_CSV/Bumble_limpio_train.csv",
+  "dev_file": "Archivos_CSV/Bumble_limpio_dev.csv",
+  "metrics": {
+    "fscore_average": "macro"
+  },
+
+  "split": {
+    "test_size": 0.2,
+    "random_state": 42
+  },
+
+  "preprocessing": {
+    "unique_category_threshold": 10,
+    "text_process": "tf-idf",
+    "language": "english",
+    "drop_features": ["reviewId", "date", "location", "gender"],
+
+    "missing_values": {
+      "default": {
+        "strategy": "mode"
+      },
+      "per_column": {
+        "gender": {
+          "strategy": "mode"
+        },
+        "Ancho de sepalo": {
+          "strategy": "mean"
+        },
+        "Largo de petalo": {
+          "strategy": "median"
+        },
+        "Ancho de petalo": {
+          "strategy": "median"
+        }
+      }
+    },
+
+    "scaling": {
+      "default": "standard",
+      "per_column": {
+        "Largo de sepalo": "standard",
+        "Ancho de sepalo": "standard",
+        "Largo de petalo": "minmax",
+        "Ancho de petalo": "minmax"
+      }
+    },
+
+    "balancing": {
+      "method": "oversampling",
+      "random_state": 42,
+      "imbalance_threshold": 0.8
+    }
+  },
+
+  "kNN": {
+    "n_neighbors": [1, 6, 7],
+    "weights": ["uniform", "distance"],
+    "metric": ["euclidean", "manhattan"]
+  },
+
+  "decision_tree": {
+    "criterion": ["gini", "entropy"],
+    "max_depth": [3, 5, 7],
+    "min_samples_split": [2, 5, 10],
+    "min_samples_leaf": [1, 2, 4]
+  },
+
+  "random_forest": {
+    "n_estimators": [20, 50, 100],
+    "criterion": ["gini", "entropy"],
+    "max_depth": [5, 10, null],
+    "min_samples_split": [2,4, 5],
+    "min_samples_leaf": [1, 2]
+  },
+
+  "logistic_regression": {
+    "C": [ 100, 125, 150],
+    "penalty": ["l2"],
+    "solver": ["lbfgs"],
+    "max_iter": [500, 1000],
+    "class_weight": [null, "balanced"]
+  },
+
+  "svm": {
+    "C": [0.1, 2, 10, 100],
+    "kernel": ["linear"],
+    "gamma": ["scale"]
+ },
+
+  "naive_bayes": {
+    "selected_model": "gaussian",
+
+    "gaussian": {
+      "var_smoothing": [ 1e-07, 1e-05]
+    },
+
+    "multinomial": {
+      "alpha": [0.1, 0.5, 1.0],
+      "fit_prior": [true, false]
+    },
+
+    "bernoulli": {
+      "alpha": [0.1, 0.5, 1.0],
+      "fit_prior": [true, false],
+      "binarize": [0.0]
+    }
+    
+  }
+}

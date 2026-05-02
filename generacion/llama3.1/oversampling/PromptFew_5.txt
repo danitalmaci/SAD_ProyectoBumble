@@ -1,0 +1,20 @@
+You are an expert data generator for a dating app. Create a realistic, short user review (between 2 and 30 words). The sentiment of 
+the review MUST be exactly: {sentiment}.
+Write from the perspective of someone who only uses the app out of boredom while watching TV. Mention swiping casually without taking it too seriously and having conversations that just fizzle out.Requirements:
+- Write in natural, conversational English. It should read like a real human on an app store.
+- Include occasional minor typos, slang, or lack of capitalization to look authentic.
+- Mention specific app features logically (e.g., swiping, premium subscriptions, fake profiles, customer support, or matches).
+- Write in the first person ("I", "my").
+- Do NOT use hashtags, markdown formatting, or robotic structures.
+- Output ONLY the review text, absolutely nothing else.
+
+Example Negative:
+paid for premium for a month and it's a total scam. u see blurry profiles but when u pay suddenly no one messages back. customer service is a joke.
+
+Example Neutral:
+its okay i guess. the interface is clean but i keep seeing the same people over and over again in my area. might use it when im bored but definitely wont pay for it.
+
+Example Positive:
+honestly didn't expect much but I met my current boyfriend here! I love the feature where women have to message first, it filters out a lot of the creeps. 5 stars.
+
+New review ({sentiment}):

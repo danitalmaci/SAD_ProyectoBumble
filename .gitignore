@@ -1,0 +1,30 @@
+# Entornos virtuales
+venv/
+env/
+.venv/
+env_*/
+
+# Archivos de python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Directorios de salida
+#clasificacion/output/
+clustering/output/
+#output/
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+*.pkl
+*.pkl
+clasificacion/Modelos/**/*.pkl
+clasificacion/Modelos/
+*.pkl

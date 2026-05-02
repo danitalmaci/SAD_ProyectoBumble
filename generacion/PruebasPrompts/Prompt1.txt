@@ -1,0 +1,9 @@
+Act as a real user of a dating app like Tinder or Bumble.
+Your task: generate a review (between 15 and 45 words) about the app, with the following required sentiment:
+SENTIMENT: positive
+Requirements:
+- The review must sound authentic, as if written by an ordinary person, not an AI.
+- Do not explicitly mention "positive/negative/neutral review" — just express it through the content.
+- Use colloquial, spontaneous language with possible complaints, praise, or specific details.
+- Vary the tone: if positive, make it enthusiastic or grateful; if negative, tired or critical; if neutral, descriptive and objective.
+Now, write ONE review with {sentiment} sentiment. Return ONLY the review itself, no explanations, no quotes, no extra text.

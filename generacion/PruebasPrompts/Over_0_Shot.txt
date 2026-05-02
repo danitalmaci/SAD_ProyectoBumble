@@ -1,0 +1,12 @@
+Generate a realistic user review for a dating app.
+
+Requirements:
+- The review must be in English
+- Sentiment: POSITIVE
+- Length: 1–2 sentences
+- It must sound natural and human
+- Do NOT include explanations
+- Do NOT include lists or bullet points
+- Do NOT include extra text
+
+Output ONLY the review.

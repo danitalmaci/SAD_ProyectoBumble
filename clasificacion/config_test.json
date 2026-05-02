@@ -1,0 +1,13 @@
+{
+  "input": {
+    "file": "Archivos_CSV/Bumble_limpio_test.csv",
+    "model_path": "Modelos/Balanceado/Smote/svm/svm_C100_linear_gammascale.pkl",
+    "target": "score"
+  },
+  "output": {
+    "predictions_file": "ResultadosTest/predicciones1.csv"
+  },
+  "metrics": {
+    "fscore_average": "macro"
+  }
+}
