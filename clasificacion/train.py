@@ -69,6 +69,8 @@ from imblearn.over_sampling import SMOTE, ADASYN  # Técnicas avanzadas de overs
 # ======================= PROGRAMA =======================  # Separador decorativo principal.
 
 package = {}
+x_train_global = None
+y_train_global = None
 
 # ----------------- Funciones auxiliares -----------------  # Separador de funciones auxiliares.
 
@@ -862,6 +864,11 @@ def preprocesar_datos(x_train, x_dev, y_train, y_dev, is_imbalanced):
         x_train, y_train = over_under_sampling(x_train, y_train)
         # Aplica balanceo solo al train.
 
+    global x_train_global, y_train_global
+
+    x_train_global = x_train.copy()
+    y_train_global = y_train.copy()
+
     package["final_feature_columns"] = list(x_train.columns)
     package["prediction_column"] = args.prediction
     package["algorithm"] = args.algorithm
@@ -981,10 +988,10 @@ def get_balance_folder_and_type():
 
     return "SinBalanceado", "none", "-"
         
-def guardar_historial_experimento(gs, algorithm_name):
+def guardar_historial_experimento(gs, algorithm_name, x_dev, y_dev):
     """
     Guarda TODOS los modelos probados (GridSearch) en el historial.
-    No duplica y ordena por F1 macro.
+    El F1 macro guardado se calcula sobre DEV, no sobre la validación cruzada de train.
     """
 
     historial_path = "Historial_Train/historial_modelos.csv"
@@ -1015,45 +1022,68 @@ def guardar_historial_experimento(gs, algorithm_name):
     nuevas_filas = []
 
     for _, row in results.iterrows():
+        params = row["params"]
+
+        # Crear un modelo nuevo con esos hiperparámetros
+        modelo_dev = gs.estimator.__class__(**params)
+
+        # Entrenar con todo el train procesado
+        modelo_dev.fit(gs.best_estimator_.feature_names_in_ if False else x_train_global, y_train_global)
+
+        # Predecir sobre DEV
+        y_pred_dev = modelo_dev.predict(x_dev)
+
+        # Calcular métricas sobre DEV
+        f1_dev = f1_score(y_dev, y_pred_dev, average="macro")
+        precision_dev = precision_score(y_dev, y_pred_dev, average="macro", zero_division=0)
+        recall_dev = recall_score(y_dev, y_pred_dev, average="macro", zero_division=0)
+
         nueva_fila = {
             "algoritmo": algorithm_name,
-            "hiperparametros": str(row["params"]),
-            "f1_macro": row["mean_test_f1_macro"],
+            "hiperparametros": str(params),
+            "f1_macro": f1_dev,
+            "precision_macro": precision_dev,
+            "recall_macro": recall_dev,
             "max_features": max_features,
             "tipo_ngramas": tipo_ngramas,
             "usa_bigramas": usa_bigramas,
             "balancing_method": balancing_method,
             "tipo_oversampling": tipo_oversampling
         }
+
         nuevas_filas.append(nueva_fila)
 
     nuevas_filas_df = pd.DataFrame(nuevas_filas)
 
-    # Cargar historial
     if os.path.exists(historial_path):
         historial = pd.read_csv(historial_path)
     else:
         historial = pd.DataFrame()
 
-    # Evitar duplicados
     if not historial.empty:
         historial = pd.concat([historial, nuevas_filas_df], ignore_index=True)
         historial = historial.drop_duplicates(
-            subset=["algoritmo", "hiperparametros", "max_features", "tipo_ngramas", "balancing_method", "tipo_oversampling"],
+            subset=[
+                "algoritmo",
+                "hiperparametros",
+                "max_features",
+                "tipo_ngramas",
+                "balancing_method",
+                "tipo_oversampling"
+            ],
             keep="last"
         )
     else:
         historial = nuevas_filas_df
 
-    # Ordenar por F1
     historial = historial.sort_values(by="f1_macro", ascending=False)
 
-    # Guardar
     os.makedirs("Historial_Train", exist_ok=True)
     historial.to_csv(historial_path, index=False)
 
-    print(Fore.GREEN + f"Historial actualizado con TODOS los modelos en {historial_path}" + Fore.RESET)
-def save_model(gs, algorithm_name):
+    print(Fore.GREEN + f"Historial actualizado con F1 de DEV en {historial_path}" + Fore.RESET)
+    
+def save_model(gs, algorithm_name, x_dev, y_dev):
     """
     Guarda el modelo y los resultados de la búsqueda de hiperparámetros en archivos.
     """
@@ -1074,24 +1104,42 @@ def save_model(gs, algorithm_name):
             pickle.dump(package, file)
 
         print(Fore.CYAN + f"Modelo guardado con éxito: {pkl_filename}" + Fore.RESET)
-        guardar_historial_experimento(gs, algorithm_name)
+        guardar_historial_experimento(gs, algorithm_name, x_dev, y_dev)
         csv_filename = f"{Modelos_dir}/{model_name}.csv"
         with open(csv_filename, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             writer.writerow(['Algoritmo', 'Params', 'Accuracy', 'Precision_macro', 'Recall_macro', 'F1_macro'])
 
             results = pd.DataFrame(gs.cv_results_)
-            results = results.sort_values(by="mean_test_f1_macro", ascending=False)
-            
+
+            filas_csv = []
+
             for _, row in results.iterrows():
-                writer.writerow([
+                params = row["params"]
+
+                modelo_dev = gs.estimator.__class__(**params)
+                modelo_dev.fit(x_train_global, y_train_global)
+
+                y_pred_dev = modelo_dev.predict(x_dev)
+
+                accuracy_dev = (y_pred_dev == y_dev).mean()
+                precision_dev = precision_score(y_dev, y_pred_dev, average="macro", zero_division=0)
+                recall_dev = recall_score(y_dev, y_pred_dev, average="macro", zero_division=0)
+                f1_dev = f1_score(y_dev, y_pred_dev, average="macro")
+
+                filas_csv.append([
                     algorithm_name,
-                    row["params"],
-                    row.get("mean_test_accuracy", ""),
-                    row.get("mean_test_precision_macro", ""),
-                    row.get("mean_test_recall_macro", ""),
-                    row.get("mean_test_f1_macro", "")
+                    params,
+                    accuracy_dev,
+                    precision_dev,
+                    recall_dev,
+                    f1_dev
                 ])
+
+                filas_csv = sorted(filas_csv, key=lambda x: x[5], reverse=True)
+
+                for fila in filas_csv:
+                    writer.writerow(fila)
             
 
     except Exception as e:
@@ -1220,7 +1268,7 @@ def kNN():
 
     print("Tiempo de ejecución:" + Fore.MAGENTA, execution_time, Fore.RESET + " segundos")
     mostrar_resultados(gs, x_dev, y_dev)
-    save_model(gs, "kNN")
+    save_model(gs, "kNN", x_dev, y_dev)
     # Guarda el modelo y los resultados.
 
 def decision_tree(): 
@@ -1295,7 +1343,7 @@ def decision_tree():
     # Lo muestra.
     mostrar_resultados(gs, x_dev, y_dev)
     # Muestra resultados.
-    save_model(gs, "decision_tree")
+    save_model(gs, "decision_tree", x_dev, y_dev)
     # Guarda el modelo.
 
 def random_forest():  
@@ -1368,7 +1416,7 @@ def random_forest():
     # Lo muestra.
     mostrar_resultados(gs, x_dev, y_dev)
     # Muestra métricas.
-    save_model(gs, "random_forest")
+    save_model(gs, "random_forest", x_dev, y_dev)
     # Guarda modelo.
 
 def naive_bayes():
@@ -1454,7 +1502,7 @@ def naive_bayes():
 
     print("Tiempo de ejecución:" + Fore.MAGENTA, execution_time, Fore.RESET + " segundos")
     mostrar_resultados(gs, x_dev, y_dev)
-    save_model(gs, "naive_bayes")
+    save_model(gs, "naive_bayes", x_dev, y_dev)
     
 def logistic_regression():
     """
@@ -1513,7 +1561,7 @@ def logistic_regression():
 
     print("Tiempo de ejecución:" + Fore.MAGENTA, execution_time, Fore.RESET + " segundos")
     mostrar_resultados(gs, x_dev, y_dev)
-    save_model(gs, "logistic_regression")
+    save_model(gs, "logistic_regression", x_dev, y_dev)
     
 def svm():
     """
@@ -1571,7 +1619,7 @@ def svm():
 
     print("Tiempo de ejecución:" + Fore.MAGENTA, execution_time, Fore.RESET + " segundos")
     mostrar_resultados(gs, x_dev, y_dev)
-    save_model(gs, "svm")
+    save_model(gs, "svm", x_dev, y_dev)
 # ======================= PROGRAMA PRINCIPAL =======================  
 
 if __name__ == "__main__":  
