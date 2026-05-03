@@ -1,7 +1,7 @@
 {
   "input": {
     "file": "Archivos_CSV/Bumble_limpio_test.csv",
-    "model_path": "Modelos/Balanceado/Smote/svm/svm_C100_linear_gammascale.pkl",
+    "model_path": "Modelos/SinBalanceado/svm/svm_C0.5_linear_gammascale.pkl",
     "target": "score"
   },
   "output": {

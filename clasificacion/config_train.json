@@ -1,7 +1,7 @@
 {
-  "algorithm": "random_forest",
+  "algorithm": "svm",
   "prediction": "score",
-  "estimator": "f1_macro",
+  "estimator": "logistic_regression",
   "train_file": "Archivos_CSV/Bumble_limpio_train.csv",
   "dev_file": "Archivos_CSV/Bumble_limpio_dev.csv",
   "metrics": {
@@ -50,7 +50,7 @@
     },
 
     "balancing": {
-      "method": "oversampling",
+      "method": "oversampling_adasyn",
       "random_state": 42,
       "imbalance_threshold": 0.8
     }
@@ -78,29 +78,30 @@
   },
 
   "logistic_regression": {
-    "C": [ 100, 125, 150],
+    "C": [0.5, 1, 2, 5],
     "penalty": ["l2"],
     "solver": ["lbfgs"],
-    "max_iter": [500, 1000],
-    "class_weight": [null, "balanced"]
+    "max_iter": [1000],
+    "class_weight": ["balanced"]
   },
 
   "svm": {
-    "C": [0.1, 2, 10, 100],
+    "C": [0.1, 0.1, 0.5, 1],
     "kernel": ["linear"],
-    "gamma": ["scale"]
- },
+    "gamma": ["scale"],
+    "class_weight": ["balanced"]
+  },
 
   "naive_bayes": {
-    "selected_model": "gaussian",
+    "selected_model": "multinomial",
 
     "gaussian": {
       "var_smoothing": [ 1e-07, 1e-05]
     },
 
     "multinomial": {
-      "alpha": [0.1, 0.5, 1.0],
-      "fit_prior": [true, false]
+      "alpha": [0.01, 0.1, 0.5, 1.0, 2.0],
+      "fit_prior": [false]
     },
 
     "bernoulli": {
