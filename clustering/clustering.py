@@ -160,15 +160,13 @@ def ejecutar_lda_gensim(data, columna_texto_limpio, sentimiento, args):
             for i in range(k_optimo): probabilidades[i].append(0.0)
             continue
             
-        # Obtenemos la distribución forzando a que devuelva probabilidad 0 si no pertenece
         distribucion = lda_model.get_document_topics(bow, minimum_probability=0.0)
         
-        # 1. Sacamos el dominante
+        # Topico dominante
         topico_principal = sorted(distribucion, key=lambda x: x[1], reverse=True)[0][0]
         topicos_dominantes.append(topico_principal)
         
-        # 2. Guardamos la probabilidad de CADA tópico para las columnas de Tableau
-        # (Asegurándonos de que se guardan en el orden correcto)
+        # Guardar la probabilidad de cada tópico
         dict_dist = dict(distribucion)
         for i in range(k_optimo):
             probabilidades[i].append(round(dict_dist.get(i, 0.0), 4))
@@ -278,7 +276,6 @@ if __name__ == "__main__":
     stop_words.update(args.preprocessing.get("extra_stopwords", []))
     stemmer = PorterStemmer()
 
-    # 1. Limpieza base
     data['texto_limpio'] = data[columna_texto].apply(lambda x: procesar_texto(x, stop_words, stemmer))
 
     print(Fore.CYAN + "- Generando bigramas..." + Fore.RESET)
@@ -292,10 +289,9 @@ if __name__ == "__main__":
     bigramas_detector = gensim.models.Phrases(textos_lista, min_count=min_count, threshold=threshold)
     bigramas_mod = gensim.models.phrases.Phraser(bigramas_detector)
     
-    # Aplicamos los bigramas y volvemos a unir el texto en un string para el dataframe
+    # Bigramas
     data['texto_limpio'] = [" ".join(bigramas_mod[doc]) for doc in textos_lista]
 
-    # Leemos el algoritmo del JSON (por defecto 'hibrido' si no se especifica)
     algoritmo = args.clustering.get("algorithm", "hibrido").lower()
     
     data['num_palabras'] = data['texto_limpio'].apply(lambda x: len(str(x).split()))
@@ -359,6 +355,5 @@ if __name__ == "__main__":
         if cols_probabilidades:
             df_final[cols_probabilidades] = df_final[cols_probabilidades].fillna(0.0)
         
-        # Guardar archivo con el nombre del algoritmo para no sobreescribir pruebas
         guardar_resultados(df_final, f'clustering_{algoritmo}_tableau.csv')       
     print(Fore.YELLOW + "\n=== Proceso completado. ===" + Fore.RESET)
