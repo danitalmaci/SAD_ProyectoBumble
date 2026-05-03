@@ -28,3 +28,4 @@ clustering/output/
 clasificacion/Modelos/**/*.pkl
 clasificacion/Modelos/
 *.pkl
+*.pkl
