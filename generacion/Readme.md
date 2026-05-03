@@ -39,12 +39,12 @@ Si se proporciona una columna numérica (1–5), se convierte así:
 | `--csv`       | str     | Si-predict    | Ruta al archivo CSV                                         |
 | `--target`    | str     | Si-predict    | Columna que contiene el texto de opinión                    |
 | `--sentiment` | str/int | Si-predict    | Columna numérica 1–5                                        |
-| `--model`     | str     | No            | Modelo de Ollama (por defecto: `llama3:8b-text-q2_K`)       |
+| `--model`     | str     | No            | Modelo de Ollama (por defecto: `granite4:350m-h`)           |
 | `--samples`   | int     | No            | Número de muestras a procesar o generar (por defecto: `10`) |
 | `--score`     | int     | Si-oversample | Score de la opinión a generar                               |
 
 
-Modelos a recomendados: llama3:8b-text-q2_K / gemma2:2b-text-q4_K_S / granite4:350m-h
+Modelos a probados: llama3:1 / gemma2:2b-text-q4_K_S / granite4:350m-h / qwen2.5:7b
 
 ---
 
@@ -120,7 +120,7 @@ Esto:
 
 | Archivo                      | Descripción                                |
 | ---------------------------- | ------------------------------------------ |
-| `predictions.csv`            | Resultados del modo `predict` (acumulativo)|
+| `predictions_generative.csv` | Resultados del modo `predict` (acumulativo)|
 | `nombrePrompt_sentiment.csv` | Dataset con datos sintéticos               |
 
 ---

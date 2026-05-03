@@ -85,7 +85,7 @@ def main():
                     ans = "NotExpected"
                     print(f"[!] Respuesta rara del modelo: {raw_ans}")
                     
-            except Exception as e: # <--- AHORA ATRAPAMOS EL ERROR REAL
+            except Exception as e: 
                 ans = "NotExpected"
                 print(f"\n[ERROR FATAL] Fallo al llamar a Ollama: {e}") # <--- LO IMPRIMIMOS
 
