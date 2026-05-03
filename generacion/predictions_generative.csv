@@ -1,4 +1,18 @@
 modelo,prompt,entrada,salida,real
+llama3.1,"You are an expert data analyst for the Bumble dating app. Classify the sentiment of the following app review into exactly one of these three categories: Positive, Neutral, or Negative.
+Do not add any extra words, punctuation, or explanations. Just output the category name.
+
+Text: I hate that I have to pay for everything on this app now.
+Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
+Text: I just downloaded it today, let's see how it goes.
+Your response (one word only): Neutral",So far I have taken premium feature of this app but not getting any match. Spotlight and other features are also use less will not getting any match.,Negative,Negative
 granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
 ",Still learning how to use safe Way. But it's fun and some what easy,Positive,
 granite4:350m-h,"You are a sentiment classifier. Classify the sentiment of the following text. IMPORTANT: Respond with EXACTLY ONE WORD, no punctuation, no extra text. Valid responses are: Positive Negative Neutral.
