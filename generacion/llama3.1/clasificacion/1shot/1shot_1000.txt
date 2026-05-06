@@ -1,0 +1,33 @@
+(bumble) david@david-MS-7B89:~/SAD_ProyectoBumble/generacion$ python3 LangchainBumble.py --mode predict --csv Bumble_limpio.csv --prompt PromptsClasificacion/1shot.txt --target content --sentiment score --samples 1000 --model llama3.1
+
+
+
+[!] Respuesta rara del modelo: Invalid review.
+[!] Respuesta rara del modelo: Mixed
+[!] Respuesta rara del modelo: Invalid input.
+[!] Respuesta rara del modelo: Invalid input.
+
+--- MÉTRICAS ---
+Accuracy: 0.842
+F1 Macro: 0.4771
+
+Classification Report:
+/home/david/.local/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1731: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", result.shape[0])
+/home/david/.local/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1731: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", result.shape[0])
+/home/david/.local/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1731: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", result.shape[0])
+              precision    recall  f1-score   support
+
+    Negative       0.92      0.95      0.94       733
+     Neutral       0.20      0.31      0.25        67
+ NotExpected       0.00      0.00      0.00         0
+    Positive       0.90      0.60      0.72       200
+
+    accuracy                           0.84      1000
+   macro avg       0.51      0.47      0.48      1000
+weighted avg       0.87      0.84      0.85      1000
+
+Predictions saved in predictions_generative.csv (total rows: 6303, added: 1000)
+Detailed predictions saved in predictions_detailed.csv
