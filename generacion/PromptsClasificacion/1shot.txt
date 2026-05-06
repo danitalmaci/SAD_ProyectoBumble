@@ -3,3 +3,10 @@ Do not add any extra words, punctuation, or explanations. Just output the catego
 
 Text: I hate that I have to pay for everything on this app now.
 Your response (one word only): Negative
+
+Text: Met my husband here 2 years ago, best decision ever!
+Your response (one word only): Positive
+
+Text: It works okay, but sometimes messages take a while to load.
+Your response (one word only): Neutral
+
